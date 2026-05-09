@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .card {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 2/3;
+        clip-path: polygon(
+          8px 0,
+          100% 0,
+          100% calc(100% - 8px),
+          calc(100% - 8px) 100%,
+          0 100%,
+          0 8px
+        );
+      }
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+      .card .label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 6px 7px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        line-height: 1.4;
+      }
+      .card .title {
+        color: #f2ff00;
+        font-weight: 600;
+      }
+      .card .sub {
+        color: #8a8fa8;
+        font-size: 7px;
+        margin-top: 1px;
+      }
+      .chars {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 2px;
+      }
+      .char {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        padding: 2px 7px;
+        border: 1px solid;
+        clip-path: polygon(
+          3px 0,
+          100% 0,
+          100% calc(100% - 3px),
+          calc(100% - 3px) 100%,
+          0 100%,
+          0 3px
+        );
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">PIXEL ART GAME UNIVERSE — brand imagery</div>
+
+    <div class="grid">
+      <div class="card">
+        <img src="../assets/image1.png" alt="SKOGAI & the Wi-Fi Wizards" />
+        <div class="label">
+          <div class="title">Wi-Fi Wizards</div>
+          <div class="sub">MISSION COMPLETE · FULL BARS</div>
+        </div>
+      </div>
+      <div class="card">
+        <img src="../assets/image3.png" alt="Honkers & Hackers" />
+        <div class="label">
+          <div class="title">Honkers &amp; Hackers</div>
+          <div class="sub">HONK YEAH · GOOSE PROTOCOL</div>
+        </div>
+      </div>
+      <div class="card">
+        <img src="../assets/image5.png" alt="Sudo Hero" />
+        <div class="label">
+          <div class="title">Sudo Hero</div>
+          <div class="sub">ACCESS GRANTED · LEGENDARY</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" style="margin-top: 4px">RECURRING CHARACTERS</div>
+    <div class="chars">
+      <span class="char" style="border-color: #ff2bd6; color: #ff2bd6"
+        >♛ SKOGAI protagonist</span
+      >
+      <span class="char" style="border-color: #2dd4a7; color: #2dd4a7"
+        >∞ GOOSE (actual goose)</span
+      >
+      <span class="char" style="border-color: #b8a3ff; color: #b8a3ff"
+        >Cat-Ché (cat w/ shades)</span
+      >
+      <span class="char" style="border-color: #00e5ff; color: #00e5ff"
+        >robot companion</span
+      >
+      <span class="char" style="border-color: #d4a01a; color: #d4a01a"
+        >hacker crew</span
+      >
+    </div>
+
+    <div class="section" style="margin-top: 4px">IN-UNIVERSE HUMOR</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px">
+      <div
+        style="
+          padding: 6px 8px;
+          background: rgba(242, 255, 0, 0.05);
+          border-left: 2px solid #f2ff00;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 9px;
+          color: #f2ff00;
+        "
+      >
+        QUACKBUCKS · x4042
+      </div>
+      <div
+        style="
+          padding: 6px 8px;
+          background: rgba(0, 229, 255, 0.05);
+          border-left: 2px solid #00e5ff;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 9px;
+          color: #00e5ff;
+        "
+      >
+        sudo rm -rf /*
+      </div>
+      <div
+        style="
+          padding: 6px 8px;
+          background: rgba(255, 43, 214, 0.05);
+          border-left: 2px solid #ff2bd6;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 9px;
+          color: #ff2bd6;
+        "
+      >
+        MOM WOULD BE PROUD
+      </div>
+      <div
+        style="
+          padding: 6px 8px;
+          background: rgba(57, 255, 136, 0.05);
+          border-left: 2px solid #39ff88;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 9px;
+          color: #39ff88;
+        "
+      >
+        COFFEE. CODE. REPEAT.
+      </div>
+    </div>
+  </body>
+</html>

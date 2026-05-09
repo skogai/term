@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=Orbitron:wght@900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">TERMINAL HEADER</div>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 14px;
+        background: rgba(11, 13, 21, 0.72);
+        border: 1px solid rgba(0, 229, 255, 0.25);
+        clip-path: polygon(
+          12px 0,
+          100% 0,
+          100% calc(100% - 12px),
+          calc(100% - 12px) 100%,
+          0 100%,
+          0 12px
+        );
+      "
+    >
+      <div style="display: flex; align-items: center; gap: 12px">
+        <span
+          style="
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: 0.28em;
+            background: linear-gradient(135deg, #00e5ff, #ff2bd6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          "
+          >SKOGTERM</span
+        >
+        <span
+          style="
+            font-size: 9px;
+            color: #8a8fa8;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+          "
+          >v0.5 · SKG · backend: claude</span
+        >
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-size: 9px;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: #8a8fa8;
+          font-family: 'Chakra Petch', sans-serif;
+        "
+      >
+        <span
+          ><span
+            style="
+              display: inline-block;
+              width: 6px;
+              height: 6px;
+              background: #00e5ff;
+              box-shadow: 0 0 8px #00e5ff;
+              margin-right: 5px;
+            "
+          ></span
+          >14 CMDS</span
+        >
+        <span
+          ><span
+            style="
+              display: inline-block;
+              width: 6px;
+              height: 6px;
+              background: #00e5ff;
+              box-shadow: 0 0 8px #00e5ff;
+              margin-right: 5px;
+            "
+          ></span
+          >7/7</span
+        >
+        <span style="font-family: 'JetBrains Mono', monospace">14:22:07</span>
+      </div>
+    </div>
+
+    <div class="section">ROUTING PILL</div>
+    <div
+      style="
+        padding: 9px 14px;
+        border-left: 2px solid #00e5ff;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 229, 255, 0.07),
+          transparent 60%
+        );
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      "
+    >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 9px;
+          color: #00e5ff;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          margin-bottom: 2px;
+        "
+      >
+        <span
+          style="
+            width: 6px;
+            height: 6px;
+            background: #00e5ff;
+            animation: pulse 1.2s infinite;
+          "
+        ></span>
+        ROUTING · STEP 4/4
+      </div>
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 60px 1fr;
+          gap: 2px 10px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 10px;
+        "
+      >
+        <span style="color: #6e7681">parse</span
+        ><span style="color: #8a8fa8">"why does chaos emerge from…"</span>
+        <span style="color: #6e7681">tokens</span
+        ><span style="color: #8a8fa8">[chaos] [why]</span>
+        <span style="color: #6e7681">weights</span
+        ><span style="color: #8a8fa8">GOOSE=4 CLAUDE=3 LETTA=2</span>
+        <span style="color: #6e7681">route</span
+        ><span style="color: #ff2bd6; font-weight: 700">→ GOOSE</span>
+      </div>
+    </div>
+
+    <div class="section">SYSBLOCK</div>
+    <div
+      style="
+        background: rgba(11, 13, 21, 0.6);
+        border: 1px solid rgba(0, 229, 255, 0.25);
+        padding: 10px 14px;
+        clip-path: polygon(
+          8px 0,
+          100% 0,
+          100% calc(100% - 8px),
+          calc(100% - 8px) 100%,
+          0 100%,
+          0 8px
+        );
+      "
+    >
+      <div
+        style="
+          color: #00e5ff;
+          font-size: 9px;
+          letter-spacing: 0.26em;
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          margin-bottom: 8px;
+          font-family: 'JetBrains Mono', monospace;
+        "
+      >
+        <span style="width: 5px; height: 5px; background: #00e5ff"></span>SYSTEM
+        STATUS
+      </div>
+      <div
+        style="
+          display: grid;
+          grid-template-columns: 120px 1fr;
+          gap: 4px 12px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+        "
+      >
+        <span style="color: #d4a01a">substrate</span
+        ><span style="color: #c9d1d9"
+          ><span style="color: #39ff88">ONLINE</span></span
+        >
+        <span style="color: #d4a01a">agents online</span
+        ><span style="color: #c9d1d9">7 / 7</span>
+        <span style="color: #d4a01a">memory lake</span
+        ><span style="color: #c9d1d9">1,247 entries · 4.2 GB</span>
+      </div>
+    </div>
+
+    <style>
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.25;
+        }
+      }
+    </style>
+  </body>
+</html>

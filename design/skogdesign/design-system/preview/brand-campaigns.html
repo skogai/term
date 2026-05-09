@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Chakra+Petch:wght@500;600&family=Orbitron:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+      }
+      .row {
+        display: grid;
+        gap: 6px;
+      }
+      .banner {
+        position: relative;
+        overflow: hidden;
+        clip-path: polygon(
+          10px 0,
+          100% 0,
+          100% calc(100% - 10px),
+          calc(100% - 10px) 100%,
+          0 100%,
+          0 10px
+        );
+      }
+      .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .banner .ov {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.85) 0%,
+          rgba(0, 0, 0, 0.2) 60%,
+          transparent 100%
+        );
+      }
+      .banner .label {
+        position: absolute;
+        top: 50%;
+        left: 14px;
+        transform: translateY(-50%);
+      }
+      .banner .eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        letter-spacing: 0.22em;
+        color: #00e5ff;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .banner .name {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #f4f6ff;
+      }
+      .banner .desc {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: #8a8fa8;
+        margin-top: 2px;
+        letter-spacing: 0.06em;
+      }
+      .trio {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .mini {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 3/4;
+        clip-path: polygon(
+          6px 0,
+          100% 0,
+          100% calc(100% - 6px),
+          calc(100% - 6px) 100%,
+          0 100%,
+          0 6px
+        );
+      }
+      .mini img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+      .mini .ov2 {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.9) 0%,
+          transparent 50%
+        );
+      }
+      .mini .lbl {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 6px 7px;
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #f4f6ff;
+        font-weight: 600;
+      }
+      .mini .sub {
+        font-size: 7px;
+        color: #545970;
+        letter-spacing: 0.08em;
+        margin-top: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">CAMPAIGN — AI DEMOCRACY</div>
+    <div class="banner" style="height: 90px">
+      <img
+        src="../assets/brand/skogai-ai-democracy.jpg"
+        style="object-position: center 20%"
+      />
+      <div class="ov"></div>
+      <div class="label">
+        <div class="eyebrow">campaign · political · civic</div>
+        <div class="name">SKOGAI® · AI DEMOCRACY</div>
+        <div class="desc">
+          hooded operative · HUD visor · holding VOTE card · pastel city bg
+        </div>
+      </div>
+    </div>
+
+    <div class="section">UNIVERSE — NEO SKOGAI CITY</div>
+    <div class="trio">
+      <div class="mini">
+        <img src="../assets/brand/skogai-city-street.jpg" />
+        <div class="ov2"></div>
+        <div class="lbl">
+          City Street
+          <div class="sub">hooded figure · from behind · cyan+pink neon</div>
+        </div>
+      </div>
+      <div class="mini">
+        <img src="../assets/brand/skogai-poster-magazine.jpg" />
+        <div class="ov2"></div>
+        <div class="lbl">
+          Field Agent
+          <div class="sub">
+            headphones + HUD glasses · glowing star artifact
+          </div>
+        </div>
+      </div>
+      <div class="mini">
+        <img
+          src="../assets/brand/skogai-hacker-team.jpg"
+          style="object-position: center"
+        />
+        <div class="ov2"></div>
+        <div class="lbl">
+          Team Brief
+          <div class="sub">hacker crew · tactical room · blue ops</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">GOOSE + CREW — THE TEAM</div>
+    <div class="banner" style="height: 90px">
+      <img
+        src="../assets/brand/skogai-goose-crew.jpg"
+        style="object-position: center 30%"
+      />
+      <div class="ov"></div>
+      <div class="label">
+        <div class="eyebrow">GOOSE protocol · ensemble</div>
+        <div class="name">Goose + Hacker Crew</div>
+        <div class="desc">
+          actual goose · SkogAI operatives · planning session · neo city
+        </div>
+      </div>
+    </div>
+
+    <div class="section">2079 POSTER — ILLUSTRATED SERIES</div>
+    <div class="trio">
+      <div class="mini">
+        <img src="../assets/brand/skogai-2079-poster.jpg" />
+        <div class="ov2"></div>
+        <div class="lbl">
+          2079 Poster
+          <div class="sub">female protagonist · pink neon collar</div>
+        </div>
+      </div>
+      <div class="mini">
+        <img src="../assets/brand/skogai-ai-head.jpg" />
+        <div class="ov2"></div>
+        <div class="lbl">
+          AI Head
+          <div class="sub">floating mech skull · yellow graffiti wordmark</div>
+        </div>
+      </div>
+      <div class="mini">
+        <img src="../assets/brand/skogai-hooded-writer.jpg" />
+        <div class="ov2"></div>
+        <div class="lbl">
+          Hooded Writer
+          <div class="sub">SkogAI visor · street café · signing</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

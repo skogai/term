@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "commands": [
+    {
+      "name": "debate",
+      "args": "<topic>",
+      "desc": "Make two agents debate a topic",
+      "body": "// Pick two contrasting agents and have them both weigh in.\nconst topic = ctx.raw.trim();\nif (!topic) return ctx.sys('error', 'usage: /debate <topic>');\n\nconst a = ctx.route(topic).primary;\n// Pick a contrasting agent (never the same as a).\nconst contrast = { skogai:'amy', amy:'dot', claude:'goose', goose:'official', dot:'letta', letta:'dot', official:'amy' };\nconst b = contrast[a] || 'claude';\n\nctx.sys('info', 'DEBATE · ' + ctx.agents[a].name + ' vs ' + ctx.agents[b].name + ' · ' + topic);\nawait ctx.ask(a, topic);\nawait ctx.ask(b, 'Counterpoint to ' + ctx.agents[a].name + ' on: ' + topic);"
+    },
+    {
+      "name": "note",
+      "args": "<text>",
+      "desc": "Save a note to local storage",
+      "body": "const text = ctx.raw.trim();\nconst notes = ctx.storage.get('notes') || [];\nif (!text) {\n  ctx.sys('info', 'NOTES (' + notes.length + ')\\n' + notes.map((n,i)=>(i+1)+'. '+n).join('\\n') || '(no notes)');\n  return;\n}\nnotes.push(text);\nctx.storage.set('notes', notes);\nctx.sys('ok', 'noted · ' + notes.length + ' total');"
+    },
+    {
+      "name": "poll",
+      "args": "<question>",
+      "desc": "Ask ALL agents the same question",
+      "body": "const q = ctx.raw.trim();\nif (!q) return ctx.sys('error', 'usage: /poll <question>');\nctx.sys('info', 'POLL · asking all 7 agents');\nfor (const id of Object.keys(ctx.agents)) {\n  await ctx.ask(id, q);\n}"
+    }
+  ],
+  "backend": "ollama",
+  "webhook": "",
+  "tweaks": {
+    "scanlines": true,
+    "typewriter": true,
+    "routing": true,
+    "shapeshift": true,
+    "density": "often",
+    "layout": "stacked"
+  }
+}

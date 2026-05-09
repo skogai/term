@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .row {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      .chip-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+      }
+      .lbl {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: #545970;
+        letter-spacing: 0.08em;
+        text-align: center;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">CLIPPED CORNERS — SIGNATURE MOTIF</div>
+    <div class="row">
+      <div class="chip-wrap">
+        <div
+          style="
+            width: 80px;
+            height: 44px;
+            background: #121521;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            clip-path: polygon(
+              10px 0,
+              100% 0,
+              100% calc(100% - 10px),
+              calc(100% - 10px) 100%,
+              0 100%,
+              0 10px
+            );
+          "
+        ></div>
+        <div class="lbl">10px clip<br />chip / badge</div>
+      </div>
+      <div class="chip-wrap">
+        <div
+          style="
+            width: 120px;
+            height: 44px;
+            background: #121521;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            clip-path: polygon(
+              12px 0,
+              100% 0,
+              100% calc(100% - 12px),
+              calc(100% - 12px) 100%,
+              0 100%,
+              0 12px
+            );
+          "
+        ></div>
+        <div class="lbl">12px clip<br />panels / bars</div>
+      </div>
+      <div class="chip-wrap">
+        <div
+          style="
+            width: 160px;
+            height: 48px;
+            background: #121521;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            clip-path: polygon(
+              14px 0,
+              100% 0,
+              100% calc(100% - 14px),
+              calc(100% - 14px) 100%,
+              0 100%,
+              0 14px
+            );
+          "
+        ></div>
+        <div class="lbl">14px clip<br />reply cards</div>
+      </div>
+    </div>
+
+    <div class="section">BORDER RADIUS (used sparingly)</div>
+    <div class="row">
+      <div class="chip-wrap">
+        <div
+          style="
+            width: 60px;
+            height: 36px;
+            background: #121521;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 0;
+          "
+        ></div>
+        <div class="lbl">0px<br />default</div>
+      </div>
+      <div class="chip-wrap">
+        <div
+          style="
+            width: 60px;
+            height: 36px;
+            background: #121521;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 2px;
+          "
+        ></div>
+        <div class="lbl">2px<br />radius-1</div>
+      </div>
+      <div class="chip-wrap">
+        <div
+          style="
+            width: 60px;
+            height: 36px;
+            background: #121521;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 4px;
+          "
+        ></div>
+        <div class="lbl">4px<br />radius-2</div>
+      </div>
+      <div class="chip-wrap">
+        <div
+          style="
+            width: 60px;
+            height: 20px;
+            background: #121521;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <span
+            style="
+              font-family: 'Chakra Petch', sans-serif;
+              font-size: 8px;
+              color: #00e5ff;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+            "
+            >TAG</span
+          >
+        </div>
+        <div class="lbl">999px pill<br />tags only</div>
+      </div>
+    </div>
+
+    <div class="section">FOCUS / ACTIVE RING</div>
+    <div class="row">
+      <div class="chip-wrap">
+        <div
+          style="
+            width: 180px;
+            height: 36px;
+            background: #0b0d15;
+            border: 1px solid #00e5ff;
+            box-shadow:
+              0 0 0 1px #00e5ff,
+              0 0 24px rgba(0, 229, 255, 0.35);
+            clip-path: polygon(
+              12px 0,
+              100% 0,
+              100% calc(100% - 12px),
+              calc(100% - 12px) 100%,
+              0 100%,
+              0 12px
+            );
+          "
+        ></div>
+        <div class="lbl">focus ring — border + outer glow</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Voice & tone</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .g {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        width: 100%;
+      }
+      .lbl {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .good {
+        color: #39ff88;
+      }
+      .bad {
+        color: #ff2d4a;
+      }
+      .line {
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.45;
+        padding: 6px 0;
+      }
+      .line.on {
+        color: var(--fg);
+      }
+      .line.off {
+        color: var(--fg-3);
+        text-decoration: line-through;
+        text-decoration-color: rgba(255, 45, 74, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="g">
+        <div>
+          <div class="lbl good">✓ SKOGAI</div>
+          <div class="line on">Deploys in 40ms. No cold starts.</div>
+          <div class="line on">Run your agent on your hardware.</div>
+          <div class="line on">STATUS ▸ ONLINE</div>
+        </div>
+        <div>
+          <div class="lbl bad">✗ OFF-BRAND</div>
+          <div class="line off">Blazing-fast deployment tech!</div>
+          <div class="line off">Flexible solutions 🚀</div>
+          <div class="line off">Everything looks great :)</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

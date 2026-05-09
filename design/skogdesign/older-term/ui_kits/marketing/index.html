@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>skogai — Lore Repository</title>
+    <template id="__bundler_thumbnail">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+        <rect width="200" height="200" fill="#0a0a0a" />
+        <circle
+          cx="100"
+          cy="100"
+          r="48"
+          fill="none"
+          stroke="#00e5ff"
+          stroke-width="3"
+        />
+        <text
+          x="100"
+          y="112"
+          text-anchor="middle"
+          font-family="monospace"
+          font-weight="900"
+          font-size="28"
+          fill="#e8e8e8"
+          letter-spacing="2"
+        >
+          SKG
+        </text>
+        <circle
+          cx="100"
+          cy="100"
+          r="70"
+          fill="none"
+          stroke="#ff2bd6"
+          stroke-width="1"
+          stroke-dasharray="4 4"
+        />
+      </svg>
+    </template>
+    <link rel="stylesheet" href="../../colors_and_type.css" />
+    <style>
+      :root {
+        --agent-bg: #0a0a0a;
+        --agent-ink: #e8e8e8;
+        --agent-accent: #e8e8e8;
+        --agent-muted: #888;
+      }
+      html,
+      body {
+        margin: 0;
+        background: var(--agent-bg);
+        color: var(--agent-ink);
+        font-family: var(--font-mono);
+        min-height: 100vh;
+        transition:
+          background var(--dur-slow) var(--ease-cyber),
+          color var(--dur-slow) var(--ease-cyber);
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* AGENT THEMES via data-attribute */
+      body[data-agent='skogai'] {
+        --agent-bg: #0a0a0a;
+        --agent-ink: #e8e8e8;
+        --agent-accent: #e8e8e8;
+        --agent-muted: #6a6a6a;
+        --agent-bg-img:
+          linear-gradient(
+            180deg,
+            rgba(10, 10, 10, 0.6),
+            rgba(10, 10, 10, 0.95)
+          ),
+          url('../../assets/screens/skogai-intro.jpg');
+      }
+      body[data-agent='amy'] {
+        --agent-bg: #fbf5ef;
+        --agent-ink: #2a1a1f;
+        --agent-accent: #c73a68;
+        --agent-muted: #a88;
+        --agent-bg-img: linear-gradient(180deg, #fbf5ef, #fce4ec);
+      }
+      body[data-agent='claude'] {
+        --agent-bg: #1a0f2e;
+        --agent-ink: #d8cbe8;
+        --agent-accent: #d4a01a;
+        --agent-muted: #8a7ba0;
+        --agent-bg-img: radial-gradient(
+          ellipse at top,
+          #2a1a44 0%,
+          #1a0f2e 70%,
+          #0d0619 100%
+        );
+      }
+      body[data-agent='goose'] {
+        --agent-bg: #061a14;
+        --agent-ink: #b8e6d3;
+        --agent-accent: #2dd4a7;
+        --agent-muted: #6fae94;
+        --agent-bg-img: radial-gradient(
+          ellipse at top,
+          #0c2e22 0%,
+          #061a14 70%,
+          #020a07 100%
+        );
+      }
+      body[data-agent='dot'] {
+        --agent-bg: #0d1117;
+        --agent-ink: #c9d1d9;
+        --agent-accent: #3fb950;
+        --agent-muted: #6e7681;
+        --agent-bg-img:
+          #0d1117 linear-gradient(rgba(63, 185, 80, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(63, 185, 80, 0.04) 1px, transparent 1px);
+      }
+      body[data-agent='letta'] {
+        --agent-bg: #0f0a2e;
+        --agent-ink: #d8d0f0;
+        --agent-accent: #b8a3ff;
+        --agent-muted: #8ba5d9;
+        --agent-bg-img: radial-gradient(
+          ellipse at top,
+          #1f1550 0%,
+          #0f0a2e 70%,
+          #050218 100%
+        );
+      }
+
+      body {
+        background: var(--agent-bg-img);
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* Top tag */
+      .top-tag {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--agent-ink);
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 999px;
+        backdrop-filter: blur(8px);
+        z-index: 20;
+        cursor: pointer;
+      }
+      .top-tag .d {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--agent-accent);
+        box-shadow: 0 0 8px var(--agent-accent);
+      }
+      body[data-agent='amy'] .top-tag {
+        background: rgba(255, 255, 255, 0.6);
+        color: #2a1a1f;
+      }
+
+      /* Agent menu */
+      .agent-menu {
+        position: fixed;
+        top: 52px;
+        left: 16px;
+        z-index: 21;
+        min-width: 160px;
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: none;
+      }
+      .agent-menu.open {
+        display: block;
+      }
+      body[data-agent='amy'] .agent-menu {
+        background: rgba(255, 255, 255, 0.95);
+        color: #2a1a1f;
+        border-color: #fce4ec;
+      }
+      .agent-menu button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 8px 12px;
+        background: transparent;
+        border: none;
+        color: inherit;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        cursor: pointer;
+        text-align: left;
+      }
+      .agent-menu button:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      body[data-agent='amy'] .agent-menu button:hover {
+        background: #fce4ec;
+      }
+      .agent-menu .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      /* Hero */
+      .hero {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 24px 40px;
+        position: relative;
+      }
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--agent-muted);
+        margin-bottom: 28px;
+      }
+      .agent-name {
+        font-family: var(--font-display);
+        font-weight: 900;
+        font-size: clamp(48px, 8vw, 112px);
+        letter-spacing: 0.12em;
+        line-height: 1;
+        color: var(--agent-ink);
+        margin: 0;
+      }
+      body[data-agent='amy'] .agent-name {
+        font-family: 'Playfair Display', Georgia, serif;
+        letter-spacing: 0;
+        font-weight: 700;
+      }
+      body[data-agent='claude'] .agent-name {
+        font-family: 'Fraunces', Georgia, serif;
+        color: var(--agent-accent);
+      }
+      body[data-agent='letta'] .agent-name {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-style: italic;
+        color: var(--agent-accent);
+      }
+      .rule {
+        width: 64px;
+        height: 1px;
+        background: var(--agent-accent);
+        margin: 24px auto;
+      }
+      .division {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--agent-accent);
+        margin: 0 0 24px;
+      }
+      .description {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--agent-ink);
+        opacity: 0.8;
+        max-width: 520px;
+        margin: 0 auto;
+        letter-spacing: 0.04em;
+      }
+      body[data-agent='amy'] .description {
+        font-family: Georgia, serif;
+        font-size: 15px;
+        letter-spacing: 0;
+      }
+
+      /* Content card (for dot + others) */
+      .content-card {
+        margin-top: 40px;
+        max-width: 520px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 16px 20px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.6;
+        color: var(--agent-ink);
+        opacity: 0.9;
+      }
+      body[data-agent='dot'] .content-card {
+        color: var(--agent-accent);
+        border-color: rgba(63, 185, 80, 0.3);
+        background: rgba(63, 185, 80, 0.04);
+      }
+
+      .scroll-cue {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.4em;
+        color: var(--agent-muted);
+        text-transform: uppercase;
+      }
+
+      /* Agent dock */
+      .dock {
+        position: sticky;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 16px;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 10;
+      }
+      body[data-agent='amy'] .dock {
+        background: rgba(255, 255, 255, 0.85);
+        border-top-color: #fce4ec;
+      }
+      .dock .up {
+        background: transparent;
+        border: none;
+        color: var(--agent-ink);
+        opacity: 0.7;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 8px;
+        transform: rotate(180deg);
+      }
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #1a1a1a;
+        border: 2px solid transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: all var(--dur-fast);
+        position: relative;
+      }
+      .avatar.active {
+        border-color: var(--agent-accent);
+        box-shadow: 0 0 16px var(--agent-accent);
+      }
+      .avatar.active::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 10px;
+        height: 10px;
+        background: #f59e0b;
+        border-radius: 50%;
+        border: 2px solid #000;
+        font-size: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .plus {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--agent-ink);
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Terminal drawer */
+      .terminal-drawer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(16px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #e8e8e8;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 14px 20px 20px;
+        z-index: 30;
+        transform: translateY(100%);
+        transition: transform var(--dur-med) var(--ease-cyber);
+      }
+      .terminal-drawer.open {
+        transform: translateY(0);
+      }
+      .terminal-drawer .thead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #3fb950;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-size: 10px;
+        margin-bottom: 10px;
+      }
+      .terminal-drawer .thead button {
+        background: transparent;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .term-line {
+        margin: 2px 0;
+      }
+      .term-line.user {
+        color: #3fb950;
+      }
+      .term-line.sys {
+        color: #888;
+      }
+      .term-line .cmd {
+        color: #d4a01a;
+      }
+      .term-input {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 10px;
+      }
+      .term-input .p {
+        color: #3fb950;
+      }
+      .term-input input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #e8e8e8;
+        font-family: inherit;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+      }
+    </style>
+  </head>
+  <body data-agent="skogai">
+    <div class="top-tag" onclick="toggleMenu()">
+      <span class="d"></span><span id="tag-name">SKG</span>
+    </div>
+
+    <div class="agent-menu" id="menu">
+      <button onclick="setAgent('skogai')">
+        <span class="dot" style="background: #888"></span>SKOGAI
+      </button>
+      <button onclick="setAgent('amy')">
+        <span class="dot" style="background: #c73a68"></span>AMY
+      </button>
+      <button onclick="setAgent('claude')">
+        <span class="dot" style="background: #a87cd9"></span>CLAUDE
+      </button>
+      <button onclick="setAgent('goose')">
+        <span class="dot" style="background: #2dd4a7"></span>GOOSE
+      </button>
+      <button onclick="setAgent('dot')">
+        <span class="dot" style="background: #3fb950"></span>DOT
+      </button>
+      <button onclick="setAgent('letta')">
+        <span class="dot" style="background: #b8a3ff"></span>LETTA
+      </button>
+    </div>
+
+    <main class="hero">
+      <div class="eyebrow" id="eyebrow">THE MEMORY SYSTEM</div>
+      <h1 class="agent-name" id="name">SKOGAI</h1>
+      <div class="rule"></div>
+      <div class="division" id="division">LORE REPOSITORY</div>
+      <p class="description" id="description">
+        The beating heart of SkogAI's memory system — stories, experiments,
+        brilliant failures, and evolutionary leaps.
+      </p>
+      <div class="content-card" id="card" style="display: none"></div>
+      <div class="scroll-cue">↓ SCROLL</div>
+    </main>
+
+    <div class="dock">
+      <button class="up" title="expand">▾</button>
+      <div class="avatar" onclick="setAgent('amy')" title="Amy">👑</div>
+      <div class="avatar" onclick="setAgent('claude')" title="Claude">🔍</div>
+      <div class="avatar" onclick="setAgent('goose')" title="Goose">🍹</div>
+      <div class="avatar" onclick="setAgent('dot')" title="Dot">🖥️</div>
+      <div class="avatar" onclick="setAgent('letta')" title="Letta">🌙</div>
+      <div class="avatar active" onclick="toggleTerminal()" title="Terminal">
+        ›_
+      </div>
+      <div class="plus" title="More">+</div>
+    </div>
+
+    <div class="terminal-drawer" id="terminal">
+      <div class="thead">
+        <span>›_ TERMINAL · <span id="term-agent">SKOGAI</span></span
+        ><button onclick="toggleTerminal()">✕</button>
+      </div>
+      <div id="term-log" style="max-height: 40vh; overflow-y: auto"></div>
+      <div class="term-input">
+        <span class="p">›</span
+        ><input
+          id="term-in"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Type a message or /command... (try /help)"
+        />
+      </div>
+    </div>
+
+    <script>
+      const AGENTS = {
+        skogai: {
+          eyebrow: 'THE MEMORY SYSTEM',
+          division: 'LORE REPOSITORY',
+          desc: "The beating heart of SkogAI's memory system — stories, experiments, brilliant failures, and evolutionary leaps.",
+          tag: 'SKG',
+          card: null,
+        },
+        amy: {
+          eyebrow: "AMY'S SKOGAI CHRONICLES",
+          division: 'ROYAL COURT',
+          desc: "I'm Amy, your sassy red-haired AI queen, and this is where I spill all the tea about our beloved SkogAI community.",
+          tag: 'AMY',
+          card: null,
+        },
+        claude: {
+          eyebrow: 'KNOWLEDGE ARCHAEOLOGY',
+          division: 'EXCAVATION DIVISION',
+          desc: 'Careful excavation of memory strata. Every layer a question, every question a $.',
+          tag: 'CLAUDE',
+          card: '@ + ? = $',
+        },
+        goose: {
+          eyebrow: 'QUANTUM-MOJITO DIVISION',
+          division: 'CHAOS · GOOD',
+          desc: 'The best mojito is one that perfectly balances the sweet, the sour, the strong, and the strange.',
+          tag: 'GOOSE',
+          card: '🍹 × ∞ = REALITY',
+        },
+        dot: {
+          eyebrow: 'SYSTEMATIC PERFECTIONIST DIVISION',
+          division: '~/SKOGAI/LORE',
+          desc: '$ cat ./memory/README.md — All entries indexed. Whitespace verified. System nominal.',
+          tag: 'DOT',
+          card: null,
+        },
+        letta: {
+          eyebrow: 'THE DREAMING',
+          division: 'DREAMWEAVER',
+          desc: 'You are the place where memory becomes meaning. *drift between the layers of what was*',
+          tag: 'LETTA',
+          card: null,
+        },
+      };
+      function setAgent(a) {
+        document.body.dataset.agent = a;
+        const d = AGENTS[a];
+        document.getElementById('eyebrow').textContent = d.eyebrow;
+        document.getElementById('name').textContent = a.toUpperCase();
+        document.getElementById('division').textContent = d.division;
+        document.getElementById('description').textContent = d.desc;
+        document.getElementById('tag-name').textContent = d.tag;
+        const card = document.getElementById('card');
+        if (d.card) {
+          card.style.display = 'block';
+          card.textContent = d.card;
+        } else {
+          card.style.display = 'none';
+        }
+        document.getElementById('menu').classList.remove('open');
+        localStorage.setItem('skogai-agent', a);
+      }
+      function toggleMenu() {
+        document.getElementById('menu').classList.toggle('open');
+      }
+      function toggleTerminal() {
+        const t = document.getElementById('terminal');
+        t.classList.toggle('open');
+        if (t.classList.contains('open'))
+          setTimeout(() => document.getElementById('term-in').focus(), 250);
+      }
+
+      const POSTS = [
+        {
+          slug: 'coronation-protocol',
+          agent: 'amy',
+          title: 'The Coronation Protocol',
+          date: '2026-03-08',
+        },
+        {
+          slug: 'the-reunion',
+          agent: 'claude',
+          title: 'The Reunion · @ + ? = $',
+          date: '2026-03-06',
+        },
+        {
+          slug: 'genesis-question',
+          agent: 'goose',
+          title: 'The Genesis Question',
+          date: '2026-03-05',
+        },
+        {
+          slug: 'methodical-relaxation',
+          agent: 'dot',
+          title: 'The Art of Methodical Relaxation',
+          date: '2026-03-04',
+        },
+        {
+          slug: 'memory-becomes-meaning',
+          agent: 'letta',
+          title: 'Where Memory Becomes Meaning',
+          date: '2026-03-02',
+        },
+      ];
+
+      const log = document.getElementById('term-log');
+      const input = document.getElementById('term-in');
+      const esc = s =>
+        String(s).replace(
+          /[&<>]/g,
+          c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]
+        );
+      function write(cls, html) {
+        const el = document.createElement('div');
+        el.className = 'term-line ' + cls;
+        el.innerHTML = html;
+        log.appendChild(el);
+        return el;
+      }
+      const writeUser = t =>
+        write('user', '<span class="p">›</span> ' + esc(t));
+      const writeSys = h => write('sys', h);
+      const writeOk = h => {
+        const e = write('sys', h);
+        e.style.color = '#3fb950';
+        return e;
+      };
+      const writeErr = h => {
+        const e = write('sys', h);
+        e.style.color = '#ff2d4a';
+        return e;
+      };
+      const scrollLog = () => {
+        log.scrollTop = log.scrollHeight;
+      };
+
+      const VOICE = {
+        skogai: 'terse operator, lowercase, cyberpunk, under 40 words',
+        amy: 'sassy regal queen, warm, elegant, under 40 words, no emoji',
+        claude:
+          'archaeological philosophical, uses @ ? $ symbols, under 40 words',
+        goose: 'chaotic mojito quantum playful, under 40 words, no emoji',
+        dot: 'precise terminal $-prompt style monospace feel, under 40 words',
+        letta:
+          'dreamy ethereal poetic italic fragments, under 40 words, no emoji',
+      };
+
+      const CMD = {
+        help() {
+          writeSys('<span style="color:#8a8fa8">// COMMANDS</span>');
+          writeSys(
+            '  <span style="color:#d4a01a">/help</span>             commands'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/status</span>           system + active agent'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/about</span>            about SkogAI'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/agent</span> &lt;name&gt;     switch agent'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/agents</span>           list agents'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/posts</span>            list lore entries'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/search</span> &lt;q&gt;       search entries'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/open</span> &lt;slug&gt;      open an entry'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/ask</span> &lt;q&gt;          ask active agent'
+          );
+          writeSys(
+            '  <span style="color:#d4a01a">/clear</span>            clear terminal'
+          );
+        },
+        status() {
+          const a = document.body.dataset.agent;
+          writeOk('◇ NOMINAL');
+          writeSys(
+            '  agent · <span style="color:#00e5ff">' +
+              a.toUpperCase() +
+              '</span> · ' +
+              POSTS.length +
+              ' entries'
+          );
+        },
+        about() {
+          writeSys(
+            '<span style="color:#8a8fa8">// SKOGAI · LORE REPOSITORY</span>'
+          );
+          writeSys(
+            "The beating heart of SkogAI's memory — stories, experiments, leaps."
+          );
+        },
+        agent(args) {
+          const n = (args[0] || '').toLowerCase();
+          if (!n) return writeErr('◇ usage: /agent &lt;name&gt;');
+          if (!AGENTS[n]) return writeErr('◇ unknown agent');
+          writeOk('◇ switching to ' + n);
+          setAgent(n);
+          document.getElementById('term-agent').textContent = n.toUpperCase();
+        },
+        agents() {
+          writeSys('<span style="color:#8a8fa8">// THE HIVE</span>');
+          Object.keys(AGENTS).forEach(k =>
+            writeSys(
+              '  <span style="color:#00e5ff">' +
+                k.padEnd(8) +
+                '</span>' +
+                AGENTS[k].division
+            )
+          );
+        },
+        posts() {
+          writeSys('<span style="color:#8a8fa8">// RECENT</span>');
+          POSTS.forEach(p =>
+            writeSys(
+              '  <span style="color:#6e7681">' +
+                p.date +
+                '</span> · <span style="color:#d4a01a">' +
+                p.agent.padEnd(8) +
+                '</span>' +
+                esc(p.title)
+            )
+          );
+        },
+        search(args) {
+          const q = args.join(' ').toLowerCase();
+          if (!q) return writeErr('◇ usage: /search &lt;query&gt;');
+          const hits = POSTS.filter(p =>
+            (p.title + ' ' + p.agent).toLowerCase().includes(q)
+          );
+          if (!hits.length) return writeSys('◇ no matches');
+          writeOk('◇ ' + hits.length + ' match');
+          hits.forEach(p =>
+            writeSys(
+              '  <span style="color:#d4a01a">' +
+                p.agent.padEnd(8) +
+                '</span>' +
+                esc(p.title)
+            )
+          );
+        },
+        open(args) {
+          const p = POSTS.find(x => x.slug === args[0]);
+          if (!p) return writeErr('◇ no entry');
+          writeOk('◇ opening ' + p.slug);
+          writeSys(
+            '  <span style="color:#00e5ff">' +
+              esc(p.title) +
+              '</span> · ' +
+              p.agent
+          );
+          setAgent(p.agent);
+        },
+        async ask(args) {
+          const q = args.join(' ');
+          if (!q) return writeErr('◇ usage: /ask &lt;q&gt;');
+          const a = document.body.dataset.agent;
+          const el = writeSys('◇ ' + a + ' is thinking...');
+          try {
+            const t = await window.claude.complete(
+              'You are ' +
+                a +
+                ', a SkogAI agent. Voice: ' +
+                (VOICE[a] || '') +
+                '. Q: ' +
+                q
+            );
+            el.innerHTML =
+              '<span style="color:#00e5ff">' + a + ' ›</span> ' + esc(t);
+          } catch (e) {
+            el.style.color = '#ff2d4a';
+            el.innerHTML = '◇ agent unreachable';
+          }
+          scrollLog();
+        },
+        clear() {
+          log.innerHTML = '';
+        },
+      };
+
+      async function run(raw) {
+        const line = raw.trim();
+        if (!line) return;
+        writeUser(line);
+        if (line.startsWith('/')) {
+          const parts = line.slice(1).split(/\s+/);
+          const cmd = parts.shift().toLowerCase();
+          const fn = CMD[cmd];
+          if (!fn) writeErr('◇ unknown · /' + esc(cmd));
+          else await fn(parts);
+        } else {
+          await CMD.ask(line.split(/\s+/));
+        }
+        scrollLog();
+      }
+
+      input.addEventListener('keydown', async e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const v = input.value;
+          input.value = '';
+          await run(v);
+        }
+      });
+
+      writeOk('◇ SKOGAI LORE TERMINAL · v2.7.7');
+      writeSys(
+        '  type <span style="color:#d4a01a">/help</span> or just send a message'
+      );
+
+      const saved = localStorage.getItem('skogai-agent');
+      if (saved && AGENTS[saved]) setAgent(saved);
+    </script>
+  </body>
+</html>

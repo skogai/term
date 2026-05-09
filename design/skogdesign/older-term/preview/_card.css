@@ -1,0 +1,72 @@
+/* Shared by every preview/*.html card */
+@import url('../colors_and_type.css');
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--void-1);
+  color: var(--fg);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+body {
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+.card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+/* subtle scanline backdrop */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 229, 255, 0.025) 0,
+    rgba(0, 229, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+.ui {
+  font-family: var(--font-ui);
+}
+.display {
+  font-family: var(--font-display);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label-xs {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}

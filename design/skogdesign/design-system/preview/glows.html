@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 10px;
+      }
+      .box {
+        width: 52px;
+        height: 36px;
+      }
+      .lbl {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: #545970;
+        letter-spacing: 0.08em;
+        text-align: center;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">NEON GLOWS</div>
+    <div class="row">
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #0b0d15;
+            box-shadow:
+              0 0 0 1px rgba(0, 229, 255, 0.4),
+              0 0 12px rgba(0, 229, 255, 0.35);
+          "
+        ></div>
+        <div class="lbl">cyan-sm</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #0b0d15;
+            box-shadow:
+              0 0 0 1px rgba(0, 229, 255, 0.6),
+              0 0 24px rgba(0, 229, 255, 0.5),
+              0 0 48px rgba(0, 229, 255, 0.25);
+          "
+        ></div>
+        <div class="lbl">cyan-md</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #0b0d15;
+            box-shadow:
+              0 0 0 1px rgba(0, 229, 255, 0.8),
+              0 0 32px rgba(0, 229, 255, 0.7),
+              0 0 80px rgba(0, 229, 255, 0.4);
+          "
+        ></div>
+        <div class="lbl">cyan-lg</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #0b0d15;
+            box-shadow:
+              0 0 0 1px rgba(255, 43, 214, 0.4),
+              0 0 12px rgba(255, 43, 214, 0.4);
+          "
+        ></div>
+        <div class="lbl">mag-sm</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #0b0d15;
+            box-shadow:
+              0 0 0 1px rgba(255, 43, 214, 0.6),
+              0 0 24px rgba(255, 43, 214, 0.55),
+              0 0 48px rgba(255, 43, 214, 0.3);
+          "
+        ></div>
+        <div class="lbl">mag-md</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #0b0d15;
+            box-shadow:
+              0 0 0 1px rgba(242, 255, 0, 0.6),
+              0 0 20px rgba(242, 255, 0, 0.5);
+          "
+        ></div>
+        <div class="lbl">hazard-md</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #0b0d15;
+            box-shadow:
+              0 0 0 1px rgba(255, 45, 74, 0.6),
+              0 0 20px rgba(255, 45, 74, 0.5);
+          "
+        ></div>
+        <div class="lbl">blood-md</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #0b0d15;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.12);
+          "
+        ></div>
+        <div class="lbl">inner</div>
+      </div>
+    </div>
+
+    <div class="section" style="margin-top: 4px">DEPTH SHADOWS (non-neon)</div>
+    <div class="row">
+      <div class="chip">
+        <div
+          class="box"
+          style="background: #121521; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6)"
+        ></div>
+        <div class="lbl">shadow-sm</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="background: #121521; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7)"
+        ></div>
+        <div class="lbl">shadow-md</div>
+      </div>
+      <div class="chip">
+        <div
+          class="box"
+          style="
+            background: #121521;
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8);
+          "
+        ></div>
+        <div class="lbl">shadow-lg</div>
+      </div>
+    </div>
+  </body>
+</html>

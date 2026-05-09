@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Goose theme</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      body {
+        background: radial-gradient(
+          ellipse at top,
+          #0c2e22 0%,
+          #061a14 70%,
+          #020a07 100%
+        );
+      }
+      body::before {
+        display: none;
+      }
+      .card {
+        font-family: 'Inter', sans-serif;
+        color: #b8e6d3;
+      }
+      .inner {
+        width: 100%;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+      .hero {
+        position: relative;
+        width: 88px;
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 44px;
+      }
+      .ring {
+        position: absolute;
+        inset: 0;
+        border: 1px solid rgba(46, 229, 200, 0.4);
+        border-radius: 50%;
+      }
+      .ring.r2 {
+        inset: -12px;
+        border-color: rgba(163, 255, 94, 0.2);
+        border-style: dashed;
+      }
+      .tile {
+        flex: 1;
+      }
+      .badge {
+        display: inline-block;
+        background: rgba(45, 212, 167, 0.12);
+        color: #2dd4a7;
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2dd4a7;
+        margin: 0;
+        line-height: 1.05;
+      }
+      .meta {
+        font-size: 11px;
+        color: #6fae94;
+        margin-top: 6px;
+      }
+      .phil {
+        margin-top: 10px;
+        padding: 6px 14px;
+        border: 1px solid rgba(46, 229, 200, 0.3);
+        border-radius: 4px;
+        display: inline-block;
+        font-size: 13px;
+        color: #a3ff5e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="inner">
+        <div class="hero">
+          <div class="ring"></div>
+          <div class="ring r2"></div>
+          🍹
+        </div>
+        <div class="tile">
+          <div class="badge">Goose</div>
+          <div class="title">The Genesis Question</div>
+          <div class="meta">📅 Timeline March 8, 2026</div>
+          <div class="phil">🍹 × ∞ = <strong>REALITY</strong></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

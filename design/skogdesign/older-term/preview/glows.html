@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Glows</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .g {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        width: 100%;
+      }
+      .b {
+        height: 70px;
+        background: var(--void-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--fg-1);
+        font-family: var(--font-ui);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="g">
+        <div
+          class="b"
+          style="
+            box-shadow:
+              0 0 0 1px rgba(0, 229, 255, 0.6),
+              0 0 24px rgba(0, 229, 255, 0.5),
+              0 0 48px rgba(0, 229, 255, 0.25);
+          "
+        >
+          CYAN · MD
+        </div>
+        <div
+          class="b"
+          style="
+            box-shadow:
+              0 0 0 1px rgba(255, 43, 214, 0.6),
+              0 0 24px rgba(255, 43, 214, 0.55),
+              0 0 48px rgba(255, 43, 214, 0.3);
+          "
+        >
+          MAGENTA
+        </div>
+        <div
+          class="b"
+          style="
+            box-shadow:
+              0 0 0 1px rgba(242, 255, 0, 0.6),
+              0 0 20px rgba(242, 255, 0, 0.5);
+          "
+        >
+          HAZARD
+        </div>
+        <div
+          class="b"
+          style="
+            box-shadow:
+              0 0 0 1px rgba(255, 45, 74, 0.6),
+              0 0 20px rgba(255, 45, 74, 0.5);
+          "
+        >
+          BLOOD
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

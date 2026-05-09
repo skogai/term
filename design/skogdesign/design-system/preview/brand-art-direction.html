@@ -1,0 +1,438 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Chakra+Petch:wght@500;600&family=Orbitron:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+      }
+      .blueprint-card {
+        background: #1a2a6b;
+        border: 1px solid rgba(100, 149, 255, 0.4);
+        padding: 10px 14px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        clip-path: polygon(
+          8px 0,
+          100% 0,
+          100% calc(100% - 8px),
+          calc(100% - 8px) 100%,
+          0 100%,
+          0 8px
+        );
+      }
+      .bp-img {
+        aspect-ratio: 3/4;
+        overflow: hidden;
+      }
+      .bp-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+      .bp-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .bp-title {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #a0c4ff;
+      }
+      .bp-row {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 3px 8px;
+        font-size: 8px;
+        letter-spacing: 0.06em;
+      }
+      .bp-k {
+        color: #5b8dce;
+      }
+      .bp-v {
+        color: #c8deff;
+      }
+      .rule {
+        border: none;
+        border-top: 1px solid #2d3040;
+      }
+      .palette-row {
+        display: flex;
+        gap: 5px;
+        margin-top: 2px;
+      }
+      .swatch {
+        width: 22px;
+        height: 22px;
+        clip-path: polygon(
+          4px 0,
+          100% 0,
+          100% calc(100% - 4px),
+          calc(100% - 4px) 100%,
+          0 100%,
+          0 4px
+        );
+        position: relative;
+      }
+      .swatch span {
+        position: absolute;
+        bottom: -12px;
+        left: 0;
+        font-size: 6px;
+        color: #545970;
+        white-space: nowrap;
+        font-family: 'Chakra Petch', sans-serif;
+      }
+      .do-dont {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      .box {
+        padding: 8px 10px;
+        font-size: 8px;
+        line-height: 1.6;
+        letter-spacing: 0.06em;
+      }
+      .box .head {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+      .box li {
+        list-style: none;
+        padding-left: 10px;
+        position: relative;
+        color: #8a8fa8;
+      }
+      .box li::before {
+        position: absolute;
+        left: 0;
+      }
+      .do li::before {
+        content: '✓';
+        color: #39ff88;
+      }
+      .dont li::before {
+        content: '✗';
+        color: #ff2d4a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">BRAND SYSTEM SPECIFICATION — MODEL S-2077-AI</div>
+
+    <div class="blueprint-card">
+      <div class="bp-img">
+        <img src="../assets/brand/skogai-blueprint.png" alt="blueprint" />
+      </div>
+      <div class="bp-info">
+        <div class="bp-title">◆ SKOGAI · CYBER OPERATIVE</div>
+        <div class="bp-row">
+          <span class="bp-k">MODEL</span><span class="bp-v">S-2077-AI</span>
+          <span class="bp-k">CLASS</span
+          ><span class="bp-v">CYBER OPERATIVE</span>
+          <span class="bp-k">UNIT</span><span class="bp-v">01</span>
+          <span class="bp-k">DATE</span><span class="bp-v">2077-04-12</span>
+          <span class="bp-k">SCALE</span
+          ><span class="bp-v">1:2 · UNITS: MM</span>
+        </div>
+        <hr class="rule" />
+        <div class="bp-title" style="font-size: 8px">COMPONENTS</div>
+        <div class="bp-row">
+          <span class="bp-k">01</span
+          ><span class="bp-v">HOOD · FLEX-FABRIC</span>
+          <span class="bp-k">02</span
+          ><span class="bp-v">VISOR · DUAL-OPTIC</span>
+          <span class="bp-k">03</span
+          ><span class="bp-v">MASK · RESPIRATOR UNIT</span>
+          <span class="bp-k">04</span
+          ><span class="bp-v">COLLAR · THERMAL REG</span>
+        </div>
+        <hr class="rule" />
+        <div class="bp-title" style="font-size: 8px">BRAND PALETTE</div>
+        <div class="palette-row">
+          <div
+            class="swatch"
+            style="background: #06070b; border: 1px solid #262a3d"
+          ></div>
+          <div
+            class="swatch"
+            style="
+              background: #ff2d4a;
+              box-shadow: 0 0 6px rgba(255, 45, 74, 0.7);
+            "
+          ></div>
+          <div
+            class="swatch"
+            style="
+              background: #00e5ff;
+              box-shadow: 0 0 6px rgba(0, 229, 255, 0.7);
+            "
+          ></div>
+          <div
+            class="swatch"
+            style="
+              background: #f2ff00;
+              box-shadow: 0 0 6px rgba(242, 255, 0, 0.5);
+            "
+          ></div>
+          <div
+            class="swatch"
+            style="
+              background: #b8a3ff;
+              box-shadow: 0 0 6px rgba(184, 163, 255, 0.5);
+            "
+          ></div>
+          <div
+            class="swatch"
+            style="
+              background: #ff2bd6;
+              box-shadow: 0 0 6px rgba(255, 43, 214, 0.5);
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <div class="section">VISUAL RULES</div>
+    <div class="do-dont">
+      <div
+        class="box do"
+        style="
+          background: rgba(57, 255, 136, 0.04);
+          border: 1px solid rgba(57, 255, 136, 0.15);
+        "
+      >
+        <div class="head" style="color: #39ff88">✓ DO</div>
+        <ul>
+          <li>hood + mask always present</li>
+          <li>glowing eyes: red OR cyan, not both</li>
+          <li>hazard yellow for wordmark only</li>
+          <li>kanji/neon signs in background</li>
+          <li>dark urban setting (rain preferred)</li>
+          <li>S-glyph chest emblem on front-facing</li>
+          <li>leather/tactical jacket</li>
+          <li>one-word copy in display treatments</li>
+        </ul>
+      </div>
+      <div
+        class="box dont"
+        style="
+          background: rgba(255, 45, 74, 0.04);
+          border: 1px solid rgba(255, 45, 74, 0.15);
+        "
+      >
+        <div class="head" style="color: #ff2d4a">✗ DON'T</div>
+        <ul>
+          <li>show face (unmasked = rare)</li>
+          <li>use green eyes (reserved for success)</li>
+          <li>daylight / natural lighting</li>
+          <li>sans-serif wordmark (use graffiti style)</li>
+          <li>warm/orange color grading</li>
+          <li>logo on white background</li>
+          <li>both red + cyan eyes simultaneously</li>
+          <li>realistic weapons</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <div class="section">WORDMARK TREATMENTS</div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px">
+      <div
+        style="
+          background: #000;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          clip-path: polygon(
+            6px 0,
+            100% 0,
+            100% calc(100% - 6px),
+            calc(100% - 6px) 100%,
+            0 100%,
+            0 6px
+          );
+        "
+      >
+        <span
+          style="
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 0.2em;
+            background: linear-gradient(135deg, #00e5ff, #ff2bd6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          "
+          >SKOGAI</span
+        >
+      </div>
+      <div
+        style="
+          background: #000;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          clip-path: polygon(
+            6px 0,
+            100% 0,
+            100% calc(100% - 6px),
+            calc(100% - 6px) 100%,
+            0 100%,
+            0 6px
+          );
+        "
+      >
+        <span
+          style="
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: 0.12em;
+            color: #f2ff00;
+            text-shadow:
+              0 0 12px rgba(242, 255, 0, 0.6),
+              2px 2px 0 rgba(0, 0, 0, 0.8);
+          "
+          >SKOGAI</span
+        >
+      </div>
+      <div
+        style="
+          background: #1a2a6b;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          clip-path: polygon(
+            6px 0,
+            100% 0,
+            100% calc(100% - 6px),
+            calc(100% - 6px) 100%,
+            0 100%,
+            0 6px
+          );
+        "
+      >
+        <span
+          style="
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 0.12em;
+            color: #fff;
+            opacity: 0.9;
+          "
+          >SKOGAI</span
+        >
+      </div>
+      <div
+        style="
+          background: #fff;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          clip-path: polygon(
+            6px 0,
+            100% 0,
+            100% calc(100% - 6px),
+            calc(100% - 6px) 100%,
+            0 100%,
+            0 6px
+          );
+        "
+      >
+        <span
+          style="
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 0.12em;
+            color: #06070b;
+          "
+          >SKOGAI</span
+        >
+      </div>
+    </div>
+    <div style="display: flex; gap: 8px; margin-top: 4px">
+      <span
+        style="
+          font-size: 7px;
+          color: #545970;
+          font-family: 'Chakra Petch', sans-serif;
+          flex: 1;
+          text-align: center;
+        "
+        >duality gradient</span
+      >
+      <span
+        style="
+          font-size: 7px;
+          color: #545970;
+          font-family: 'Chakra Petch', sans-serif;
+          flex: 1;
+          text-align: center;
+        "
+        >hazard glow ← preferred</span
+      >
+      <span
+        style="
+          font-size: 7px;
+          color: #545970;
+          font-family: 'Chakra Petch', sans-serif;
+          flex: 1;
+          text-align: center;
+        "
+        >blueprint white</span
+      >
+      <span
+        style="
+          font-size: 7px;
+          color: #545970;
+          font-family: 'Chakra Petch', sans-serif;
+          flex: 1;
+          text-align: center;
+        "
+        >reversed (avoid)</span
+      >
+    </div>
+  </body>
+</html>

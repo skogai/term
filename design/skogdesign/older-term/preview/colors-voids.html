@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Colors · Voids</title>
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+      }
+      .card {
+        width: 700px;
+        height: 180px;
+        padding: 20px 22px;
+        background: #000;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0;
+        height: 140px;
+        border: 1px solid var(--fog-4);
+      }
+      .cell {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 10px 12px;
+        font-family: var(--font-ui);
+        text-transform: uppercase;
+        letter-spacing: var(--tracking-wider);
+        font-size: 10px;
+        color: var(--fog-0);
+      }
+      .cell .hex {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--fog-2);
+        letter-spacing: 0;
+        margin-top: 2px;
+      }
+      .label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: var(--tracking-widest);
+        color: var(--fog-3);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .label::before {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        background: var(--fog-2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="label">// VOID SURFACES · BASE → ELEVATED</div>
+      <div class="row">
+        <div class="cell" style="background: #000000">
+          <div>Void 0</div>
+          <div class="hex">#000000</div>
+        </div>
+        <div class="cell" style="background: #06070b">
+          <div>Void 1</div>
+          <div class="hex">#06070B</div>
+        </div>
+        <div class="cell" style="background: #0b0d15">
+          <div>Void 2</div>
+          <div class="hex">#0B0D15</div>
+        </div>
+        <div class="cell" style="background: #121521">
+          <div>Void 3</div>
+          <div class="hex">#121521</div>
+        </div>
+        <div class="cell" style="background: #1b1f30">
+          <div>Void 4</div>
+          <div class="hex">#1B1F30</div>
+        </div>
+        <div class="cell" style="background: #262a3d">
+          <div>Void 5</div>
+          <div class="hex">#262A3D</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

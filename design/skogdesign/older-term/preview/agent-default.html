@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Default theme</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      body {
+        background: #fbf5ef;
+      }
+      body::before {
+        display: none;
+      }
+      .card {
+        font-family: 'Playfair Display', Georgia, serif;
+        color: #2a1a1f;
+      }
+      .tile {
+        width: 100%;
+        padding: 14px 18px;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 6px;
+      }
+      .badge {
+        display: inline-block;
+        background: rgba(199, 58, 104, 0.1);
+        color: #c73a68;
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      .title {
+        font-size: 26px;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.1;
+      }
+      .meta {
+        font-size: 12px;
+        color: #8a7a7d;
+        margin-top: 6px;
+        font-family: 'Inter', sans-serif;
+      }
+      .prose {
+        font-size: 14px;
+        color: #4a3a3d;
+        margin-top: 10px;
+        font-family: Georgia, serif;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="tile">
+        <div class="badge">Default</div>
+        <div class="title">An Editorial Post</div>
+        <div class="meta">📅 March 8, 2026</div>
+        <div class="prose">
+          Neutral editorial layout. MoodOracle-powered mood analysis. No ambient
+          effects.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

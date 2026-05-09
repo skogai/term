@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Badges</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .row2 {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .badge {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .pill {
+        border-radius: 999px;
+      }
+      .chamfer {
+        clip-path: polygon(
+          6px 0,
+          100% 0,
+          100% calc(100% - 6px),
+          calc(100% - 6px) 100%,
+          0 100%,
+          0 6px
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="row2">
+        <span
+          class="badge pill"
+          style="
+            background: rgba(57, 255, 136, 0.12);
+            color: #39ff88;
+            box-shadow: inset 0 0 0 1px rgba(57, 255, 136, 0.4);
+          "
+          ><span
+            class="dot"
+            style="background: #39ff88; box-shadow: 0 0 6px #39ff88"
+          ></span
+          >ONLINE</span
+        >
+        <span
+          class="badge pill"
+          style="
+            background: rgba(0, 229, 255, 0.12);
+            color: #00e5ff;
+            box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.4);
+          "
+          ><span
+            class="dot"
+            style="background: #00e5ff; box-shadow: 0 0 6px #00e5ff"
+          ></span
+          >SYNC</span
+        >
+        <span
+          class="badge pill"
+          style="
+            background: rgba(242, 255, 0, 0.12);
+            color: #f2ff00;
+            box-shadow: inset 0 0 0 1px rgba(242, 255, 0, 0.4);
+          "
+          >IDLE</span
+        >
+        <span
+          class="badge pill"
+          style="
+            background: rgba(255, 45, 74, 0.12);
+            color: #ff2d4a;
+            box-shadow: inset 0 0 0 1px rgba(255, 45, 74, 0.4);
+          "
+          ><span class="dot" style="background: #ff2d4a"></span>OFFLINE</span
+        >
+        <span
+          class="badge chamfer"
+          style="
+            background: #121521;
+            color: #c8cce0;
+            box-shadow: inset 0 0 0 1px #2d3040;
+          "
+          >v2.7.7</span
+        >
+        <span
+          class="badge chamfer"
+          style="
+            background: transparent;
+            color: #ff2bd6;
+            box-shadow: inset 0 0 0 1px #ff2bd6;
+          "
+          >BETA</span
+        >
+      </div>
+    </div>
+  </body>
+</html>

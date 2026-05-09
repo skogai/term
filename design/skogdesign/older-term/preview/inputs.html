@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Input · terminal field</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .field {
+        background: var(--void-2);
+        padding: 12px 14px;
+        clip-path: polygon(
+          8px 0,
+          100% 0,
+          100% calc(100% - 8px),
+          calc(100% - 8px) 100%,
+          0 100%,
+          0 8px
+        );
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: inset 0 0 0 1px var(--border);
+      }
+      .field.focus {
+        box-shadow:
+          inset 0 0 0 1px var(--cyan),
+          0 0 18px rgba(0, 229, 255, 0.3);
+      }
+      .prompt {
+        color: var(--cyan);
+        font-family: var(--font-mono);
+        font-size: 13px;
+      }
+      .inp {
+        flex: 1;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--fog-0);
+      }
+      .cursor {
+        width: 8px;
+        height: 16px;
+        background: var(--cyan);
+        animation: bl 1s steps(2) infinite;
+        box-shadow: 0 0 8px var(--cyan);
+      }
+      @keyframes bl {
+        50% {
+          opacity: 0;
+        }
+      }
+      .lbl {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: var(--fg-3);
+        letter-spacing: 0.2em;
+        margin-top: 8px;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div
+        style="
+          width: 100%;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+        "
+      >
+        <div>
+          <div class="field">
+            <span class="prompt">›</span
+            ><span class="inp" style="color: var(--fg-3)">deploy agent...</span>
+          </div>
+          <div class="lbl">DEFAULT</div>
+        </div>
+        <div>
+          <div class="field focus">
+            <span class="prompt">›</span
+            ><span class="inp">skogai run agent dot</span
+            ><span class="cursor"></span>
+          </div>
+          <div class="lbl" style="color: var(--cyan)">FOCUSED</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

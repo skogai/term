@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        font-family: 'JetBrains Mono', monospace;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+        margin: 8px 0 3px;
+      }
+      .section:first-child {
+        margin-top: 0;
+      }
+      .row {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 5px 9px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .chip .dot {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+      .chip .meta {
+        display: flex;
+        flex-direction: column;
+      }
+      .chip .token {
+        font-size: 9px;
+        color: #8a8fa8;
+        letter-spacing: 0.08em;
+      }
+      .chip .val {
+        font-size: 9px;
+        color: #545970;
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">SURFACE</div>
+    <div class="row">
+      <div class="chip">
+        <div
+          class="dot"
+          style="background: #06070b; box-shadow: inset 0 0 0 1px #262a3d"
+        ></div>
+        <div class="meta">
+          <span class="token">--bg</span><span class="val">void-1</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div
+          class="dot"
+          style="background: #0b0d15; box-shadow: inset 0 0 0 1px #262a3d"
+        ></div>
+        <div class="meta">
+          <span class="token">--bg-elev-1</span><span class="val">void-2</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div
+          class="dot"
+          style="background: #121521; box-shadow: inset 0 0 0 1px #262a3d"
+        ></div>
+        <div class="meta">
+          <span class="token">--bg-elev-2</span><span class="val">void-3</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div
+          class="dot"
+          style="background: #1b1f30; box-shadow: inset 0 0 0 1px #262a3d"
+        ></div>
+        <div class="meta">
+          <span class="token">--bg-elev-3</span><span class="val">void-4</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">TEXT</div>
+    <div class="row">
+      <div class="chip">
+        <div class="dot" style="background: #f4f6ff"></div>
+        <div class="meta">
+          <span class="token">--fg</span><span class="val">fog-0</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="dot" style="background: #c8cce0"></div>
+        <div class="meta">
+          <span class="token">--fg-1</span><span class="val">fog-1</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="dot" style="background: #8a8fa8"></div>
+        <div class="meta">
+          <span class="token">--fg-2</span><span class="val">fog-2</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="dot" style="background: #545970"></div>
+        <div class="meta">
+          <span class="token">--fg-muted</span><span class="val">fog-3</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">BRAND</div>
+    <div class="row">
+      <div class="chip">
+        <div
+          class="dot"
+          style="
+            background: #00e5ff;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+          "
+        ></div>
+        <div class="meta">
+          <span class="token">--accent</span><span class="val">cyan</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div
+          class="dot"
+          style="
+            background: #ff2bd6;
+            box-shadow: 0 0 8px rgba(255, 43, 214, 0.6);
+          "
+        ></div>
+        <div class="meta">
+          <span class="token">--accent-2</span><span class="val">magenta</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="dot" style="background: #f2ff00"></div>
+        <div class="meta">
+          <span class="token">--accent-3</span><span class="val">hazard</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">STATE</div>
+    <div class="row">
+      <div class="chip">
+        <div
+          class="dot"
+          style="
+            background: #ff2d4a;
+            box-shadow: 0 0 8px rgba(255, 45, 74, 0.5);
+          "
+        ></div>
+        <div class="meta">
+          <span class="token">--danger</span><span class="val">blood</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div
+          class="dot"
+          style="
+            background: #39ff88;
+            box-shadow: 0 0 8px rgba(57, 255, 136, 0.5);
+          "
+        ></div>
+        <div class="meta">
+          <span class="token">--success</span><span class="val">acid</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="dot" style="background: #f2ff00"></div>
+        <div class="meta">
+          <span class="token">--warning</span><span class="val">hazard</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="dot" style="background: #00e5ff"></div>
+        <div class="meta">
+          <span class="token">--info</span><span class="val">cyan</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">BORDERS</div>
+    <div class="row">
+      <div class="chip">
+        <div class="dot" style="background: #2d3040"></div>
+        <div class="meta">
+          <span class="token">--border</span><span class="val">fog-4</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div class="dot" style="background: #262a3d"></div>
+        <div class="meta">
+          <span class="token">--border-strong</span
+          ><span class="val">void-5</span>
+        </div>
+      </div>
+      <div class="chip">
+        <div
+          class="dot"
+          style="
+            background: #00e5ff;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+          "
+        ></div>
+        <div class="meta">
+          <span class="token">--border-neon</span><span class="val">cyan</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

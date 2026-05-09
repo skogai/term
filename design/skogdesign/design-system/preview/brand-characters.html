@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Chakra+Petch:wght@500;600&family=Orbitron:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 14px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+      .card {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 2/3;
+        clip-path: polygon(
+          8px 0,
+          100% 0,
+          100% calc(100% - 8px),
+          calc(100% - 8px) 100%,
+          0 100%,
+          0 8px
+        );
+      }
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        transition: transform 0.3s;
+      }
+      .card:hover img {
+        transform: scale(1.04);
+      }
+      .card .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.92) 0%,
+          rgba(0, 0, 0, 0.1) 55%,
+          transparent 100%
+        );
+      }
+      .card .info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 7px 8px;
+      }
+      .card .tag {
+        font-size: 7px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-family: 'Chakra Petch', sans-serif;
+        padding: 2px 6px;
+        border: 1px solid;
+        display: inline-block;
+        margin-bottom: 4px;
+        clip-path: polygon(
+          3px 0,
+          100% 0,
+          100% calc(100% - 3px),
+          calc(100% - 3px) 100%,
+          0 100%,
+          0 3px
+        );
+      }
+      .card .title {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #f4f6ff;
+        line-height: 1.3;
+      }
+      .card .sub {
+        font-size: 7px;
+        color: #545970;
+        letter-spacing: 0.1em;
+        margin-top: 2px;
+      }
+      .motifs {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      .motif {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        color: #8a8fa8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">
+      PROTAGONIST · CORE CHARACTER — MODEL S-2077-AI · CLASS: CYBER OPERATIVE
+    </div>
+    <div class="grid">
+      <div class="card">
+        <img src="../assets/brand/skogai-sudo-rm-rf.jpg" alt="sudo rm -rf/" />
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="tag" style="border-color: #b8a3ff; color: #b8a3ff">
+            photorealistic
+          </div>
+          <div class="title">"sudo rm -rf/"</div>
+          <div class="sub">purple mohawk · blue glow eyes · chest S-glyph</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <img
+          src="../assets/brand/skogai-2077-illustrated.jpg"
+          alt="SKOGAI 2077"
+        />
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="tag" style="border-color: #f2ff00; color: #f2ff00">
+            illustrated
+          </div>
+          <div class="title">SKOGAI 2077</div>
+          <div class="sub">hooded · red+cyan eyes · hazard wordmark</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../assets/brand/skogai-masked-city.jpg" alt="SKOGAI masked" />
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="tag" style="border-color: #ff2d4a; color: #ff2d4a">
+            photorealistic
+          </div>
+          <div class="title">Hooded Mask</div>
+          <div class="sub">red glow eyes · katakana · city rain</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <img
+          src="../assets/brand/skogai-yellow-jacket.jpg"
+          alt="yellow jacket"
+        />
+        <div class="overlay"></div>
+        <div class="info">
+          <div class="tag" style="border-color: #f2ff00; color: #f2ff00">
+            hazard variant
+          </div>
+          <div class="title">Yellow Jacket</div>
+          <div class="sub">hazard hoodie · respirator · neo city</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="motifs">
+      <span class="motif">hood + respirator mask</span>
+      <span class="motif">glowing eyes (red / cyan)</span>
+      <span class="motif">hazard-yellow wordmark</span>
+      <span class="motif">neo city background</span>
+      <span class="motif">kanji neon signs</span>
+      <span class="motif">leather tactical jacket</span>
+      <span class="motif">S-glyph chest emblem</span>
+      <span class="motif">2077 / 2079 lore year</span>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        background: #000;
+        color: #0f0;
+        font-family: monospace;
+        padding: 2rem;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="out">JS not running</div>
+    <script>
+      document.getElementById('out').textContent =
+        'JS OK — ' + new Date().toISOString();
+    </script>
+  </body>
+</html>

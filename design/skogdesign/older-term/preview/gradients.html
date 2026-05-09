@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Gradients</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        width: 100%;
+      }
+      .g {
+        height: 110px;
+        position: relative;
+        clip-path: polygon(
+          10px 0,
+          100% 0,
+          100% calc(100% - 10px),
+          calc(100% - 10px) 100%,
+          0 100%,
+          0 10px
+        );
+        display: flex;
+        align-items: flex-end;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+      .g .tag {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #06070b;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 2px 8px;
+      }
+      .g .tag.dark {
+        color: #f4f6ff;
+        background: rgba(6, 7, 11, 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="grid">
+        <div
+          class="g"
+          style="background: linear-gradient(135deg, #00e5ff 0%, #ff2bd6 100%)"
+        >
+          <span class="tag">DUALITY · 135°</span>
+        </div>
+        <div
+          class="g"
+          style="background: linear-gradient(90deg, #f2ff00 0%, #ff2d4a 100%)"
+        >
+          <span class="tag">HAZARD · 90°</span>
+        </div>
+        <div
+          class="g"
+          style="
+            background: radial-gradient(
+              ellipse at top,
+              #16192a 0%,
+              #06070b 60%,
+              #000000 100%
+            );
+          "
+        >
+          <span class="tag dark">VOID · RADIAL</span>
+        </div>
+        <div class="g" style="background: #06070b; position: relative">
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 229, 255, 0.12) 0,
+                rgba(0, 229, 255, 0.12) 1px,
+                transparent 1px,
+                transparent 3px
+              );
+            "
+          ></div>
+          <span class="tag dark" style="position: relative">SCAN · 1/3PX</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

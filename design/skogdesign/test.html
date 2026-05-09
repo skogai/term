@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>test</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="editor.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <pre
+      id="log"
+      style="background: #000; color: #0f0; padding: 16px; font-size: 13px"
+    ></pre>
+    <script>
+      const log = s => {
+        document.getElementById('log').textContent += s + '\n';
+        console.log(s);
+      };
+      window.onerror = (m, s, l, c, e) =>
+        log('[ERROR] ' + m + ' @ ' + s + ':' + l);
+      window.addEventListener('unhandledrejection', e =>
+        log('[REJECT] ' + (e.reason?.message || e.reason))
+      );
+      log('1. page loaded');
+    </script>
+    <script
+      src="assets/react.js"
+      onload="log('2. React OK: ' + React.version)"
+      onerror="log('2. React FAILED')"
+    ></script>
+    <script
+      src="assets/react-dom.js"
+      onload="log('3. ReactDOM OK')"
+      onerror="log('3. ReactDOM FAILED')"
+    ></script>
+    <script
+      src="assets/babel.min.js"
+      onload="log('4. Babel OK')"
+      onerror="log('4. Babel FAILED')"
+    ></script>
+    <script
+      src="src/commands.js"
+      onload="log('5. commands.js OK')"
+      onerror="log('5. commands.js FAILED')"
+    ></script>
+    <script
+      src="src/backends.js"
+      onload="log('6. backends.js OK')"
+      onerror="log('6. backends.js FAILED')"
+    ></script>
+    <script
+      type="text/babel"
+      src="src/agents.jsx"
+      data-onload="log('7. agents.jsx OK')"
+      onerror="log('7. agents.jsx FAILED')"
+    ></script>
+    <script type="text/babel" src="src/replies-data.jsx"></script>
+    <script type="text/babel">
+      log('8. replies-data.jsx OK');
+    </script>
+    <script type="text/babel" src="src/replies.jsx"></script>
+    <script type="text/babel">
+      log('9. replies.jsx OK — ReplyBlock: ' + typeof ReplyBlock);
+    </script>
+    <script type="text/babel" src="src/sys.jsx"></script>
+    <script type="text/babel">
+      log('10. sys.jsx OK — BootSequence: ' + typeof BootSequence);
+    </script>
+    <script type="text/babel" src="src/cmd-editor.jsx"></script>
+    <script type="text/babel">
+      log('11. cmd-editor.jsx OK');
+    </script>
+    <script type="text/babel" src="src/app.jsx"></script>
+    <script type="text/babel">
+      log('12. app.jsx OK — if you see this, React should have mounted');
+    </script>
+  </body>
+</html>

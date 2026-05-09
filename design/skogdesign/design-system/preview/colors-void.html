@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        font-family: 'JetBrains Mono', monospace;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .row {
+        display: flex;
+        gap: 0;
+        height: 48px;
+        overflow: hidden;
+      }
+      .swatch {
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+        padding: 4px 6px;
+        position: relative;
+      }
+      .swatch .label {
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+      }
+      .swatch .hex {
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.3);
+        position: absolute;
+        top: 5px;
+        right: 6px;
+      }
+      .name-row {
+        display: flex;
+        gap: 0;
+      }
+      .name-row span {
+        flex: 1;
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        color: #545970;
+        text-transform: uppercase;
+        font-family: 'Chakra Petch', sans-serif;
+        padding-top: 2px;
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="swatch" style="background: #000000">
+        <span class="label">void-0</span><span class="hex">#000</span>
+      </div>
+      <div class="swatch" style="background: #06070b">
+        <span class="label">void-1</span><span class="hex">#06070b</span>
+      </div>
+      <div class="swatch" style="background: #0b0d15">
+        <span class="label">void-2</span><span class="hex">#0b0d15</span>
+      </div>
+      <div class="swatch" style="background: #121521">
+        <span class="label">void-3</span><span class="hex">#121521</span>
+      </div>
+      <div class="swatch" style="background: #1b1f30">
+        <span class="label">void-4</span><span class="hex">#1b1f30</span>
+      </div>
+      <div class="swatch" style="background: #262a3d">
+        <span class="label">void-5</span><span class="hex">#262a3d</span>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 4px">
+      <div class="swatch" style="background: #f4f6ff">
+        <span class="label" style="color: #06070b">fog-0</span
+        ><span class="hex" style="color: #0b0d15">#f4f6ff</span>
+      </div>
+      <div class="swatch" style="background: #c8cce0">
+        <span class="label" style="color: #1b1f30">fog-1</span
+        ><span class="hex" style="color: #1b1f30">#c8cce0</span>
+      </div>
+      <div class="swatch" style="background: #8a8fa8">
+        <span class="label">fog-2</span><span class="hex">#8a8fa8</span>
+      </div>
+      <div class="swatch" style="background: #545970">
+        <span class="label">fog-3</span><span class="hex">#545970</span>
+      </div>
+      <div class="swatch" style="background: #2d3040">
+        <span class="label">fog-4</span><span class="hex">#2d3040</span>
+      </div>
+    </div>
+  </body>
+</html>
