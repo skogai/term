@@ -63,3 +63,4 @@ playwright-report/
 
 # dotenv environment variables file
 .env
+/.claude/worktrees
