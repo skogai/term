@@ -63,6 +63,9 @@ export default defineConfig({
   plugins: [
     preloadDefaultWallpaper('wallpaper_low.jpg', '/themes/wallpaper_low.jpg'),
   ],
+  server: {
+    allowedHosts: ['3000.skogix.se'],
+  },
   build: {
     outDir: '../dist',
     emptyOutDir: true,
