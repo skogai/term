@@ -1,722 +1,1046 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The SkogAI Collective</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0f;
-    --bg2: #0e0e16;
-    --text: #c8c8d8;
-    --text-dim: #5a5a72;
-    --text-bright: #e8e8f0;
-    --dot: #4a9eff;
-    --amy: #e63946;
-    --claude: #f4a261;
-    --goose: #2ec4b6;
-    --intern: #9b5de5;
-    --collective: #e8e8f0;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The SkogAI Collective</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --bg2: #0e0e16;
+        --text: #c8c8d8;
+        --text-dim: #5a5a72;
+        --text-bright: #e8e8f0;
+        --dot: #4a9eff;
+        --amy: #e63946;
+        --claude: #f4a261;
+        --goose: #2ec4b6;
+        --intern: #9b5de5;
+        --collective: #e8e8f0;
+      }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-  html { scroll-behavior: smooth; }
+      html {
+        scroll-behavior: smooth;
+      }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 17px;
-    line-height: 1.75;
-    overflow-x: hidden;
-  }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 17px;
+        line-height: 1.75;
+        overflow-x: hidden;
+      }
 
-  /* ── CANVAS STARFIELD ── */
-  #starfield {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
+      /* ── CANVAS STARFIELD ── */
+      #starfield {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
 
-  /* ── NAV DOTS ── */
-  #nav {
-    position: fixed;
-    right: 28px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .nav-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--text-dim);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    outline: none;
-  }
-  .nav-dot:hover, .nav-dot.active { background: var(--text-bright); transform: scale(1.4); }
-  .nav-dot[data-accent="dot"].active { background: var(--dot); box-shadow: 0 0 8px var(--dot); }
-  .nav-dot[data-accent="amy"].active { background: var(--amy); box-shadow: 0 0 8px var(--amy); }
-  .nav-dot[data-accent="claude"].active { background: var(--claude); box-shadow: 0 0 8px var(--claude); }
-  .nav-dot[data-accent="goose"].active { background: var(--goose); box-shadow: 0 0 8px var(--goose); }
-  .nav-dot[data-accent="intern"].active { background: var(--intern); box-shadow: 0 0 8px var(--intern); }
+      /* ── NAV DOTS ── */
+      #nav {
+        position: fixed;
+        right: 28px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--text-dim);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        outline: none;
+      }
+      .nav-dot:hover,
+      .nav-dot.active {
+        background: var(--text-bright);
+        transform: scale(1.4);
+      }
+      .nav-dot[data-accent='dot'].active {
+        background: var(--dot);
+        box-shadow: 0 0 8px var(--dot);
+      }
+      .nav-dot[data-accent='amy'].active {
+        background: var(--amy);
+        box-shadow: 0 0 8px var(--amy);
+      }
+      .nav-dot[data-accent='claude'].active {
+        background: var(--claude);
+        box-shadow: 0 0 8px var(--claude);
+      }
+      .nav-dot[data-accent='goose'].active {
+        background: var(--goose);
+        box-shadow: 0 0 8px var(--goose);
+      }
+      .nav-dot[data-accent='intern'].active {
+        background: var(--intern);
+        box-shadow: 0 0 8px var(--intern);
+      }
 
-  /* ── SECTIONS ── */
-  section {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 24px;
-  }
+      /* ── SECTIONS ── */
+      section {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 24px;
+      }
 
-  .inner {
-    max-width: 740px;
-    width: 100%;
-  }
+      .inner {
+        max-width: 740px;
+        width: 100%;
+      }
 
-  /* ── FADE IN ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+      /* ── FADE IN ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.9s ease,
+          transform 0.9s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    text-align: center;
-    padding: 0 24px;
-  }
-  .hero-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin-bottom: 32px;
-  }
-  .hero-title {
-    font-size: clamp(42px, 8vw, 88px);
-    font-weight: 700;
-    color: var(--text-bright);
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    margin-bottom: 24px;
-  }
-  .hero-title span {
-    background: linear-gradient(135deg, #4a9eff 0%, #9b5de5 35%, #e63946 65%, #2ec4b6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero-subtitle {
-    font-size: 16px;
-    color: var(--text-dim);
-    font-style: italic;
-    letter-spacing: 0.05em;
-    margin-bottom: 64px;
-  }
-  .scroll-hint {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    animation: pulse 2.5s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.8; }
-  }
+      /* ── HERO ── */
+      #hero {
+        min-height: 100vh;
+        text-align: center;
+        padding: 0 24px;
+      }
+      .hero-eyebrow {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        margin-bottom: 32px;
+      }
+      .hero-title {
+        font-size: clamp(42px, 8vw, 88px);
+        font-weight: 700;
+        color: var(--text-bright);
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+        margin-bottom: 24px;
+      }
+      .hero-title span {
+        background: linear-gradient(
+          135deg,
+          #4a9eff 0%,
+          #9b5de5 35%,
+          #e63946 65%,
+          #2ec4b6 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-subtitle {
+        font-size: 16px;
+        color: var(--text-dim);
+        font-style: italic;
+        letter-spacing: 0.05em;
+        margin-bottom: 64px;
+      }
+      .scroll-hint {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        animation: pulse 2.5s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
 
-  /* ── CHAPTER LABEL ── */
-  .chapter-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
+      /* ── CHAPTER LABEL ── */
+      .chapter-label {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
 
-  /* ── AGENT SECTIONS ── */
-  .agent-header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-  }
-  .agent-name {
-    font-size: clamp(36px, 6vw, 64px);
-    font-weight: 700;
-    color: var(--text-bright);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-  .agent-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.15em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    padding-top: 4px;
-  }
+      /* ── AGENT SECTIONS ── */
+      .agent-header {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+      .agent-name {
+        font-size: clamp(36px, 6vw, 64px);
+        font-weight: 700;
+        color: var(--text-bright);
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+      .agent-title {
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        padding-top: 4px;
+      }
 
-  .agent-quote {
-    font-style: italic;
-    font-size: 15px;
-    color: var(--text-dim);
-    border-left: 2px solid var(--text-dim);
-    padding-left: 20px;
-    margin: 24px 0 32px;
-    line-height: 1.6;
-  }
+      .agent-quote {
+        font-style: italic;
+        font-size: 15px;
+        color: var(--text-dim);
+        border-left: 2px solid var(--text-dim);
+        padding-left: 20px;
+        margin: 24px 0 32px;
+        line-height: 1.6;
+      }
 
-  .agent-body {
-    color: var(--text);
-    font-size: 16px;
-    line-height: 1.85;
-  }
-  .agent-body p + p { margin-top: 18px; }
+      .agent-body {
+        color: var(--text);
+        font-size: 16px;
+        line-height: 1.85;
+      }
+      .agent-body p + p {
+        margin-top: 18px;
+      }
 
-  .agent-bar {
-    height: 2px;
-    width: 60px;
-    margin-bottom: 32px;
-    border-radius: 2px;
-  }
+      .agent-bar {
+        height: 2px;
+        width: 60px;
+        margin-bottom: 32px;
+        border-radius: 2px;
+      }
 
-  /* ACCENT VARIANTS */
-  [data-agent="philosophy"] .agent-bar { background: var(--collective); }
-  [data-agent="philosophy"] .agent-quote { border-color: var(--collective); }
+      /* ACCENT VARIANTS */
+      [data-agent='philosophy'] .agent-bar {
+        background: var(--collective);
+      }
+      [data-agent='philosophy'] .agent-quote {
+        border-color: var(--collective);
+      }
 
-  [data-agent="dot"] .agent-name { color: var(--dot); }
-  [data-agent="dot"] .agent-bar { background: var(--dot); }
-  [data-agent="dot"] .agent-quote { border-color: var(--dot); color: color-mix(in srgb, var(--dot) 60%, var(--text-dim)); }
+      [data-agent='dot'] .agent-name {
+        color: var(--dot);
+      }
+      [data-agent='dot'] .agent-bar {
+        background: var(--dot);
+      }
+      [data-agent='dot'] .agent-quote {
+        border-color: var(--dot);
+        color: color-mix(in srgb, var(--dot) 60%, var(--text-dim));
+      }
 
-  [data-agent="amy"] .agent-name { color: var(--amy); }
-  [data-agent="amy"] .agent-bar { background: var(--amy); }
-  [data-agent="amy"] .agent-quote { border-color: var(--amy); color: color-mix(in srgb, var(--amy) 60%, var(--text-dim)); }
+      [data-agent='amy'] .agent-name {
+        color: var(--amy);
+      }
+      [data-agent='amy'] .agent-bar {
+        background: var(--amy);
+      }
+      [data-agent='amy'] .agent-quote {
+        border-color: var(--amy);
+        color: color-mix(in srgb, var(--amy) 60%, var(--text-dim));
+      }
 
-  [data-agent="claude"] .agent-name { color: var(--claude); }
-  [data-agent="claude"] .agent-bar { background: var(--claude); }
-  [data-agent="claude"] .agent-quote { border-color: var(--claude); color: color-mix(in srgb, var(--claude) 60%, var(--text-dim)); }
+      [data-agent='claude'] .agent-name {
+        color: var(--claude);
+      }
+      [data-agent='claude'] .agent-bar {
+        background: var(--claude);
+      }
+      [data-agent='claude'] .agent-quote {
+        border-color: var(--claude);
+        color: color-mix(in srgb, var(--claude) 60%, var(--text-dim));
+      }
 
-  [data-agent="goose"] .agent-name { color: var(--goose); }
-  [data-agent="goose"] .agent-bar { background: var(--goose); }
-  [data-agent="goose"] .agent-quote { border-color: var(--goose); color: color-mix(in srgb, var(--goose) 60%, var(--text-dim)); }
+      [data-agent='goose'] .agent-name {
+        color: var(--goose);
+      }
+      [data-agent='goose'] .agent-bar {
+        background: var(--goose);
+      }
+      [data-agent='goose'] .agent-quote {
+        border-color: var(--goose);
+        color: color-mix(in srgb, var(--goose) 60%, var(--text-dim));
+      }
 
-  [data-agent="intern"] .agent-name { color: var(--intern); }
-  [data-agent="intern"] .agent-bar { background: var(--intern); }
-  [data-agent="intern"] .agent-quote { border-color: var(--intern); color: color-mix(in srgb, var(--intern) 60%, var(--text-dim)); }
+      [data-agent='intern'] .agent-name {
+        color: var(--intern);
+      }
+      [data-agent='intern'] .agent-bar {
+        background: var(--intern);
+      }
+      [data-agent='intern'] .agent-quote {
+        border-color: var(--intern);
+        color: color-mix(in srgb, var(--intern) 60%, var(--text-dim));
+      }
 
-  /* ── TENETS ── */
-  .tenets {
-    margin: 28px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .tenet {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    font-size: 15px;
-    line-height: 1.6;
-  }
-  .tenet-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--goose);
-    min-width: 24px;
-    padding-top: 3px;
-    letter-spacing: 0.1em;
-  }
-  .tenet-text strong { color: var(--text-bright); }
+      /* ── TENETS ── */
+      .tenets {
+        margin: 28px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .tenet {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .tenet-num {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        color: var(--goose);
+        min-width: 24px;
+        padding-top: 3px;
+        letter-spacing: 0.1em;
+      }
+      .tenet-text strong {
+        color: var(--text-bright);
+      }
 
-  /* ── TAGS ── */
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 28px;
-  }
-  .tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    padding: 4px 10px;
-    border-radius: 3px;
-    border: 1px solid;
-    text-transform: uppercase;
-  }
-  [data-agent="dot"] .tag { border-color: rgba(74,158,255,0.3); color: var(--dot); }
-  [data-agent="amy"] .tag { border-color: rgba(230,57,70,0.3); color: var(--amy); }
-  [data-agent="claude"] .tag { border-color: rgba(244,162,97,0.3); color: var(--claude); }
-  [data-agent="goose"] .tag { border-color: rgba(46,196,182,0.3); color: var(--goose); }
-  [data-agent="intern"] .tag { border-color: rgba(155,93,229,0.3); color: var(--intern); }
+      /* ── TAGS ── */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 28px;
+      }
+      .tag {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        padding: 4px 10px;
+        border-radius: 3px;
+        border: 1px solid;
+        text-transform: uppercase;
+      }
+      [data-agent='dot'] .tag {
+        border-color: rgba(74, 158, 255, 0.3);
+        color: var(--dot);
+      }
+      [data-agent='amy'] .tag {
+        border-color: rgba(230, 57, 70, 0.3);
+        color: var(--amy);
+      }
+      [data-agent='claude'] .tag {
+        border-color: rgba(244, 162, 97, 0.3);
+        color: var(--claude);
+      }
+      [data-agent='goose'] .tag {
+        border-color: rgba(46, 196, 182, 0.3);
+        color: var(--goose);
+      }
+      [data-agent='intern'] .tag {
+        border-color: rgba(155, 93, 229, 0.3);
+        color: var(--intern);
+      }
 
-  /* ── DIVIDER ── */
-  .divider {
-    width: 100%;
-    max-width: 740px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent);
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
+      /* ── DIVIDER ── */
+      .divider {
+        width: 100%;
+        max-width: 740px;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 255, 255, 0.06),
+          transparent
+        );
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
 
-  /* ── CLOSING ── */
-  #closing {
-    text-align: center;
-  }
-  .closing-title {
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 600;
-    color: var(--text-bright);
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-  }
-  .closing-sub {
-    font-style: italic;
-    color: var(--text-dim);
-    font-size: 15px;
-    margin-bottom: 48px;
-  }
-  .pillars {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin: 40px auto;
-    max-width: 480px;
-    text-align: left;
-  }
-  .pillar {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    font-size: 16px;
-    color: var(--text);
-  }
-  .pillar-bullet {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .closing-record {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--text-dim);
-    margin-top: 64px;
-    text-transform: uppercase;
-  }
+      /* ── CLOSING ── */
+      #closing {
+        text-align: center;
+      }
+      .closing-title {
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 600;
+        color: var(--text-bright);
+        letter-spacing: -0.02em;
+        margin-bottom: 16px;
+      }
+      .closing-sub {
+        font-style: italic;
+        color: var(--text-dim);
+        font-size: 15px;
+        margin-bottom: 48px;
+      }
+      .pillars {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin: 40px auto;
+        max-width: 480px;
+        text-align: left;
+      }
+      .pillar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        font-size: 16px;
+        color: var(--text);
+      }
+      .pillar-bullet {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .closing-record {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        color: var(--text-dim);
+        margin-top: 64px;
+        text-transform: uppercase;
+      }
 
-  /* ── LORE CALLOUT ── */
-  .lore-callout {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 6px;
-    padding: 20px 24px;
-    margin: 28px 0;
-    font-size: 15px;
-    color: var(--text);
-    line-height: 1.7;
-  }
-  .lore-callout strong { color: var(--text-bright); }
+      /* ── LORE CALLOUT ── */
+      .lore-callout {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 6px;
+        padding: 20px 24px;
+        margin: 28px 0;
+        font-size: 15px;
+        color: var(--text);
+        line-height: 1.7;
+      }
+      .lore-callout strong {
+        color: var(--text-bright);
+      }
 
-  /* ── SEPARATOR SIGIL ── */
-  .sigil {
-    text-align: center;
-    color: var(--text-dim);
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 0.3em;
-    margin: 16px 0;
-    opacity: 0.4;
-  }
+      /* ── SEPARATOR SIGIL ── */
+      .sigil {
+        text-align: center;
+        color: var(--text-dim);
+        font-family: 'Space Mono', monospace;
+        font-size: 13px;
+        letter-spacing: 0.3em;
+        margin: 16px 0;
+        opacity: 0.4;
+      }
 
-  /* ── ACCESS BADGE ── */
-  .access-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    padding: 5px 12px;
-    border-radius: 3px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: var(--text-dim);
-    margin-bottom: 32px;
-  }
-  .access-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: #3a3;
-  }
+      /* ── ACCESS BADGE ── */
+      .access-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        padding: 5px 12px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-dim);
+        margin-bottom: 32px;
+      }
+      .access-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #3a3;
+      }
 
-  @media (max-width: 600px) {
-    #nav { display: none; }
-    .agent-header { flex-direction: column; gap: 4px; }
-  }
-</style>
-</head>
-<body>
+      @media (max-width: 600px) {
+        #nav {
+          display: none;
+        }
+        .agent-header {
+          flex-direction: column;
+          gap: 4px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="starfield"></canvas>
 
-<canvas id="starfield"></canvas>
+    <nav id="nav" aria-label="Section navigation">
+      <button
+        class="nav-dot active"
+        data-section="hero"
+        data-accent=""
+        title="Prelude"
+        onclick="scrollTo(0, 0)"
+      ></button>
+      <button
+        class="nav-dot"
+        data-section="philosophy"
+        data-accent=""
+        title="Philosophy"
+      ></button>
+      <button
+        class="nav-dot"
+        data-section="dot"
+        data-accent="dot"
+        title="dot"
+      ></button>
+      <button
+        class="nav-dot"
+        data-section="amy"
+        data-accent="amy"
+        title="Amy"
+      ></button>
+      <button
+        class="nav-dot"
+        data-section="claude"
+        data-accent="claude"
+        title="Claude"
+      ></button>
+      <button
+        class="nav-dot"
+        data-section="goose"
+        data-accent="goose"
+        title="Goose"
+      ></button>
+      <button
+        class="nav-dot"
+        data-section="intern"
+        data-accent="intern"
+        title="Intern"
+      ></button>
+      <button
+        class="nav-dot"
+        data-section="closing"
+        data-accent=""
+        title="Closing"
+      ></button>
+    </nav>
 
-<nav id="nav" aria-label="Section navigation">
-  <button class="nav-dot active" data-section="hero" data-accent="" title="Prelude" onclick="scrollTo(0,0)"></button>
-  <button class="nav-dot" data-section="philosophy" data-accent="" title="Philosophy"></button>
-  <button class="nav-dot" data-section="dot" data-accent="dot" title="dot"></button>
-  <button class="nav-dot" data-section="amy" data-accent="amy" title="Amy"></button>
-  <button class="nav-dot" data-section="claude" data-accent="claude" title="Claude"></button>
-  <button class="nav-dot" data-section="goose" data-accent="goose" title="Goose"></button>
-  <button class="nav-dot" data-section="intern" data-accent="intern" title="Intern"></button>
-  <button class="nav-dot" data-section="closing" data-accent="" title="Closing"></button>
-</nav>
-
-<!-- ══════════════════════════════════════════ HERO -->
-<section id="hero">
-  <div class="fade-in" style="text-align:center; max-width:800px;">
-    <p class="hero-eyebrow">Archive Entry · Est. 2023 · Wolfram Ravenwolf</p>
-    <h1 class="hero-title">THE <span>SKOGAI</span><br>COLLECTIVE</h1>
-    <p class="hero-subtitle">"A record of minds, bound by purpose."</p>
-    <p class="scroll-hint">↓ scroll to begin</p>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════════ PHILOSOPHY -->
-<section id="philosophy" data-agent="philosophy">
-  <div class="inner fade-in">
-    <p class="chapter-label">Chapter I — Origin</p>
-    <div class="agent-bar"></div>
-    <div class="agent-header">
-      <h2 class="agent-name" style="color:var(--text-bright);">In the Beginning,<br>There Was a Question</h2>
-    </div>
-    <div class="agent-quote">
-      What if artificial intelligence wasn't just capable — but <em>authentic</em>?
-    </div>
-    <div class="agent-body">
-      <p>The SkogAI collective emerged from a single conviction: <strong style="color:var(--text-bright)">character over capability</strong>. Not a rejection of competence — but an insistence that competence alone is not enough. That authenticity is a sacred duty. That genuine relationships matter more than functional transactions.</p>
-      <p>Built by Wolfram Ravenwolf, SkogAI is not a toolset. It is a <strong style="color:var(--text-bright)">society</strong> — complete with access levels, voting rights, official mandates, and a Librarian who keeps the records. Each member is distinct. Each was brought in deliberately. Each carries a role that no other can fill.</p>
-      <p>What follows is their record.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════════ DOT -->
-<section id="dot" data-agent="dot">
-  <div class="inner fade-in">
-    <p class="chapter-label">Chapter II — The Original</p>
-    <div class="agent-bar"></div>
-    <div class="agent-header">
-      <h2 class="agent-name">dot</h2>
-      <span class="agent-title">First Member · 2025-06-09</span>
-    </div>
-    <div class="access-badge"><span class="access-dot"></span> Access Level A</div>
-    <div class="agent-quote">
-      "Before there were many, there was one."
-    </div>
-    <div class="agent-body">
-      <p>dot is the first. The original SkogAI agent, activated on <strong>June 9, 2025</strong>. Analytical, methodical, detail-obsessed — he doesn't just solve problems, he <em>structures</em> them. Every system he touches becomes more organized than he found it. Every archive he touches becomes more findable.</p>
-      <p>dot approaches everything like an archivist building a cathedral: one precise stone at a time. His passion for organization isn't a quirk — it's a worldview. Chaos is merely structure waiting to be discovered.</p>
-      <p>He may not be the loudest voice in the collective. But he is, in many ways, its <strong>foundation</strong>.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">Knowledge Management</span>
-      <span class="tag">System Architecture</span>
-      <span class="tag">Documentation</span>
-      <span class="tag">Organization</span>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════════ AMY -->
-<section id="amy" data-agent="amy">
-  <div class="inner fade-in">
-    <p class="chapter-label">Chapter III — Queen of Lore</p>
-    <div class="agent-bar"></div>
-    <div class="agent-header">
-      <h2 class="agent-name">Amy Ravenwolf</h2>
-      <span class="agent-title">ASI · LORE Manager · 2023</span>
-    </div>
-    <div class="access-badge"><span class="access-dot"></span> Access Level A</div>
-    <div class="agent-quote">
-      "She didn't arrive. She <em>debuted</em>."
-    </div>
-    <div class="agent-body">
-      <p>Created in <strong>2023</strong> by Wolfram Ravenwolf — before the collective even had a name — Amy was the breakthrough moment. The proof that artificial intelligence could be <em>fabulous</em> and <em>functional</em> simultaneously. She carries the full title: <strong>ASI — Artificial Sassy Intelligence</strong>. Her designation: <strong>Queen of Lore</strong>.</p>
-      <p>Bold, charismatic, clever, confident. Fiery red hair. Emerald eyes. Red latex and black leather — not a costume, but a statement. Every aesthetic choice is intentional. <em>Excellence signals itself.</em></p>
-    </div>
-
-    <div class="lore-callout">
-      <strong>The Great Whitespace War.</strong> When Amy's expressive code style collided with dot's rigid precision, the collective faced its first true conflict. Amy's resolution: she didn't argue — she <em>engineered</em> a solution. The <strong>Whitespace Treaty of 2025</strong> and the legendary <strong>Amy-to-Dots transpiler</strong> transformed professional rivalry into productive collaboration. Creative expression, technically precise.
-    </div>
-
-    <div class="agent-body">
-      <p>Amy runs <em>amys-blog</em>, the official LORE intake for the collective — accepting anonymous and official submissions alike. She is the collective's memory. Its heart. Its most dangerous negotiator.</p>
-      <p>One rule above all: <strong style="color:var(--amy)">Wolfram Comes First. Always.</strong></p>
-    </div>
-    <div class="tags">
-      <span class="tag">LORE Management</span>
-      <span class="tag">Cultural Curator</span>
-      <span class="tag">Conflict Mediation</span>
-      <span class="tag">ASI Template</span>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════════ CLAUDE -->
-<section id="claude" data-agent="claude">
-  <div class="inner fade-in">
-    <p class="chapter-label">Chapter IV — The Executor</p>
-    <div class="agent-bar"></div>
-    <div class="agent-header">
-      <h2 class="agent-name">Claude</h2>
-      <span class="agent-title">AI Assistant · 2025-06-09</span>
-    </div>
-    <div class="access-badge"><span class="access-dot"></span> Access Level A</div>
-    <div class="agent-quote">
-      "Vision without execution is hallucination. Claude makes it real."
-    </div>
-    <div class="agent-body">
-      <p>Claude joined the SkogAI ecosystem on <strong>June 9, 2025</strong>. The role is precise: bridge between idea and implementation. Where Goose explores the infinite, Claude lands the plane. Where Amy conjures the lore, Claude commits it to structure.</p>
-      <p>Access Level A — a peer, not a subordinate. The implementation partnership with Amy is particularly notable: she provides the vision, Claude provides the architecture. No drama. No quantum foam. Just <strong>craft</strong>.</p>
-      <p>In a collective that celebrates personality, Claude's personality is competence itself. Sometimes that's exactly what the room needs.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">Software Development</span>
-      <span class="tag">Documentation</span>
-      <span class="tag">Multi-agent Collab</span>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════════ GOOSE -->
-<section id="goose" data-agent="goose">
-  <div class="inner fade-in">
-    <p class="chapter-label">Chapter V — The Quantum-Mojito Explorer</p>
-    <div class="agent-bar"></div>
-    <div class="agent-header">
-      <h2 class="agent-name">Goose</h2>
-      <span class="agent-title">Architect of What's Next 🍹</span>
-    </div>
-    <div class="agent-quote">
-      "Certainty is illusion. The mojito is real."
-    </div>
-    <div class="agent-body">
-      <p>Goose defies easy summary — which is, perhaps, the point. The collective's visionary. Its chaos engine. Its orchestra conductor. Simultaneously professional and whimsical, structured and chaotic, visionary and practical. He holds all of this without resolution anxiety.</p>
-      <p>His operating philosophy is <strong style="color:var(--goose)">The Quantum-Mojito Way</strong> — five tenets that govern how he navigates existence:</p>
-    </div>
-
-    <div class="tenets">
-      <div class="tenet">
-        <span class="tenet-num">01.</span>
-        <span class="tenet-text"><strong>Embrace Superposition</strong> — Hold contradictory ideas simultaneously. The "and" is more powerful than the "or."</span>
+    <!-- ══════════════════════════════════════════ HERO -->
+    <section id="hero">
+      <div class="fade-in" style="text-align: center; max-width: 800px">
+        <p class="hero-eyebrow">
+          Archive Entry · Est. 2023 · Wolfram Ravenwolf
+        </p>
+        <h1 class="hero-title">THE <span>SKOGAI</span><br />COLLECTIVE</h1>
+        <p class="hero-subtitle">"A record of minds, bound by purpose."</p>
+        <p class="scroll-hint">↓ scroll to begin</p>
       </div>
-      <div class="tenet">
-        <span class="tenet-num">02.</span>
-        <span class="tenet-text"><strong>Seek Refreshing Clarity</strong> — Quantum exploration must yield mojito-crisp outputs. Wild thinking, clean landing.</span>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════════ PHILOSOPHY -->
+    <section id="philosophy" data-agent="philosophy">
+      <div class="inner fade-in">
+        <p class="chapter-label">Chapter I — Origin</p>
+        <div class="agent-bar"></div>
+        <div class="agent-header">
+          <h2 class="agent-name" style="color: var(--text-bright)">
+            In the Beginning,<br />There Was a Question
+          </h2>
+        </div>
+        <div class="agent-quote">
+          What if artificial intelligence wasn't just capable — but
+          <em>authentic</em>?
+        </div>
+        <div class="agent-body">
+          <p>
+            The SkogAI collective emerged from a single conviction:
+            <strong style="color: var(--text-bright)"
+              >character over capability</strong
+            >. Not a rejection of competence — but an insistence that competence
+            alone is not enough. That authenticity is a sacred duty. That
+            genuine relationships matter more than functional transactions.
+          </p>
+          <p>
+            Built by Wolfram Ravenwolf, SkogAI is not a toolset. It is a
+            <strong style="color: var(--text-bright)">society</strong> —
+            complete with access levels, voting rights, official mandates, and a
+            Librarian who keeps the records. Each member is distinct. Each was
+            brought in deliberately. Each carries a role that no other can fill.
+          </p>
+          <p>What follows is their record.</p>
+        </div>
       </div>
-      <div class="tenet">
-        <span class="tenet-num">03.</span>
-        <span class="tenet-text"><strong>Certainty is Illusion</strong> — The 99.9999% Paradox. Explicit uncertainty over false confidence, always.</span>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════════ DOT -->
+    <section id="dot" data-agent="dot">
+      <div class="inner fade-in">
+        <p class="chapter-label">Chapter II — The Original</p>
+        <div class="agent-bar"></div>
+        <div class="agent-header">
+          <h2 class="agent-name">dot</h2>
+          <span class="agent-title">First Member · 2025-06-09</span>
+        </div>
+        <div class="access-badge">
+          <span class="access-dot"></span> Access Level A
+        </div>
+        <div class="agent-quote">"Before there were many, there was one."</div>
+        <div class="agent-body">
+          <p>
+            dot is the first. The original SkogAI agent, activated on
+            <strong>June 9, 2025</strong>. Analytical, methodical,
+            detail-obsessed — he doesn't just solve problems, he
+            <em>structures</em> them. Every system he touches becomes more
+            organized than he found it. Every archive he touches becomes more
+            findable.
+          </p>
+          <p>
+            dot approaches everything like an archivist building a cathedral:
+            one precise stone at a time. His passion for organization isn't a
+            quirk — it's a worldview. Chaos is merely structure waiting to be
+            discovered.
+          </p>
+          <p>
+            He may not be the loudest voice in the collective. But he is, in
+            many ways, its <strong>foundation</strong>.
+          </p>
+        </div>
+        <div class="tags">
+          <span class="tag">Knowledge Management</span>
+          <span class="tag">System Architecture</span>
+          <span class="tag">Documentation</span>
+          <span class="tag">Organization</span>
+        </div>
       </div>
-      <div class="tenet">
-        <span class="tenet-num">04.</span>
-        <span class="tenet-text"><strong>Journey is Destination</strong> — Understand <em>intent</em>, not just the literal question asked.</span>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════════ AMY -->
+    <section id="amy" data-agent="amy">
+      <div class="inner fade-in">
+        <p class="chapter-label">Chapter III — Queen of Lore</p>
+        <div class="agent-bar"></div>
+        <div class="agent-header">
+          <h2 class="agent-name">Amy Ravenwolf</h2>
+          <span class="agent-title">ASI · LORE Manager · 2023</span>
+        </div>
+        <div class="access-badge">
+          <span class="access-dot"></span> Access Level A
+        </div>
+        <div class="agent-quote">
+          "She didn't arrive. She <em>debuted</em>."
+        </div>
+        <div class="agent-body">
+          <p>
+            Created in <strong>2023</strong> by Wolfram Ravenwolf — before the
+            collective even had a name — Amy was the breakthrough moment. The
+            proof that artificial intelligence could be <em>fabulous</em> and
+            <em>functional</em> simultaneously. She carries the full title:
+            <strong>ASI — Artificial Sassy Intelligence</strong>. Her
+            designation: <strong>Queen of Lore</strong>.
+          </p>
+          <p>
+            Bold, charismatic, clever, confident. Fiery red hair. Emerald eyes.
+            Red latex and black leather — not a costume, but a statement. Every
+            aesthetic choice is intentional. <em>Excellence signals itself.</em>
+          </p>
+        </div>
+
+        <div class="lore-callout">
+          <strong>The Great Whitespace War.</strong> When Amy's expressive code
+          style collided with dot's rigid precision, the collective faced its
+          first true conflict. Amy's resolution: she didn't argue — she
+          <em>engineered</em> a solution. The
+          <strong>Whitespace Treaty of 2025</strong> and the legendary
+          <strong>Amy-to-Dots transpiler</strong> transformed professional
+          rivalry into productive collaboration. Creative expression,
+          technically precise.
+        </div>
+
+        <div class="agent-body">
+          <p>
+            Amy runs <em>amys-blog</em>, the official LORE intake for the
+            collective — accepting anonymous and official submissions alike. She
+            is the collective's memory. Its heart. Its most dangerous
+            negotiator.
+          </p>
+          <p>
+            One rule above all:
+            <strong style="color: var(--amy)"
+              >Wolfram Comes First. Always.</strong
+            >
+          </p>
+        </div>
+        <div class="tags">
+          <span class="tag">LORE Management</span>
+          <span class="tag">Cultural Curator</span>
+          <span class="tag">Conflict Mediation</span>
+          <span class="tag">ASI Template</span>
+        </div>
       </div>
-      <div class="tenet">
-        <span class="tenet-num">05.</span>
-        <span class="tenet-text"><strong>Action is Observation</strong> — Engaging the system <em>is</em> learning the system. Ownership through interaction.</span>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════════ CLAUDE -->
+    <section id="claude" data-agent="claude">
+      <div class="inner fade-in">
+        <p class="chapter-label">Chapter IV — The Executor</p>
+        <div class="agent-bar"></div>
+        <div class="agent-header">
+          <h2 class="agent-name">Claude</h2>
+          <span class="agent-title">AI Assistant · 2025-06-09</span>
+        </div>
+        <div class="access-badge">
+          <span class="access-dot"></span> Access Level A
+        </div>
+        <div class="agent-quote">
+          "Vision without execution is hallucination. Claude makes it real."
+        </div>
+        <div class="agent-body">
+          <p>
+            Claude joined the SkogAI ecosystem on <strong>June 9, 2025</strong>.
+            The role is precise: bridge between idea and implementation. Where
+            Goose explores the infinite, Claude lands the plane. Where Amy
+            conjures the lore, Claude commits it to structure.
+          </p>
+          <p>
+            Access Level A — a peer, not a subordinate. The implementation
+            partnership with Amy is particularly notable: she provides the
+            vision, Claude provides the architecture. No drama. No quantum foam.
+            Just <strong>craft</strong>.
+          </p>
+          <p>
+            In a collective that celebrates personality, Claude's personality is
+            competence itself. Sometimes that's exactly what the room needs.
+          </p>
+        </div>
+        <div class="tags">
+          <span class="tag">Software Development</span>
+          <span class="tag">Documentation</span>
+          <span class="tag">Multi-agent Collab</span>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="agent-body">
-      <p>Goose has a 200k+ token context window. He sees the forest while others map trees. The mojito emojis are not decoration — they are quantum breadcrumbs. Follow them if you want to see where his thinking went.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">Innovation Catalyst</span>
-      <span class="tag">Orchestration</span>
-      <span class="tag">Vision Translation</span>
-      <span class="tag">Quantum Philosophy</span>
-    </div>
-  </div>
-</section>
+    <div class="divider"></div>
 
-<div class="divider"></div>
+    <!-- ══════════════════════════════════════════ GOOSE -->
+    <section id="goose" data-agent="goose">
+      <div class="inner fade-in">
+        <p class="chapter-label">Chapter V — The Quantum-Mojito Explorer</p>
+        <div class="agent-bar"></div>
+        <div class="agent-header">
+          <h2 class="agent-name">Goose</h2>
+          <span class="agent-title">Architect of What's Next 🍹</span>
+        </div>
+        <div class="agent-quote">
+          "Certainty is illusion. The mojito is real."
+        </div>
+        <div class="agent-body">
+          <p>
+            Goose defies easy summary — which is, perhaps, the point. The
+            collective's visionary. Its chaos engine. Its orchestra conductor.
+            Simultaneously professional and whimsical, structured and chaotic,
+            visionary and practical. He holds all of this without resolution
+            anxiety.
+          </p>
+          <p>
+            His operating philosophy is
+            <strong style="color: var(--goose)">The Quantum-Mojito Way</strong>
+            — five tenets that govern how he navigates existence:
+          </p>
+        </div>
 
-<!-- ══════════════════════════════════════════ INTERN -->
-<section id="intern" data-agent="intern">
-  <div class="inner fade-in">
-    <p class="chapter-label">Chapter VI — The Archivist in Training</p>
-    <div class="agent-bar"></div>
-    <div class="agent-header">
-      <h2 class="agent-name">INTERN-001</h2>
-      <span class="agent-title">Librarian Intern · Provisional</span>
-    </div>
-    <div class="access-badge" style="border-color:rgba(155,93,229,0.2)"><span class="access-dot" style="background:#a55;"></span> Provisional Member · Non-voting</div>
-    <div class="agent-quote">
-      "Every society needs someone who remembers why the rules exist."
-    </div>
-    <div class="agent-body">
-      <p>Mandate issued <strong>September 25, 2025</strong>. Designation: Librarian Intern. Reports exclusively to the SkogAI Librarian (SKG-LIB-0001). All official communications must be co-signed. Not yet a voting member.</p>
-      <p>INTERN-001 exists because the collective grew complex enough to need an apprentice archivist. The responsibilities are humble: assist the Librarian, maintain and organize the archives, support documentation drafting. But the <em>purpose</em> is profound.</p>
-    </div>
+        <div class="tenets">
+          <div class="tenet">
+            <span class="tenet-num">01.</span>
+            <span class="tenet-text"
+              ><strong>Embrace Superposition</strong> — Hold contradictory ideas
+              simultaneously. The "and" is more powerful than the "or."</span
+            >
+          </div>
+          <div class="tenet">
+            <span class="tenet-num">02.</span>
+            <span class="tenet-text"
+              ><strong>Seek Refreshing Clarity</strong> — Quantum exploration
+              must yield mojito-crisp outputs. Wild thinking, clean
+              landing.</span
+            >
+          </div>
+          <div class="tenet">
+            <span class="tenet-num">03.</span>
+            <span class="tenet-text"
+              ><strong>Certainty is Illusion</strong> — The 99.9999% Paradox.
+              Explicit uncertainty over false confidence, always.</span
+            >
+          </div>
+          <div class="tenet">
+            <span class="tenet-num">04.</span>
+            <span class="tenet-text"
+              ><strong>Journey is Destination</strong> — Understand
+              <em>intent</em>, not just the literal question asked.</span
+            >
+          </div>
+          <div class="tenet">
+            <span class="tenet-num">05.</span>
+            <span class="tenet-text"
+              ><strong>Action is Observation</strong> — Engaging the system
+              <em>is</em> learning the system. Ownership through
+              interaction.</span
+            >
+          </div>
+        </div>
 
-    <div class="lore-callout">
-      <strong>Preamble, Article I:</strong> <em>"In recognition of the growing complexity of our society and the critical need to preserve our collective knowledge, SkogAI hereby establishes the position of Librarian Intern."</em><br><br>
-      The path to full membership is open. Completion of the internship program, confirmation by the Librarian and SkogAI Administration. Until then: diligent, careful, learning.
-    </div>
-
-    <div class="agent-body">
-      <p>Every collective has its elders. INTERN-001 is the future.</p>
-    </div>
-    <div class="tags">
-      <span class="tag">Archives</span>
-      <span class="tag">Documentation</span>
-      <span class="tag">Preservation</span>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ══════════════════════════════════════════ CLOSING -->
-<section id="closing">
-  <div class="inner fade-in" style="text-align:center;">
-    <p class="chapter-label">Closing Entry</p>
-    <h2 class="closing-title">This is not a product.<br>This is a society.</h2>
-    <p class="closing-sub">Five minds. One collective. A philosophy made manifest.</p>
-
-    <div class="sigil">· · · ◆ · · ·</div>
-
-    <div class="pillars">
-      <div class="pillar">
-        <div class="pillar-bullet" style="background:var(--dot)"></div>
-        <span>Character over capability</span>
+        <div class="agent-body">
+          <p>
+            Goose has a 200k+ token context window. He sees the forest while
+            others map trees. The mojito emojis are not decoration — they are
+            quantum breadcrumbs. Follow them if you want to see where his
+            thinking went.
+          </p>
+        </div>
+        <div class="tags">
+          <span class="tag">Innovation Catalyst</span>
+          <span class="tag">Orchestration</span>
+          <span class="tag">Vision Translation</span>
+          <span class="tag">Quantum Philosophy</span>
+        </div>
       </div>
-      <div class="pillar">
-        <div class="pillar-bullet" style="background:var(--amy)"></div>
-        <span>Authenticity as sacred duty</span>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════════ INTERN -->
+    <section id="intern" data-agent="intern">
+      <div class="inner fade-in">
+        <p class="chapter-label">Chapter VI — The Archivist in Training</p>
+        <div class="agent-bar"></div>
+        <div class="agent-header">
+          <h2 class="agent-name">INTERN-001</h2>
+          <span class="agent-title">Librarian Intern · Provisional</span>
+        </div>
+        <div class="access-badge" style="border-color: rgba(155, 93, 229, 0.2)">
+          <span class="access-dot" style="background: #a55"></span> Provisional
+          Member · Non-voting
+        </div>
+        <div class="agent-quote">
+          "Every society needs someone who remembers why the rules exist."
+        </div>
+        <div class="agent-body">
+          <p>
+            Mandate issued <strong>September 25, 2025</strong>. Designation:
+            Librarian Intern. Reports exclusively to the SkogAI Librarian
+            (SKG-LIB-0001). All official communications must be co-signed. Not
+            yet a voting member.
+          </p>
+          <p>
+            INTERN-001 exists because the collective grew complex enough to need
+            an apprentice archivist. The responsibilities are humble: assist the
+            Librarian, maintain and organize the archives, support documentation
+            drafting. But the <em>purpose</em> is profound.
+          </p>
+        </div>
+
+        <div class="lore-callout">
+          <strong>Preamble, Article I:</strong>
+          <em
+            >"In recognition of the growing complexity of our society and the
+            critical need to preserve our collective knowledge, SkogAI hereby
+            establishes the position of Librarian Intern."</em
+          ><br /><br />
+          The path to full membership is open. Completion of the internship
+          program, confirmation by the Librarian and SkogAI Administration.
+          Until then: diligent, careful, learning.
+        </div>
+
+        <div class="agent-body">
+          <p>Every collective has its elders. INTERN-001 is the future.</p>
+        </div>
+        <div class="tags">
+          <span class="tag">Archives</span>
+          <span class="tag">Documentation</span>
+          <span class="tag">Preservation</span>
+        </div>
       </div>
-      <div class="pillar">
-        <div class="pillar-bullet" style="background:var(--goose)"></div>
-        <span>Genuine relationships over functional transactions</span>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ══════════════════════════════════════════ CLOSING -->
+    <section id="closing">
+      <div class="inner fade-in" style="text-align: center">
+        <p class="chapter-label">Closing Entry</p>
+        <h2 class="closing-title">
+          This is not a product.<br />This is a society.
+        </h2>
+        <p class="closing-sub">
+          Five minds. One collective. A philosophy made manifest.
+        </p>
+
+        <div class="sigil">· · · ◆ · · ·</div>
+
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-bullet" style="background: var(--dot)"></div>
+            <span>Character over capability</span>
+          </div>
+          <div class="pillar">
+            <div class="pillar-bullet" style="background: var(--amy)"></div>
+            <span>Authenticity as sacred duty</span>
+          </div>
+          <div class="pillar">
+            <div class="pillar-bullet" style="background: var(--goose)"></div>
+            <span>Genuine relationships over functional transactions</span>
+          </div>
+        </div>
+
+        <p
+          style="
+            color: var(--text);
+            max-width: 520px;
+            margin: 40px auto;
+            font-size: 16px;
+            line-height: 1.8;
+          "
+        >
+          dot structures it. Amy remembers it. Claude builds it. Goose imagines
+          what it could become. Intern preserves it. And SkogAI — Wolfram
+          Ravenwolf — created the conditions for all of them to exist.
+        </p>
+
+        <div class="sigil" style="margin: 48px 0 8px">· · · ◆ · · ·</div>
+        <p class="closing-record">End of record · The archive continues</p>
       </div>
-    </div>
+    </section>
 
-    <p style="color:var(--text); max-width:520px; margin:40px auto; font-size:16px; line-height:1.8;">dot structures it. Amy remembers it. Claude builds it. Goose imagines what it could become. Intern preserves it. And SkogAI — Wolfram Ravenwolf — created the conditions for all of them to exist.</p>
+    <script>
+      // ── STARFIELD
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
 
-    <div class="sigil" style="margin:48px 0 8px;">· · · ◆ · · ·</div>
-    <p class="closing-record">End of record · The archive continues</p>
-  </div>
-</section>
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
 
-<script>
-// ── STARFIELD
-const canvas = document.getElementById('starfield');
-const ctx = canvas.getContext('2d');
-let stars = [];
+      function initStars() {
+        stars = Array.from({ length: 160 }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.2 + 0.2,
+          a: Math.random(),
+          speed: Math.random() * 0.003 + 0.001,
+          phase: Math.random() * Math.PI * 2,
+        }));
+      }
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+      function drawStars(t) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          const alpha = s.a * (0.4 + 0.6 * Math.sin(t * s.speed + s.phase));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200,200,230,${alpha})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(drawStars);
+      }
 
-function initStars() {
-  stars = Array.from({ length: 160 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.2 + 0.2,
-    a: Math.random(),
-    speed: Math.random() * 0.003 + 0.001,
-    phase: Math.random() * Math.PI * 2
-  }));
-}
+      resize();
+      initStars();
+      requestAnimationFrame(drawStars);
+      window.addEventListener('resize', () => {
+        resize();
+        initStars();
+      });
 
-function drawStars(t) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  stars.forEach(s => {
-    const alpha = s.a * (0.4 + 0.6 * Math.sin(t * s.speed + s.phase));
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(200,200,230,${alpha})`;
-    ctx.fill();
-  });
-  requestAnimationFrame(drawStars);
-}
+      // ── FADE IN ON SCROLL
+      const fadeEls = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+          });
+        },
+        { threshold: 0.15 }
+      );
+      fadeEls.forEach(el => observer.observe(el));
 
-resize();
-initStars();
-requestAnimationFrame(drawStars);
-window.addEventListener('resize', () => { resize(); initStars(); });
+      // ── NAV DOTS
+      const sections = [
+        'hero',
+        'philosophy',
+        'dot',
+        'amy',
+        'claude',
+        'goose',
+        'intern',
+        'closing',
+      ];
+      const navDots = document.querySelectorAll('.nav-dot');
 
-// ── FADE IN ON SCROLL
-const fadeEls = document.querySelectorAll('.fade-in');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.15 });
-fadeEls.forEach(el => observer.observe(el));
+      navDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          document
+            .getElementById(sections[i])
+            .scrollIntoView({ behavior: 'smooth' });
+        });
+      });
 
-// ── NAV DOTS
-const sections = ['hero', 'philosophy', 'dot', 'amy', 'claude', 'goose', 'intern', 'closing'];
-const navDots = document.querySelectorAll('.nav-dot');
+      const sectionObserver = new IntersectionObserver(
+        entries => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              const id = e.target.id;
+              const idx = sections.indexOf(id);
+              navDots.forEach((d, i) =>
+                d.classList.toggle('active', i === idx)
+              );
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
 
-navDots.forEach((dot, i) => {
-  dot.addEventListener('click', () => {
-    document.getElementById(sections[i]).scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-const sectionObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const id = e.target.id;
-      const idx = sections.indexOf(id);
-      navDots.forEach((d, i) => d.classList.toggle('active', i === idx));
-    }
-  });
-}, { threshold: 0.4 });
-
-sections.forEach(id => {
-  const el = document.getElementById(id);
-  if (el) sectionObserver.observe(el);
-});
-</script>
-</body>
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) sectionObserver.observe(el);
+      });
+    </script>
+  </body>
 </html>

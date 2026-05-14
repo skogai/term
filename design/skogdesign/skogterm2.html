@@ -1,67 +1,65 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>SKOGTERM · multi-agent terminal</title>
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="stylesheet" href="editor.css" />
-    </head>
-    <body>
-        <div id="root"></div>
-        <div
-            id="err-overlay"
-            style="
-                display: none;
-                position: fixed;
-                inset: 0;
-                background: #0a0a0f;
-                color: #ff4466;
-                font-family: monospace;
-                font-size: 13px;
-                padding: 32px;
-                white-space: pre-wrap;
-                z-index: 9999;
-                overflow: auto;
-            "
-        ></div>
-        <script>
-            window.onerror = (msg, src, line, col, err) => {
-                const o = document.getElementById("err-overlay");
-                o.style.display = "block";
-                o.textContent +=
-                    "[ERROR] " +
-                    msg +
-                    "\n  at " +
-                    src +
-                    ":" +
-                    line +
-                    ":" +
-                    col +
-                    "\n" +
-                    (err?.stack || "") +
-                    "\n\n";
-            };
-            window.addEventListener("unhandledrejection", (e) => {
-                const o = document.getElementById("err-overlay");
-                o.style.display = "block";
-                o.textContent +=
-                    "[UNHANDLED PROMISE] " +
-                    (e.reason?.stack || e.reason) +
-                    "\n\n";
-            });
-        </script>
+  <head>
+    <meta charset="utf-8" />
+    <title>SKOGTERM · multi-agent terminal</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="editor.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <div
+      id="err-overlay"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #0a0a0f;
+        color: #ff4466;
+        font-family: monospace;
+        font-size: 13px;
+        padding: 32px;
+        white-space: pre-wrap;
+        z-index: 9999;
+        overflow: auto;
+      "
+    ></div>
+    <script>
+      window.onerror = (msg, src, line, col, err) => {
+        const o = document.getElementById('err-overlay');
+        o.style.display = 'block';
+        o.textContent +=
+          '[ERROR] ' +
+          msg +
+          '\n  at ' +
+          src +
+          ':' +
+          line +
+          ':' +
+          col +
+          '\n' +
+          (err?.stack || '') +
+          '\n\n';
+      };
+      window.addEventListener('unhandledrejection', e => {
+        const o = document.getElementById('err-overlay');
+        o.style.display = 'block';
+        o.textContent +=
+          '[UNHANDLED PROMISE] ' + (e.reason?.stack || e.reason) + '\n\n';
+      });
+    </script>
 
-        <script src="assets/react.js"></script>
-        <script src="assets/react-dom.js"></script>
-        <script src="assets/babel.min.js"></script>
+    <script src="assets/react.js"></script>
+    <script src="assets/react-dom.js"></script>
+    <script src="assets/babel.min.js"></script>
 
-        <script src="src/commands.js"></script>
-        <script src="src/backends.js"></script>
-        <script type="text/babel" src="src/agents.jsx"></script>
-        <script type="text/babel" src="src/replies-data.jsx"></script>
-        <script type="text/babel" src="src/replies.jsx"></script>
-        <script type="text/babel" src="src/sys.jsx"></script>
-        <script type="text/babel" src="src/cmd-editor.jsx"></script>
-        <script type="text/babel" src="src/app.jsx"></script>
-    </body>
+    <script src="src/commands.js"></script>
+    <script src="src/backends.js"></script>
+    <script type="text/babel" src="src/agents.jsx"></script>
+    <script type="text/babel" src="src/replies-data.jsx"></script>
+    <script type="text/babel" src="src/replies.jsx"></script>
+    <script type="text/babel" src="src/sys.jsx"></script>
+    <script type="text/babel" src="src/cmd-editor.jsx"></script>
+    <script type="text/babel" src="src/app.jsx"></script>
+  </body>
 </html>

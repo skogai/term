@@ -26,26 +26,26 @@
     ></div>
     <script>
       window.onerror = (msg, src, line, col, err) => {
-        const o = document.getElementById("err-overlay");
-        o.style.display = "block";
+        const o = document.getElementById('err-overlay');
+        o.style.display = 'block';
         o.textContent +=
-          "[ERROR] " +
+          '[ERROR] ' +
           msg +
-          "\n  at " +
+          '\n  at ' +
           src +
-          ":" +
+          ':' +
           line +
-          ":" +
+          ':' +
           col +
-          "\n" +
-          (err?.stack || "") +
-          "\n\n";
+          '\n' +
+          (err?.stack || '') +
+          '\n\n';
       };
-      window.addEventListener("unhandledrejection", (e) => {
-        const o = document.getElementById("err-overlay");
-        o.style.display = "block";
+      window.addEventListener('unhandledrejection', e => {
+        const o = document.getElementById('err-overlay');
+        o.style.display = 'block';
         o.textContent +=
-          "[UNHANDLED PROMISE] " + (e.reason?.stack || e.reason) + "\n\n";
+          '[UNHANDLED PROMISE] ' + (e.reason?.stack || e.reason) + '\n\n';
       });
     </script>
 

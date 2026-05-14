@@ -1,29 +1,104 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Amy theme</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-body { background: var(--amy-bg);}
-body::before { display:none;}
-.card { font-family: 'Playfair Display', Georgia, serif; color: #2a1a1f;}
-.inner { width:100%; display:flex; gap:20px; align-items:center;}
-.tile { flex:1; background:#fff; padding:14px 18px; border:2px solid; border-image: linear-gradient(135deg, #c73a68, #e0b04a) 1; position:relative;}
-.crown { font-size:36px;}
-.badge { display:inline-block; background:#fce4ec; color:#c73a68; font-size:11px; padding:3px 10px; border-radius:999px; font-family:'Inter',sans-serif; font-weight:600; margin-bottom:8px;}
-.title { font-size:22px; font-weight:700; line-height:1.1; margin:0;}
-.meta { font-size:11px; color:#a88; margin-top:6px; font-family:'Inter',sans-serif;}
-.swatches { display:flex; gap:6px; margin-top:10px;}
-.sw { width:20px; height:20px; border-radius:50%;}
-</style>
-</head><body><div class="card"><div class="inner">
-  <div style="flex:0 0 auto; text-align:center;"><div class="crown">👑</div><div style="font-family:'Inter',sans-serif; font-size:9px; letter-spacing:0.2em; color:#c73a68; margin-top:4px;">AMY</div></div>
-  <div class="tile">
-    <div class="badge">Royal Proclamations</div>
-    <div class="title">The Coronation Protocol</div>
-    <div class="meta">📅 Inscribed on March 8, 2026</div>
-    <div class="swatches">
-      <div class="sw" style="background:#c73a68;"></div>
-      <div class="sw" style="background:#e0b04a;"></div>
-      <div class="sw" style="background:#fce4ec;"></div>
-      <div class="sw" style="background:#fbf5ef; border:1px solid #eee;"></div>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Amy theme</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      body {
+        background: var(--amy-bg);
+      }
+      body::before {
+        display: none;
+      }
+      .card {
+        font-family: 'Playfair Display', Georgia, serif;
+        color: #2a1a1f;
+      }
+      .inner {
+        width: 100%;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+      .tile {
+        flex: 1;
+        background: #fff;
+        padding: 14px 18px;
+        border: 2px solid;
+        border-image: linear-gradient(135deg, #c73a68, #e0b04a) 1;
+        position: relative;
+      }
+      .crown {
+        font-size: 36px;
+      }
+      .badge {
+        display: inline-block;
+        background: #fce4ec;
+        color: #c73a68;
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .title {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 0;
+      }
+      .meta {
+        font-size: 11px;
+        color: #a88;
+        margin-top: 6px;
+        font-family: 'Inter', sans-serif;
+      }
+      .swatches {
+        display: flex;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      .sw {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="inner">
+        <div style="flex: 0 0 auto; text-align: center">
+          <div class="crown">👑</div>
+          <div
+            style="
+              font-family: 'Inter', sans-serif;
+              font-size: 9px;
+              letter-spacing: 0.2em;
+              color: #c73a68;
+              margin-top: 4px;
+            "
+          >
+            AMY
+          </div>
+        </div>
+        <div class="tile">
+          <div class="badge">Royal Proclamations</div>
+          <div class="title">The Coronation Protocol</div>
+          <div class="meta">📅 Inscribed on March 8, 2026</div>
+          <div class="swatches">
+            <div class="sw" style="background: #c73a68"></div>
+            <div class="sw" style="background: #e0b04a"></div>
+            <div class="sw" style="background: #fce4ec"></div>
+            <div
+              class="sw"
+              style="background: #fbf5ef; border: 1px solid #eee"
+            ></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div></div></body></html>
+  </body>
+</html>

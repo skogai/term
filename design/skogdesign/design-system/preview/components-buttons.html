@@ -1,75 +1,247 @@
-<!DOCTYPE html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#06070b;padding:16px;display:flex;flex-direction:column;gap:12px;}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:#545970;letter-spacing:0.1em;margin-bottom:4px;}
-.section{font-size:9px;letter-spacing:0.2em;color:#545970;font-family:'Chakra Petch',sans-serif;text-transform:uppercase;}
-button{font-family:'Chakra Petch',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;padding:7px 16px;transition:all 0.12s;}
-</style>
-<style>
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: italic; font-weight: 400; src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype'); font-display: swap; }
-</style>
-</head><body>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .lbl {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: #545970;
+        letter-spacing: 0.1em;
+        margin-bottom: 4px;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+      }
+      button {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding: 7px 16px;
+        transition: all 0.12s;
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">PRIMARY ACTION BUTTONS</div>
+    <div class="row">
+      <div>
+        <div class="lbl">default</div>
+        <button
+          style="
+            background: transparent;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+          "
+        >
+          SAVE
+        </button>
+      </div>
+      <div>
+        <div class="lbl">hover</div>
+        <button
+          style="
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+          "
+        >
+          SAVE
+        </button>
+      </div>
+      <div>
+        <div class="lbl">primary (save)</div>
+        <button
+          style="
+            background: transparent;
+            border: 1px solid #3fb950;
+            color: #3fb950;
+          "
+        >
+          SAVE
+        </button>
+      </div>
+      <div>
+        <div class="lbl">danger</div>
+        <button
+          style="
+            background: transparent;
+            border: 1px solid #f85149;
+            color: #f85149;
+          "
+        >
+          DELETE
+        </button>
+      </div>
+      <div>
+        <div class="lbl">disabled</div>
+        <button
+          style="
+            background: transparent;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            opacity: 0.35;
+            cursor: not-allowed;
+          "
+        >
+          SAVE
+        </button>
+      </div>
+    </div>
 
-<div class="section">PRIMARY ACTION BUTTONS</div>
-<div class="row">
-  <div>
-    <div class="lbl">default</div>
-    <button style="background:transparent;border:1px solid #30363d;color:#c9d1d9;">SAVE</button>
-  </div>
-  <div>
-    <div class="lbl">hover</div>
-    <button style="background:rgba(0,229,255,0.08);border:1px solid #00e5ff;color:#00e5ff;">SAVE</button>
-  </div>
-  <div>
-    <div class="lbl">primary (save)</div>
-    <button style="background:transparent;border:1px solid #3fb950;color:#3fb950;">SAVE</button>
-  </div>
-  <div>
-    <div class="lbl">danger</div>
-    <button style="background:transparent;border:1px solid #f85149;color:#f85149;">DELETE</button>
-  </div>
-  <div>
-    <div class="lbl">disabled</div>
-    <button style="background:transparent;border:1px solid #30363d;color:#c9d1d9;opacity:0.35;cursor:not-allowed;">SAVE</button>
-  </div>
-</div>
+    <div class="section">TEST / RUN BUTTON</div>
+    <div class="row">
+      <div>
+        <div class="lbl">run</div>
+        <button
+          style="
+            background: #00e5ff;
+            border: none;
+            color: #000;
+            font-weight: 700;
+          "
+        >
+          RUN
+        </button>
+      </div>
+      <div>
+        <div class="lbl">hover</div>
+        <button
+          style="
+            background: #7ff6ff;
+            border: none;
+            color: #000;
+            font-weight: 700;
+          "
+        >
+          RUN
+        </button>
+      </div>
+    </div>
 
-<div class="section">TEST / RUN BUTTON</div>
-<div class="row">
-  <div>
-    <div class="lbl">run</div>
-    <button style="background:#00e5ff;border:none;color:#000;font-weight:700;">RUN</button>
-  </div>
-  <div>
-    <div class="lbl">hover</div>
-    <button style="background:#7ff6ff;border:none;color:#000;font-weight:700;">RUN</button>
-  </div>
-</div>
+    <div class="section">TWEAKS TOGGLE OPTIONS</div>
+    <div class="row">
+      <div>
+        <div class="lbl">off</div>
+        <button
+          style="
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #c9d1d9;
+            padding: 6px 14px;
+            min-width: 70px;
+          "
+        >
+          stacked
+        </button>
+      </div>
+      <div>
+        <div class="lbl">on / selected</div>
+        <button
+          style="
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+            padding: 6px 14px;
+            min-width: 70px;
+          "
+        >
+          panel
+        </button>
+      </div>
+      <div>
+        <div class="lbl">off</div>
+        <button
+          style="
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #c9d1d9;
+            padding: 6px 14px;
+            min-width: 70px;
+          "
+        >
+          inline
+        </button>
+      </div>
+    </div>
 
-<div class="section">TWEAKS TOGGLE OPTIONS</div>
-<div class="row">
-  <div>
-    <div class="lbl">off</div>
-    <button style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:#c9d1d9;padding:6px 14px;min-width:70px;">stacked</button>
-  </div>
-  <div>
-    <div class="lbl">on / selected</div>
-    <button style="background:rgba(0,229,255,0.1);border:1px solid #00e5ff;color:#00e5ff;padding:6px 14px;min-width:70px;">panel</button>
-  </div>
-  <div>
-    <div class="lbl">off</div>
-    <button style="background:transparent;border:1px solid rgba(255,255,255,0.15);color:#c9d1d9;padding:6px 14px;min-width:70px;">inline</button>
-  </div>
-</div>
-
-<div class="section">GRADIENT CTA (tweaks big button)</div>
-<div class="row">
-  <button style="background:linear-gradient(90deg,rgba(0,229,255,0.1),rgba(255,43,214,0.1));border:1px solid #00e5ff;color:#00e5ff;padding:10px 20px;letter-spacing:0.18em;width:280px;">◆ COMMAND EDITOR · /commands</button>
-</div>
-</body></html>
+    <div class="section">GRADIENT CTA (tweaks big button)</div>
+    <div class="row">
+      <button
+        style="
+          background: linear-gradient(
+            90deg,
+            rgba(0, 229, 255, 0.1),
+            rgba(255, 43, 214, 0.1)
+          );
+          border: 1px solid #00e5ff;
+          color: #00e5ff;
+          padding: 10px 20px;
+          letter-spacing: 0.18em;
+          width: 280px;
+        "
+      >
+        ◆ COMMAND EDITOR · /commands
+      </button>
+    </div>
+  </body>
+</html>

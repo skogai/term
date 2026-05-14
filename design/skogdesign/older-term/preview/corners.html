@@ -1,14 +1,55 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Corners & clipping</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-.g { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width:100%;}
-.b { height:80px; background: var(--void-3); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--fg-2); font-family:var(--font-mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase;}
-</style>
-</head><body><div class="card">
-  <div class="g">
-    <div class="b">SHARP · 0</div>
-    <div class="b" style="border-radius:2px;">2PX</div>
-    <div class="b" style="clip-path: polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px); border:none; background:var(--void-3);">CHAMFER</div>
-    <div class="b" style="border-radius:999px;">PILL</div>
-  </div>
-</div></body></html>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Corners & clipping</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .g {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        width: 100%;
+      }
+      .b {
+        height: 80px;
+        background: var(--void-3);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--fg-2);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="g">
+        <div class="b">SHARP · 0</div>
+        <div class="b" style="border-radius: 2px">2PX</div>
+        <div
+          class="b"
+          style="
+            clip-path: polygon(
+              10px 0,
+              100% 0,
+              100% calc(100% - 10px),
+              calc(100% - 10px) 100%,
+              0 100%,
+              0 10px
+            );
+            border: none;
+            background: var(--void-3);
+          "
+        >
+          CHAMFER
+        </div>
+        <div class="b" style="border-radius: 999px">PILL</div>
+      </div>
+    </div>
+  </body>
+</html>

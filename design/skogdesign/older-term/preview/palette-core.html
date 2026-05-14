@@ -1,18 +1,110 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Palette · core</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-.sw { display:flex; flex-direction:column; gap:8px; flex:1; }
-.chip { height: 72px; position:relative; clip-path: polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);}
-.hex { font-family: var(--font-mono); font-size:10px; color: var(--fg-2); letter-spacing:0.08em;}
-.nm { font-family: var(--font-ui); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color: var(--fg-1);}
-</style>
-</head><body><div class="card">
-  <div style="display:flex; gap:12px; width:100%;">
-    <div class="sw"><div class="chip" style="background:#06070b; border:1px solid #2d3040;"></div><div class="nm">VOID</div><div class="hex">#06070B</div></div>
-    <div class="sw"><div class="chip" style="background:#00e5ff; box-shadow: 0 0 24px rgba(0,229,255,0.4);"></div><div class="nm">CYAN</div><div class="hex">#00E5FF</div></div>
-    <div class="sw"><div class="chip" style="background:#ff2bd6; box-shadow: 0 0 24px rgba(255,43,214,0.4);"></div><div class="nm">MAGENTA</div><div class="hex">#FF2BD6</div></div>
-    <div class="sw"><div class="chip" style="background:#f2ff00; box-shadow: 0 0 20px rgba(242,255,0,0.35);"></div><div class="nm">HAZARD</div><div class="hex">#F2FF00</div></div>
-    <div class="sw"><div class="chip" style="background:#ff2d4a; box-shadow: 0 0 20px rgba(255,45,74,0.35);"></div><div class="nm">BLOOD</div><div class="hex">#FF2D4A</div></div>
-    <div class="sw"><div class="chip" style="background:#39ff88; box-shadow: 0 0 20px rgba(57,255,136,0.3);"></div><div class="nm">ACID</div><div class="hex">#39FF88</div></div>
-  </div>
-</div></body></html>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Palette · core</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .sw {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+      .chip {
+        height: 72px;
+        position: relative;
+        clip-path: polygon(
+          8px 0,
+          100% 0,
+          100% calc(100% - 8px),
+          calc(100% - 8px) 100%,
+          0 100%,
+          0 8px
+        );
+      }
+      .hex {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--fg-2);
+        letter-spacing: 0.08em;
+      }
+      .nm {
+        font-family: var(--font-ui);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--fg-1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div style="display: flex; gap: 12px; width: 100%">
+        <div class="sw">
+          <div
+            class="chip"
+            style="background: #06070b; border: 1px solid #2d3040"
+          ></div>
+          <div class="nm">VOID</div>
+          <div class="hex">#06070B</div>
+        </div>
+        <div class="sw">
+          <div
+            class="chip"
+            style="
+              background: #00e5ff;
+              box-shadow: 0 0 24px rgba(0, 229, 255, 0.4);
+            "
+          ></div>
+          <div class="nm">CYAN</div>
+          <div class="hex">#00E5FF</div>
+        </div>
+        <div class="sw">
+          <div
+            class="chip"
+            style="
+              background: #ff2bd6;
+              box-shadow: 0 0 24px rgba(255, 43, 214, 0.4);
+            "
+          ></div>
+          <div class="nm">MAGENTA</div>
+          <div class="hex">#FF2BD6</div>
+        </div>
+        <div class="sw">
+          <div
+            class="chip"
+            style="
+              background: #f2ff00;
+              box-shadow: 0 0 20px rgba(242, 255, 0, 0.35);
+            "
+          ></div>
+          <div class="nm">HAZARD</div>
+          <div class="hex">#F2FF00</div>
+        </div>
+        <div class="sw">
+          <div
+            class="chip"
+            style="
+              background: #ff2d4a;
+              box-shadow: 0 0 20px rgba(255, 45, 74, 0.35);
+            "
+          ></div>
+          <div class="nm">BLOOD</div>
+          <div class="hex">#FF2D4A</div>
+        </div>
+        <div class="sw">
+          <div
+            class="chip"
+            style="
+              background: #39ff88;
+              box-shadow: 0 0 20px rgba(57, 255, 136, 0.3);
+            "
+          ></div>
+          <div class="nm">ACID</div>
+          <div class="hex">#39FF88</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

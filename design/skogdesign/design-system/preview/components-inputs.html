@@ -1,56 +1,323 @@
-<!DOCTYPE html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#06070b;padding:16px;display:flex;flex-direction:column;gap:12px;}
-.lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:#545970;letter-spacing:0.1em;margin-bottom:4px;}
-.section{font-size:9px;letter-spacing:0.2em;color:#545970;font-family:'Chakra Petch',sans-serif;text-transform:uppercase;}
-</style>
-<style>
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: italic; font-weight: 400; src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype'); font-display: swap; }
-</style>
-</head><body>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .lbl {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: #545970;
+        letter-spacing: 0.1em;
+        margin-bottom: 4px;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">TERMINAL INPUT BAR</div>
+    <div class="lbl">default</div>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: rgba(11, 13, 21, 0.72);
+        border: 1px solid rgba(0, 229, 255, 0.25);
+        clip-path: polygon(
+          10px 0,
+          100% 0,
+          100% calc(100% - 10px),
+          calc(100% - 10px) 100%,
+          0 100%,
+          0 10px
+        );
+      "
+    >
+      <span
+        style="
+          color: #00e5ff;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 14px;
+        "
+        >▸</span
+      >
+      <span
+        style="
+          color: #8a8fa8;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 13px;
+          opacity: 0.7;
+        "
+        >type a message · /commands · @agent · tab completes</span
+      >
+      <span
+        style="
+          margin-left: auto;
+          font-size: 9px;
+          letter-spacing: 0.18em;
+          color: #8a8fa8;
+          font-family: 'Chakra Petch', sans-serif;
+          text-transform: uppercase;
+          white-space: nowrap;
+        "
+        ><kbd
+          style="
+            padding: 2px 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            font-size: 8px;
+            color: #c9d1d9;
+          "
+          >tab</kbd
+        >
+        ac</span
+      >
+    </div>
 
-<div class="section">TERMINAL INPUT BAR</div>
-<div class="lbl">default</div>
-<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(11,13,21,0.72);border:1px solid rgba(0,229,255,0.25);clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);">
-  <span style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:14px;">▸</span>
-  <span style="color:#8a8fa8;font-family:'JetBrains Mono',monospace;font-size:13px;opacity:0.7;">type a message · /commands · @agent · tab completes</span>
-  <span style="margin-left:auto;font-size:9px;letter-spacing:0.18em;color:#8a8fa8;font-family:'Chakra Petch',sans-serif;text-transform:uppercase;white-space:nowrap;"><kbd style="padding:2px 5px;background:rgba(255,255,255,0.05);border:1px solid rgba(0,229,255,0.25);font-size:8px;color:#c9d1d9;">tab</kbd> ac</span>
-</div>
+    <div class="lbl">focused / active</div>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: rgba(11, 13, 21, 0.72);
+        border: 1px solid #00e5ff;
+        box-shadow:
+          0 0 0 1px #00e5ff,
+          0 0 24px rgba(0, 229, 255, 0.35);
+        clip-path: polygon(
+          10px 0,
+          100% 0,
+          100% calc(100% - 10px),
+          calc(100% - 10px) 100%,
+          0 100%,
+          0 10px
+        );
+      "
+    >
+      <span
+        style="
+          color: #00e5ff;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 14px;
+        "
+        >▸</span
+      >
+      <span
+        style="
+          color: #f4f6ff;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 13px;
+        "
+        >/ask claude why</span
+      >
+      <span
+        style="
+          display: inline-block;
+          width: 8px;
+          height: 14px;
+          background: #00e5ff;
+          animation: blink 1s steps(2) infinite;
+          vertical-align: -2px;
+        "
+      ></span>
+    </div>
 
-<div class="lbl">focused / active</div>
-<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(11,13,21,0.72);border:1px solid #00e5ff;box-shadow:0 0 0 1px #00e5ff,0 0 24px rgba(0,229,255,0.35);clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);">
-  <span style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:14px;">▸</span>
-  <span style="color:#f4f6ff;font-family:'JetBrains Mono',monospace;font-size:13px;">/ask claude why</span>
-  <span style="display:inline-block;width:8px;height:14px;background:#00e5ff;animation:blink 1s steps(2) infinite;vertical-align:-2px;"></span>
-</div>
+    <div class="section" style="margin-top: 4px">AUTOCOMPLETE DROPDOWN</div>
+    <div
+      style="
+        background: rgba(6, 7, 11, 0.97);
+        backdrop-filter: blur(12px);
+        border: 1px solid #00e5ff;
+        box-shadow: 0 0 24px rgba(0, 229, 255, 0.3);
+        max-width: 340px;
+      "
+    >
+      <div
+        style="
+          padding: 5px 12px;
+          font-size: 9px;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+          color: #8a8fa8;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          font-family: 'Chakra Petch', sans-serif;
+        "
+      >
+        AGENTS
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 7px 12px;
+          background: rgba(0, 229, 255, 0.08);
+          border-left: 2px solid #00e5ff;
+        "
+      >
+        <span
+          style="
+            color: #00e5ff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            min-width: 90px;
+          "
+          >@skogai</span
+        >
+        <span
+          style="
+            color: #c9d1d9;
+            font-size: 11px;
+            font-family: 'Chakra Petch', sans-serif;
+          "
+          >I route. I compile. I watch.</span
+        >
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 7px 12px;
+          border-left: 2px solid transparent;
+        "
+      >
+        <span
+          style="
+            color: #c73a68;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            min-width: 90px;
+          "
+          >@amy</span
+        >
+        <span
+          style="
+            color: #c9d1d9;
+            font-size: 11px;
+            font-family: 'Chakra Petch', sans-serif;
+          "
+          >Sassy red-haired AI queen</span
+        >
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 7px 12px;
+          border-left: 2px solid transparent;
+        "
+      >
+        <span
+          style="
+            color: #d4a01a;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            min-width: 90px;
+          "
+          >@claude</span
+        >
+        <span
+          style="
+            color: #c9d1d9;
+            font-size: 11px;
+            font-family: 'Chakra Petch', sans-serif;
+          "
+          >Knowledge archaeology</span
+        >
+      </div>
+    </div>
 
-<div class="section" style="margin-top:4px;">AUTOCOMPLETE DROPDOWN</div>
-<div style="background:rgba(6,7,11,0.97);backdrop-filter:blur(12px);border:1px solid #00e5ff;box-shadow:0 0 24px rgba(0,229,255,0.3);max-width:340px;">
-  <div style="padding:5px 12px;font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:#8a8fa8;border-bottom:1px solid rgba(255,255,255,0.06);font-family:'Chakra Petch',sans-serif;">AGENTS</div>
-  <div style="display:flex;align-items:center;gap:10px;padding:7px 12px;background:rgba(0,229,255,0.08);border-left:2px solid #00e5ff;">
-    <span style="color:#00e5ff;font-family:'JetBrains Mono',monospace;font-size:12px;min-width:90px;">@skogai</span>
-    <span style="color:#c9d1d9;font-size:11px;font-family:'Chakra Petch',sans-serif;">I route. I compile. I watch.</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:10px;padding:7px 12px;border-left:2px solid transparent;">
-    <span style="color:#c73a68;font-family:'JetBrains Mono',monospace;font-size:12px;min-width:90px;">@amy</span>
-    <span style="color:#c9d1d9;font-size:11px;font-family:'Chakra Petch',sans-serif;">Sassy red-haired AI queen</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:10px;padding:7px 12px;border-left:2px solid transparent;">
-    <span style="color:#d4a01a;font-family:'JetBrains Mono',monospace;font-size:12px;min-width:90px;">@claude</span>
-    <span style="color:#c9d1d9;font-size:11px;font-family:'Chakra Petch',sans-serif;">Knowledge archaeology</span>
-  </div>
-</div>
+    <div class="section" style="margin-top: 4px">COMMAND EDITOR INPUT</div>
+    <div style="display: flex; flex-direction: column; gap: 3px">
+      <label
+        style="
+          font-size: 9px;
+          letter-spacing: 0.24em;
+          color: #6e7681;
+          text-transform: uppercase;
+          font-family: 'Chakra Petch', sans-serif;
+        "
+        >name <span style="color: #00e5ff">/</span></label
+      >
+      <input
+        value="debate"
+        style="
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid #30363d;
+          color: #c9d1d9;
+          padding: 6px 10px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 13px;
+          outline: none;
+          width: 160px;
+        "
+      />
+    </div>
 
-<div class="section" style="margin-top:4px;">COMMAND EDITOR INPUT</div>
-<div style="display:flex;flex-direction:column;gap:3px;">
-  <label style="font-size:9px;letter-spacing:0.24em;color:#6e7681;text-transform:uppercase;font-family:'Chakra Petch',sans-serif;">name <span style="color:#00e5ff">/</span></label>
-  <input value="debate" style="background:rgba(0,0,0,0.4);border:1px solid #30363d;color:#c9d1d9;padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;width:160px;">
-</div>
-
-<style>@keyframes blink{50%{opacity:0}}</style>
-</body></html>
+    <style>
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </body>
+</html>

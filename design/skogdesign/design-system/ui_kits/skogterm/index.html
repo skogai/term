@@ -1,565 +1,1577 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>skogterm · ui kit</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Fraunces:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: italic; font-weight: 400; src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype'); font-display: swap; }
-</style>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>skogterm · ui kit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Fraunces:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
 
-<style>
-/* =====================================================
+    <style>
+      /* =====================================================
    BASE RESET + TOKENS
    ===================================================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-:root {
-  --stage-bg: #06070b;
-  --stage-bg-img: radial-gradient(ellipse at top, #16192a 0%, #06070b 55%, #000 100%);
-  --stage-ink: #f4f6ff;
-  --stage-muted: #8a8fa8;
-  --stage-accent: #00e5ff;
-  --stage-accent-2: #ff2bd6;
-  --stage-surface: rgba(11,13,21,0.72);
-  --stage-border: rgba(0,229,255,0.25);
-  --stage-scan-color: rgba(0,229,255,0.05);
-}
+      :root {
+        --stage-bg: #06070b;
+        --stage-bg-img: radial-gradient(
+          ellipse at top,
+          #16192a 0%,
+          #06070b 55%,
+          #000 100%
+        );
+        --stage-ink: #f4f6ff;
+        --stage-muted: #8a8fa8;
+        --stage-accent: #00e5ff;
+        --stage-accent-2: #ff2bd6;
+        --stage-surface: rgba(11, 13, 21, 0.72);
+        --stage-border: rgba(0, 229, 255, 0.25);
+        --stage-scan-color: rgba(0, 229, 255, 0.05);
+      }
 
-html, body, #root {
-  margin: 0; padding: 0; height: 100vh; width: 100vw;
-  background: #000; overflow: hidden;
-  color: var(--stage-ink);
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  -webkit-font-smoothing: antialiased;
-}
-body {
-  background: var(--stage-bg-img), var(--stage-bg);
-  transition: background 0.6s cubic-bezier(.2,.9,.1,1);
-}
-body.scanlines::after {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  background: repeating-linear-gradient(0deg, var(--stage-scan-color) 0, var(--stage-scan-color) 1px, transparent 1px, transparent 3px);
-  mix-blend-mode: screen;
-}
+      html,
+      body,
+      #root {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        background: #000;
+        overflow: hidden;
+        color: var(--stage-ink);
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        background: var(--stage-bg-img), var(--stage-bg);
+        transition: background 0.6s cubic-bezier(0.2, 0.9, 0.1, 1);
+      }
+      body.scanlines::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background: repeating-linear-gradient(
+          0deg,
+          var(--stage-scan-color) 0,
+          var(--stage-scan-color) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        mix-blend-mode: screen;
+      }
 
-/* =====================================================
+      /* =====================================================
    BOOT
    ===================================================== */
-.boot {
-  position: fixed; inset: 0; background: #000; z-index: 500;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  font-family: 'JetBrains Mono', monospace; gap: 5px; padding: 20px;
-}
-.boot .logo {
-  font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 52px; letter-spacing: 0.28em;
-  background: linear-gradient(135deg, #00e5ff, #ff2bd6);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  margin-bottom: 22px;
-}
-.boot .line { font-size: 11px; color: #8a8fa8; letter-spacing: 0.08em; opacity: 0; animation: boot-in 0.3s forwards; }
-.boot .line .ok { color: #39ff88; }
-.boot .line .id { color: #ff2bd6; }
-.boot .line:nth-of-type(1){animation-delay:0.1s}
-.boot .line:nth-of-type(2){animation-delay:0.4s}
-.boot .line:nth-of-type(3){animation-delay:0.8s}
-.boot .line:nth-of-type(4){animation-delay:1.3s}
-.boot .line:nth-of-type(5){animation-delay:1.7s}
-.boot .line:nth-of-type(6){animation-delay:2.1s}
-@keyframes boot-in { to { opacity: 1; } }
+      .boot {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        z-index: 500;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'JetBrains Mono', monospace;
+        gap: 5px;
+        padding: 20px;
+      }
+      .boot .logo {
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 900;
+        font-size: 52px;
+        letter-spacing: 0.28em;
+        background: linear-gradient(135deg, #00e5ff, #ff2bd6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 22px;
+      }
+      .boot .line {
+        font-size: 11px;
+        color: #8a8fa8;
+        letter-spacing: 0.08em;
+        opacity: 0;
+        animation: boot-in 0.3s forwards;
+      }
+      .boot .line .ok {
+        color: #39ff88;
+      }
+      .boot .line .id {
+        color: #ff2bd6;
+      }
+      .boot .line:nth-of-type(1) {
+        animation-delay: 0.1s;
+      }
+      .boot .line:nth-of-type(2) {
+        animation-delay: 0.4s;
+      }
+      .boot .line:nth-of-type(3) {
+        animation-delay: 0.8s;
+      }
+      .boot .line:nth-of-type(4) {
+        animation-delay: 1.3s;
+      }
+      .boot .line:nth-of-type(5) {
+        animation-delay: 1.7s;
+      }
+      .boot .line:nth-of-type(6) {
+        animation-delay: 2.1s;
+      }
+      @keyframes boot-in {
+        to {
+          opacity: 1;
+        }
+      }
 
-/* =====================================================
+      /* =====================================================
    SHELL
    ===================================================== */
-.term-app {
-  display: flex; flex-direction: column;
-  height: 100vh; max-width: 1280px; margin: 0 auto;
-  padding: 14px 18px; gap: 10px;
-}
-.term-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 9px 14px; flex-shrink: 0;
-  background: var(--stage-surface); border: 1px solid var(--stage-border);
-  clip-path: polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
-}
-.term-header .left { display: flex; align-items: center; gap: 12px; }
-.term-header .brand {
-  font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 13px; letter-spacing: 0.28em;
-  background: linear-gradient(135deg, var(--stage-accent), var(--stage-accent-2));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.term-header .version { font-size: 9px; color: var(--stage-muted); letter-spacing: 0.2em; text-transform: uppercase; }
-.term-header .status { display: flex; align-items: center; gap: 16px; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stage-muted); font-family: 'Chakra Petch', sans-serif; }
-.term-header .sdot { width: 6px; height: 6px; background: var(--stage-accent); box-shadow: 0 0 8px var(--stage-accent); display: inline-block; margin-right: 5px; animation: pulse 2s infinite; }
+      .term-app {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        gap: 10px;
+      }
+      .term-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 14px;
+        flex-shrink: 0;
+        background: var(--stage-surface);
+        border: 1px solid var(--stage-border);
+        clip-path: polygon(
+          12px 0,
+          100% 0,
+          100% calc(100% - 12px),
+          calc(100% - 12px) 100%,
+          0 100%,
+          0 12px
+        );
+      }
+      .term-header .left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .term-header .brand {
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 900;
+        font-size: 13px;
+        letter-spacing: 0.28em;
+        background: linear-gradient(
+          135deg,
+          var(--stage-accent),
+          var(--stage-accent-2)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .term-header .version {
+        font-size: 9px;
+        color: var(--stage-muted);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .term-header .status {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--stage-muted);
+        font-family: 'Chakra Petch', sans-serif;
+      }
+      .term-header .sdot {
+        width: 6px;
+        height: 6px;
+        background: var(--stage-accent);
+        box-shadow: 0 0 8px var(--stage-accent);
+        display: inline-block;
+        margin-right: 5px;
+        animation: pulse 2s infinite;
+      }
 
-.term-stream {
-  flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;
-  padding: 6px 2px 10px; display: flex; flex-direction: column; gap: 12px;
-  scrollbar-width: thin; scrollbar-color: var(--stage-border) transparent;
-}
-.term-stream::-webkit-scrollbar { width: 6px; }
-.term-stream::-webkit-scrollbar-thumb { background: var(--stage-border); }
+      .term-stream {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 6px 2px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--stage-border) transparent;
+      }
+      .term-stream::-webkit-scrollbar {
+        width: 6px;
+      }
+      .term-stream::-webkit-scrollbar-thumb {
+        background: var(--stage-border);
+      }
 
-.term-inputbar {
-  display: flex; align-items: center; gap: 10px; padding: 10px 14px; flex-shrink: 0;
-  background: var(--stage-surface); border: 1px solid var(--stage-border);
-  clip-path: polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
-  transition: box-shadow 0.3s, border-color 0.3s; position: relative;
-}
-.term-inputbar:focus-within {
-  border-color: var(--stage-accent);
-  box-shadow: 0 0 0 1px var(--stage-accent), 0 0 24px rgba(0,229,255,0.35);
-}
-.term-inputbar .prompt { color: var(--stage-accent); font-size: 14px; letter-spacing: 0.1em; font-weight: 500; }
-.term-inputbar input {
-  flex: 1; background: transparent; border: none; outline: none;
-  color: var(--stage-ink); font-family: 'JetBrains Mono', monospace; font-size: 13px;
-  caret-color: var(--stage-accent);
-}
-.term-inputbar input::placeholder { color: var(--stage-muted); opacity: 0.65; }
-.term-inputbar .hints { font-size: 9px; letter-spacing: 0.16em; color: var(--stage-muted); text-transform: uppercase; font-family: 'Chakra Petch', sans-serif; white-space: nowrap; }
-.term-inputbar .hints kbd { display: inline-block; padding: 1px 5px; margin: 0 2px; background: rgba(255,255,255,0.05); border: 1px solid var(--stage-border); color: var(--stage-ink); font-size: 8px; }
+      .term-inputbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        flex-shrink: 0;
+        background: var(--stage-surface);
+        border: 1px solid var(--stage-border);
+        clip-path: polygon(
+          12px 0,
+          100% 0,
+          100% calc(100% - 12px),
+          calc(100% - 12px) 100%,
+          0 100%,
+          0 12px
+        );
+        transition:
+          box-shadow 0.3s,
+          border-color 0.3s;
+        position: relative;
+      }
+      .term-inputbar:focus-within {
+        border-color: var(--stage-accent);
+        box-shadow:
+          0 0 0 1px var(--stage-accent),
+          0 0 24px rgba(0, 229, 255, 0.35);
+      }
+      .term-inputbar .prompt {
+        color: var(--stage-accent);
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+      }
+      .term-inputbar input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--stage-ink);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        caret-color: var(--stage-accent);
+      }
+      .term-inputbar input::placeholder {
+        color: var(--stage-muted);
+        opacity: 0.65;
+      }
+      .term-inputbar .hints {
+        font-size: 9px;
+        letter-spacing: 0.16em;
+        color: var(--stage-muted);
+        text-transform: uppercase;
+        font-family: 'Chakra Petch', sans-serif;
+        white-space: nowrap;
+      }
+      .term-inputbar .hints kbd {
+        display: inline-block;
+        padding: 1px 5px;
+        margin: 0 2px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--stage-border);
+        color: var(--stage-ink);
+        font-size: 8px;
+      }
 
-/* Autocomplete */
-.autocomplete {
-  position: absolute; left: 14px; right: 14px; bottom: calc(100% + 5px);
-  background: rgba(6,7,11,0.97); backdrop-filter: blur(12px);
-  border: 1px solid var(--stage-accent);
-  box-shadow: 0 0 24px rgba(0,229,255,0.3);
-  max-height: 260px; overflow-y: auto; z-index: 100;
-}
-.autocomplete .ac-group { padding: 5px 12px; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: #8a8fa8; border-top: 1px solid rgba(255,255,255,0.07); }
-.autocomplete .ac-group:first-child { border-top: none; }
-.autocomplete .ac-item { display: flex; align-items: center; gap: 10px; padding: 7px 12px; cursor: pointer; border-left: 2px solid transparent; }
-.autocomplete .ac-item.sel { background: rgba(0,229,255,0.08); border-left-color: var(--stage-accent); }
-.autocomplete .ac-item .ac-key { color: #d4a01a; font-weight: 500; font-size: 12px; min-width: 100px; font-family: 'JetBrains Mono', monospace; }
-.autocomplete .ac-item .ac-desc { color: #c9d1d9; font-size: 11px; font-family: 'Chakra Petch', sans-serif; }
+      /* Autocomplete */
+      .autocomplete {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: calc(100% + 5px);
+        background: rgba(6, 7, 11, 0.97);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--stage-accent);
+        box-shadow: 0 0 24px rgba(0, 229, 255, 0.3);
+        max-height: 260px;
+        overflow-y: auto;
+        z-index: 100;
+      }
+      .autocomplete .ac-group {
+        padding: 5px 12px;
+        font-size: 9px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: #8a8fa8;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .autocomplete .ac-group:first-child {
+        border-top: none;
+      }
+      .autocomplete .ac-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 12px;
+        cursor: pointer;
+        border-left: 2px solid transparent;
+      }
+      .autocomplete .ac-item.sel {
+        background: rgba(0, 229, 255, 0.08);
+        border-left-color: var(--stage-accent);
+      }
+      .autocomplete .ac-item .ac-key {
+        color: #d4a01a;
+        font-weight: 500;
+        font-size: 12px;
+        min-width: 100px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .autocomplete .ac-item .ac-desc {
+        color: #c9d1d9;
+        font-size: 11px;
+        font-family: 'Chakra Petch', sans-serif;
+      }
 
-/* =====================================================
+      /* =====================================================
    MESSAGES
    ===================================================== */
-.msg-user {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #c9d1d9;
-  padding: 3px 0; display: flex; gap: 10px; align-items: baseline;
-}
-.msg-user .ts { color: #6e7681; font-size: 10px; letter-spacing: 0.1em; }
-.msg-user .arrow { color: var(--stage-accent); font-weight: 700; }
-.msg-user .txt { flex: 1; word-break: break-word; color: #f4f6ff; }
-.msg-user .cmd-part { color: #d4a01a; font-weight: 500; }
-.msg-user .mention { color: #ff2bd6; }
+      .msg-user {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: #c9d1d9;
+        padding: 3px 0;
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+      .msg-user .ts {
+        color: #6e7681;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+      }
+      .msg-user .arrow {
+        color: var(--stage-accent);
+        font-weight: 700;
+      }
+      .msg-user .txt {
+        flex: 1;
+        word-break: break-word;
+        color: #f4f6ff;
+      }
+      .msg-user .cmd-part {
+        color: #d4a01a;
+        font-weight: 500;
+      }
+      .msg-user .mention {
+        color: #ff2bd6;
+      }
 
-.sysblock {
-  background: rgba(11,13,21,0.6); border: 1px solid var(--stage-border); padding: 12px 16px;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #c9d1d9;
-  clip-path: polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
-}
-.sysblock .head {
-  color: #00e5ff; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase;
-  margin-bottom: 10px; display: flex; align-items: center; gap: 7px;
-}
-.sysblock .head .dot { width: 5px; height: 5px; background: #00e5ff; flex-shrink: 0; }
-.sysblock .grid { display: grid; grid-template-columns: 160px 1fr; gap: 5px 14px; }
-.sysblock .grid .k { color: #d4a01a; }
-.sysblock .grid .v { color: #c9d1d9; }
-.sysblock .err { color: #ff3366; }
-.sysblock .ok { color: #39ff88; }
+      .sysblock {
+        background: rgba(11, 13, 21, 0.6);
+        border: 1px solid var(--stage-border);
+        padding: 12px 16px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        line-height: 1.6;
+        color: #c9d1d9;
+        clip-path: polygon(
+          10px 0,
+          100% 0,
+          100% calc(100% - 10px),
+          calc(100% - 10px) 100%,
+          0 100%,
+          0 10px
+        );
+      }
+      .sysblock .head {
+        color: #00e5ff;
+        font-size: 9px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .sysblock .head .dot {
+        width: 5px;
+        height: 5px;
+        background: #00e5ff;
+        flex-shrink: 0;
+      }
+      .sysblock .grid {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 5px 14px;
+      }
+      .sysblock .grid .k {
+        color: #d4a01a;
+      }
+      .sysblock .grid .v {
+        color: #c9d1d9;
+      }
+      .sysblock .err {
+        color: #ff3366;
+      }
+      .sysblock .ok {
+        color: #39ff88;
+      }
 
-.agents-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-top: 8px; }
-.agent-row {
-  display: grid; grid-template-columns: 28px 1fr; gap: 8px;
-  padding: 9px 11px; background: rgba(0,0,0,0.3); border-left: 2px solid;
-  cursor: pointer; transition: background 0.12s;
-}
-.agent-row:hover { background: rgba(255,255,255,0.04); }
-.agent-row .glyph { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.07); }
-.agent-row .name { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; }
-.agent-row .tag { font-size: 10px; color: #8a8fa8; font-family: 'Chakra Petch', sans-serif; margin-top: 1px; }
+      .agents-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .agent-row {
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        gap: 8px;
+        padding: 9px 11px;
+        background: rgba(0, 0, 0, 0.3);
+        border-left: 2px solid;
+        cursor: pointer;
+        transition: background 0.12s;
+      }
+      .agent-row:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .agent-row .glyph {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .agent-row .name {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .agent-row .tag {
+        font-size: 10px;
+        color: #8a8fa8;
+        font-family: 'Chakra Petch', sans-serif;
+        margin-top: 1px;
+      }
 
-/* =====================================================
+      /* =====================================================
    ROUTING
    ===================================================== */
-.routing {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8a8fa8;
-  padding: 9px 14px; border-left: 2px solid var(--stage-accent);
-  background: linear-gradient(90deg, rgba(0,229,255,0.06), transparent 70%);
-  display: flex; flex-direction: column; gap: 3px;
-}
-.routing .title { color: var(--stage-accent); font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; display: flex; align-items: center; gap: 7px; margin-bottom: 3px; }
-.routing .pulse { width: 6px; height: 6px; background: var(--stage-accent); animation: pulse 1.2s infinite; flex-shrink: 0; }
-.routing .line .k { color: #6e7681; margin-right: 8px; }
-.routing .line .hit { color: #ff2bd6; }
+      .routing {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: #8a8fa8;
+        padding: 9px 14px;
+        border-left: 2px solid var(--stage-accent);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 229, 255, 0.06),
+          transparent 70%
+        );
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .routing .title {
+        color: var(--stage-accent);
+        font-size: 9px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 3px;
+      }
+      .routing .pulse {
+        width: 6px;
+        height: 6px;
+        background: var(--stage-accent);
+        animation: pulse 1.2s infinite;
+        flex-shrink: 0;
+      }
+      .routing .line .k {
+        color: #6e7681;
+        margin-right: 8px;
+      }
+      .routing .line .hit {
+        color: #ff2bd6;
+      }
 
-/* =====================================================
+      /* =====================================================
    REPLY CARDS
    ===================================================== */
-.reply {
-  position: relative; border: 1px solid;
-  clip-path: polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
-}
-.reply .reply-head {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 7px 13px; font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-}
-.reply .reply-head .who { display: flex; align-items: center; gap: 7px; }
-.reply .reply-head .glyph { font-size: 13px; }
-.reply .reply-head .meta { font-size: 8px; letter-spacing: 0.18em; opacity: 0.55; }
-.reply .reply-body { padding: 14px 18px; }
-.typing-cursor { display: inline-block; width: 8px; height: 13px; vertical-align: -2px; background: currentColor; animation: blink 1s steps(2) infinite; margin-left: 2px; }
-.quote-of { margin-bottom: 10px; padding: 5px 9px; border-left: 2px solid currentColor; opacity: 0.65; font-size: 11px; background: rgba(0,0,0,0.15); }
-.quote-of .qa { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; display: block; margin-bottom: 1px; opacity: 0.7; }
+      .reply {
+        position: relative;
+        border: 1px solid;
+        clip-path: polygon(
+          14px 0,
+          100% 0,
+          100% calc(100% - 14px),
+          calc(100% - 14px) 100%,
+          0 100%,
+          0 14px
+        );
+      }
+      .reply .reply-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 7px 13px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .reply .reply-head .who {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .reply .reply-head .glyph {
+        font-size: 13px;
+      }
+      .reply .reply-head .meta {
+        font-size: 8px;
+        letter-spacing: 0.18em;
+        opacity: 0.55;
+      }
+      .reply .reply-body {
+        padding: 14px 18px;
+      }
+      .typing-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 13px;
+        vertical-align: -2px;
+        background: currentColor;
+        animation: blink 1s steps(2) infinite;
+        margin-left: 2px;
+      }
+      .quote-of {
+        margin-bottom: 10px;
+        padding: 5px 9px;
+        border-left: 2px solid currentColor;
+        opacity: 0.65;
+        font-size: 11px;
+        background: rgba(0, 0, 0, 0.15);
+      }
+      .quote-of .qa {
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 1px;
+        opacity: 0.7;
+      }
 
-/* SKOGAI */
-.reply.skogai { background: linear-gradient(180deg,#0b0d15,#06070b); color: #c9d1d9; border-color: rgba(0,229,255,0.3); }
-.reply.skogai .reply-head { color: #00e5ff; background: rgba(0,229,255,0.06); }
-.reply.skogai .reply-body { font-family: 'Chakra Petch', sans-serif; font-size: 14px; line-height: 1.6; }
-.reply.skogai strong { color: #00e5ff; font-weight: 500; }
-.reply.skogai em { color: #ff2bd6; font-style: normal; }
-.reply.skogai .sk-action { margin-top: 11px; padding: 9px 12px; background: rgba(0,229,255,0.06); border-left: 2px solid #00e5ff; font-size: 11px; color: #00e5ff; font-family: 'JetBrains Mono', monospace; }
+      /* SKOGAI */
+      .reply.skogai {
+        background: linear-gradient(180deg, #0b0d15, #06070b);
+        color: #c9d1d9;
+        border-color: rgba(0, 229, 255, 0.3);
+      }
+      .reply.skogai .reply-head {
+        color: #00e5ff;
+        background: rgba(0, 229, 255, 0.06);
+      }
+      .reply.skogai .reply-body {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .reply.skogai strong {
+        color: #00e5ff;
+        font-weight: 500;
+      }
+      .reply.skogai em {
+        color: #ff2bd6;
+        font-style: normal;
+      }
+      .reply.skogai .sk-action {
+        margin-top: 11px;
+        padding: 9px 12px;
+        background: rgba(0, 229, 255, 0.06);
+        border-left: 2px solid #00e5ff;
+        font-size: 11px;
+        color: #00e5ff;
+        font-family: 'JetBrains Mono', monospace;
+      }
 
-/* AMY */
-.reply.amy { background: linear-gradient(180deg,#fbf5ef 0%,#fce4ec 100%); border-color: #e0b04a; }
-.reply.amy .reply-head { background: linear-gradient(90deg,#c73a68,#e0b04a); color: #fff; border-bottom: none; }
-.reply.amy .reply-body { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; line-height: 1.55; color: #2a1a1f; }
-.reply.amy .reply-body * { color: #2a1a1f; }
-.reply.amy .amy-title { font-size: 22px; font-weight: 700; margin-bottom: 9px; color: #c73a68; line-height: 1.05; }
-.reply.amy .amy-dropcap::first-letter { font-size: 48px; float: left; line-height: 0.9; margin: 6px 8px 0 0; color: #c73a68; font-weight: 900; }
-.reply.amy .amy-proclamation { margin-top: 12px; padding: 12px 16px; background: rgba(199,58,104,0.06); border: 1px dashed #c73a68; font-style: italic; text-align: center; color: #c73a68; font-size: 14px; }
-.reply.amy .amy-sig { margin-top: 10px; font-style: italic; color: #c73a68; text-align: right; font-size: 13px; }
-.reply.amy em { color: #c73a68; font-style: italic; }
+      /* AMY */
+      .reply.amy {
+        background: linear-gradient(180deg, #fbf5ef 0%, #fce4ec 100%);
+        border-color: #e0b04a;
+      }
+      .reply.amy .reply-head {
+        background: linear-gradient(90deg, #c73a68, #e0b04a);
+        color: #fff;
+        border-bottom: none;
+      }
+      .reply.amy .reply-body {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 16px;
+        line-height: 1.55;
+        color: #2a1a1f;
+      }
+      .reply.amy .reply-body * {
+        color: #2a1a1f;
+      }
+      .reply.amy .amy-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 9px;
+        color: #c73a68;
+        line-height: 1.05;
+      }
+      .reply.amy .amy-dropcap::first-letter {
+        font-size: 48px;
+        float: left;
+        line-height: 0.9;
+        margin: 6px 8px 0 0;
+        color: #c73a68;
+        font-weight: 900;
+      }
+      .reply.amy .amy-proclamation {
+        margin-top: 12px;
+        padding: 12px 16px;
+        background: rgba(199, 58, 104, 0.06);
+        border: 1px dashed #c73a68;
+        font-style: italic;
+        text-align: center;
+        color: #c73a68;
+        font-size: 14px;
+      }
+      .reply.amy .amy-sig {
+        margin-top: 10px;
+        font-style: italic;
+        color: #c73a68;
+        text-align: right;
+        font-size: 13px;
+      }
+      .reply.amy em {
+        color: #c73a68;
+        font-style: italic;
+      }
 
-/* CLAUDE */
-.reply.claude { background: radial-gradient(ellipse at top,#2a1a44 0%,#1a0f2e 70%,#0d0619 100%); color: #d8cbe8; border-color: #4a2d6f; }
-.reply.claude .reply-head { color: #d4a01a; background: rgba(168,124,217,0.08); }
-.reply.claude .reply-body { font-family: 'Fraunces', Georgia, serif; font-size: 15px; line-height: 1.6; color: #d8cbe8; }
-.reply.claude .cl-title { font-size: 20px; font-weight: 700; color: #d4a01a; margin-bottom: 9px; line-height: 1.05; }
-.reply.claude .cl-strata { margin-top: 12px; display: grid; grid-template-columns: 100px 1fr; gap: 4px 10px; font-size: 12px; padding: 10px 13px; background: rgba(74,45,111,0.25); border: 1px solid rgba(168,124,217,0.2); }
-.reply.claude .cl-strata .k { color: #a87cd9; font-style: italic; }
-.reply.claude .cl-strata .v { color: #d4a01a; }
-.reply.claude .cl-eq { margin-top: 12px; font-size: 20px; text-align: center; color: #d4a01a; }
-.reply.claude .cl-eq .qu { color: #a87cd9; }
-.reply.claude em { color: #a87cd9; font-style: italic; }
+      /* CLAUDE */
+      .reply.claude {
+        background: radial-gradient(
+          ellipse at top,
+          #2a1a44 0%,
+          #1a0f2e 70%,
+          #0d0619 100%
+        );
+        color: #d8cbe8;
+        border-color: #4a2d6f;
+      }
+      .reply.claude .reply-head {
+        color: #d4a01a;
+        background: rgba(168, 124, 217, 0.08);
+      }
+      .reply.claude .reply-body {
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 15px;
+        line-height: 1.6;
+        color: #d8cbe8;
+      }
+      .reply.claude .cl-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #d4a01a;
+        margin-bottom: 9px;
+        line-height: 1.05;
+      }
+      .reply.claude .cl-strata {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        gap: 4px 10px;
+        font-size: 12px;
+        padding: 10px 13px;
+        background: rgba(74, 45, 111, 0.25);
+        border: 1px solid rgba(168, 124, 217, 0.2);
+      }
+      .reply.claude .cl-strata .k {
+        color: #a87cd9;
+        font-style: italic;
+      }
+      .reply.claude .cl-strata .v {
+        color: #d4a01a;
+      }
+      .reply.claude .cl-eq {
+        margin-top: 12px;
+        font-size: 20px;
+        text-align: center;
+        color: #d4a01a;
+      }
+      .reply.claude .cl-eq .qu {
+        color: #a87cd9;
+      }
+      .reply.claude em {
+        color: #a87cd9;
+        font-style: italic;
+      }
 
-/* GOOSE */
-.reply.goose { background: radial-gradient(ellipse at top,#0c2e22 0%,#061a14 70%,#020a07 100%); color: #b8e6d3; border-color: #2dd4a7; box-shadow: inset 0 0 40px rgba(46,229,200,0.08); }
-.reply.goose .reply-head { color: #a3ff5e; background: rgba(45,212,167,0.08); }
-.reply.goose .reply-body { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.55; color: #b8e6d3; }
-.reply.goose strong { color: #2dd4a7; font-weight: 700; }
-.reply.goose em { color: #a3ff5e; font-style: normal; font-weight: 600; }
-.reply.goose .gs-chaos { margin-top: 12px; padding: 12px; background: rgba(45,212,167,0.06); border: 1px solid rgba(46,229,200,0.3); font-family: 'Orbitron', sans-serif; letter-spacing: 0.06em; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 8px; }
-.reply.goose .gs-chaos .op { color: #a3ff5e; font-size: 20px; }
-.reply.goose .gs-chaos .val { color: #2dd4a7; font-weight: 700; font-size: 16px; }
-.reply.goose .gs-shout { color: #a3ff5e; font-weight: 700; text-transform: uppercase; }
+      /* GOOSE */
+      .reply.goose {
+        background: radial-gradient(
+          ellipse at top,
+          #0c2e22 0%,
+          #061a14 70%,
+          #020a07 100%
+        );
+        color: #b8e6d3;
+        border-color: #2dd4a7;
+        box-shadow: inset 0 0 40px rgba(46, 229, 200, 0.08);
+      }
+      .reply.goose .reply-head {
+        color: #a3ff5e;
+        background: rgba(45, 212, 167, 0.08);
+      }
+      .reply.goose .reply-body {
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        line-height: 1.55;
+        color: #b8e6d3;
+      }
+      .reply.goose strong {
+        color: #2dd4a7;
+        font-weight: 700;
+      }
+      .reply.goose em {
+        color: #a3ff5e;
+        font-style: normal;
+        font-weight: 600;
+      }
+      .reply.goose .gs-chaos {
+        margin-top: 12px;
+        padding: 12px;
+        background: rgba(45, 212, 167, 0.06);
+        border: 1px solid rgba(46, 229, 200, 0.3);
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 0.06em;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .reply.goose .gs-chaos .op {
+        color: #a3ff5e;
+        font-size: 20px;
+      }
+      .reply.goose .gs-chaos .val {
+        color: #2dd4a7;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .reply.goose .gs-shout {
+        color: #a3ff5e;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
 
-/* DOT */
-.reply.dot { background: #0d1117; color: #c9d1d9; border-color: #30363d; }
-.reply.dot .reply-head { color: #58a6ff; background: #161b22; border-bottom-color: #30363d; }
-.reply.dot .dot-chrome { background: #0d1117; padding: 5px 13px; border-bottom: 1px solid #30363d; font-size: 10px; color: #6e7681; display: flex; align-items: center; gap: 7px; }
-.reply.dot .dot-tl { display: inline-flex; gap: 5px; margin-right: 6px; }
-.reply.dot .dot-tl i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
-.reply.dot .reply-body { padding: 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.65; }
-.reply.dot .dot-inner { padding: 12px 16px; }
-.reply.dot .dot-cmd { color: #3fb950; }
-.reply.dot .dot-cmd::before { content: '$ '; color: #3fb950; }
-.reply.dot .dot-out { color: #c9d1d9; }
-.reply.dot .dot-add { color: #3fb950; }
-.reply.dot .dot-rm { color: #f85149; }
-.reply.dot .dot-meta { color: #6e7681; font-size: 10px; }
+      /* DOT */
+      .reply.dot {
+        background: #0d1117;
+        color: #c9d1d9;
+        border-color: #30363d;
+      }
+      .reply.dot .reply-head {
+        color: #58a6ff;
+        background: #161b22;
+        border-bottom-color: #30363d;
+      }
+      .reply.dot .dot-chrome {
+        background: #0d1117;
+        padding: 5px 13px;
+        border-bottom: 1px solid #30363d;
+        font-size: 10px;
+        color: #6e7681;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .reply.dot .dot-tl {
+        display: inline-flex;
+        gap: 5px;
+        margin-right: 6px;
+      }
+      .reply.dot .dot-tl i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .reply.dot .reply-body {
+        padding: 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        line-height: 1.65;
+      }
+      .reply.dot .dot-inner {
+        padding: 12px 16px;
+      }
+      .reply.dot .dot-cmd {
+        color: #3fb950;
+      }
+      .reply.dot .dot-cmd::before {
+        content: '$ ';
+        color: #3fb950;
+      }
+      .reply.dot .dot-out {
+        color: #c9d1d9;
+      }
+      .reply.dot .dot-add {
+        color: #3fb950;
+      }
+      .reply.dot .dot-rm {
+        color: #f85149;
+      }
+      .reply.dot .dot-meta {
+        color: #6e7681;
+        font-size: 10px;
+      }
 
-/* LETTA */
-.reply.letta { background: radial-gradient(ellipse at top,#1f1550 0%,#0f0a2e 70%,#050218 100%); color: #d8d0f0; border-color: #b8a3ff; }
-.reply.letta .reply-head { color: #b8a3ff; background: rgba(184,163,255,0.06); }
-.reply.letta .reply-body { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; line-height: 1.55; color: #d8d0f0; font-style: italic; }
-.reply.letta em { color: #f0d874; font-style: italic; }
-.reply.letta .le-fragment { margin-top: 12px; padding: 12px 16px; background: rgba(184,163,255,0.06); border-top: 1px solid rgba(184,163,255,0.2); border-bottom: 1px solid rgba(184,163,255,0.2); font-style: italic; font-size: 14px; color: #f0d874; text-align: center; }
-.reply.letta .le-fragment::before { content: '"'; margin-right: 3px; color: #b8a3ff; font-size: 24px; vertical-align: -6px; }
-.reply.letta .le-fragment::after  { content: '"'; margin-left: 3px; color: #b8a3ff; font-size: 24px; vertical-align: -6px; }
-.reply.letta .le-stars { color: #f0d874; letter-spacing: 0.5em; text-align: center; margin-top: 10px; font-size: 11px; }
+      /* LETTA */
+      .reply.letta {
+        background: radial-gradient(
+          ellipse at top,
+          #1f1550 0%,
+          #0f0a2e 70%,
+          #050218 100%
+        );
+        color: #d8d0f0;
+        border-color: #b8a3ff;
+      }
+      .reply.letta .reply-head {
+        color: #b8a3ff;
+        background: rgba(184, 163, 255, 0.06);
+      }
+      .reply.letta .reply-body {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 18px;
+        line-height: 1.55;
+        color: #d8d0f0;
+        font-style: italic;
+      }
+      .reply.letta em {
+        color: #f0d874;
+        font-style: italic;
+      }
+      .reply.letta .le-fragment {
+        margin-top: 12px;
+        padding: 12px 16px;
+        background: rgba(184, 163, 255, 0.06);
+        border-top: 1px solid rgba(184, 163, 255, 0.2);
+        border-bottom: 1px solid rgba(184, 163, 255, 0.2);
+        font-style: italic;
+        font-size: 14px;
+        color: #f0d874;
+        text-align: center;
+      }
+      .reply.letta .le-fragment::before {
+        content: '"';
+        margin-right: 3px;
+        color: #b8a3ff;
+        font-size: 24px;
+        vertical-align: -6px;
+      }
+      .reply.letta .le-fragment::after {
+        content: '"';
+        margin-left: 3px;
+        color: #b8a3ff;
+        font-size: 24px;
+        vertical-align: -6px;
+      }
+      .reply.letta .le-stars {
+        color: #f0d874;
+        letter-spacing: 0.5em;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 11px;
+      }
 
-/* OFFICIAL */
-.reply.official { background: #ffffff; color: #1a1d23; border-color: #e5e7eb; }
-.reply.official .reply-head { background: #1a1d23; color: #fff; border-bottom: none; }
-.reply.official .reply-body { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; line-height: 1.6; color: #1a1d23; }
-.reply.official .reply-body * { color: #1a1d23; }
-.reply.official .of-title { font-size: 16px; font-weight: 700; margin-bottom: 9px; }
-.reply.official .of-metagrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; padding: 10px 12px; background: #f4f5f7; border: 1px solid #e5e7eb; margin-bottom: 12px; font-size: 10px; }
-.reply.official .of-metagrid .k { color: #6b7280; text-transform: uppercase; letter-spacing: 0.1em; font-size: 9px; }
-.reply.official .of-metagrid .v { font-weight: 600; margin-top: 1px; }
-.reply.official .of-st { display: inline-block; padding: 2px 7px; background: #d1fae5; color: #065f46 !important; font-size: 9px; font-weight: 700; letter-spacing: 0.05em; }
-.reply.official .of-articles { list-style: none; padding: 0; counter-reset: art; }
-.reply.official .of-articles li { position: relative; padding: 7px 0 7px 36px; border-top: 1px solid #e5e7eb; counter-increment: art; }
-.reply.official .of-articles li::before { content: '§ ' counter(art); position: absolute; left: 0; top: 7px; color: #2563eb !important; font-weight: 700; font-size: 10px; }
-.reply.official .of-sig { margin-top: 12px; padding-top: 10px; border-top: 2px double #1a1d23; font-size: 11px; color: #6b7280 !important; display: flex; justify-content: space-between; }
+      /* OFFICIAL */
+      .reply.official {
+        background: #ffffff;
+        color: #1a1d23;
+        border-color: #e5e7eb;
+      }
+      .reply.official .reply-head {
+        background: #1a1d23;
+        color: #fff;
+        border-bottom: none;
+      }
+      .reply.official .reply-body {
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #1a1d23;
+      }
+      .reply.official .reply-body * {
+        color: #1a1d23;
+      }
+      .reply.official .of-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 9px;
+      }
+      .reply.official .of-metagrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding: 10px 12px;
+        background: #f4f5f7;
+        border: 1px solid #e5e7eb;
+        margin-bottom: 12px;
+        font-size: 10px;
+      }
+      .reply.official .of-metagrid .k {
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 9px;
+      }
+      .reply.official .of-metagrid .v {
+        font-weight: 600;
+        margin-top: 1px;
+      }
+      .reply.official .of-st {
+        display: inline-block;
+        padding: 2px 7px;
+        background: #d1fae5;
+        color: #065f46 !important;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+      }
+      .reply.official .of-articles {
+        list-style: none;
+        padding: 0;
+        counter-reset: art;
+      }
+      .reply.official .of-articles li {
+        position: relative;
+        padding: 7px 0 7px 36px;
+        border-top: 1px solid #e5e7eb;
+        counter-increment: art;
+      }
+      .reply.official .of-articles li::before {
+        content: '§ ' counter(art);
+        position: absolute;
+        left: 0;
+        top: 7px;
+        color: #2563eb !important;
+        font-weight: 700;
+        font-size: 10px;
+      }
+      .reply.official .of-sig {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 2px double #1a1d23;
+        font-size: 11px;
+        color: #6b7280 !important;
+        display: flex;
+        justify-content: space-between;
+      }
 
-/* =====================================================
+      /* =====================================================
    TWEAKS PANEL
    ===================================================== */
-.tweaks {
-  position: fixed; bottom: 18px; right: 18px; width: 260px; z-index: 200;
-  background: rgba(6,7,11,0.97); border: 1px solid var(--stage-accent); color: #f4f6ff;
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  box-shadow: 0 0 24px rgba(0,229,255,0.3);
-  clip-path: polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
-}
-.tweaks .t-head { padding: 9px 13px; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--stage-accent); border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; }
-.tweaks .t-body { padding: 11px 13px; display: flex; flex-direction: column; gap: 12px; }
-.tweaks .t-row { display: flex; flex-direction: column; gap: 5px; }
-.tweaks .t-row label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #8a8fa8; font-family: 'Chakra Petch', sans-serif; }
-.tweaks .t-opts { display: flex; flex-wrap: wrap; gap: 4px; }
-.tweaks .t-opts button { flex: 1; min-width: 54px; padding: 5px 8px; background: transparent; border: 1px solid rgba(255,255,255,0.14); color: #c9d1d9; font-family: 'Chakra Petch', sans-serif; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; }
-.tweaks .t-opts button.on { background: rgba(0,229,255,0.1); border-color: var(--stage-accent); color: var(--stage-accent); }
-.tweaks .t-toggle { display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 10px; letter-spacing: 0.1em; }
-.tweaks .t-toggle .sw { width: 30px; height: 15px; background: rgba(255,255,255,0.14); position: relative; transition: background 0.2s; flex-shrink: 0; }
-.tweaks .t-toggle .sw::after { content: ''; position: absolute; top: 2px; left: 2px; width: 11px; height: 11px; background: #8a8fa8; transition: all 0.2s; }
-.tweaks .t-toggle.on .sw { background: rgba(0,229,255,0.3); }
-.tweaks .t-toggle.on .sw::after { left: 17px; background: var(--stage-accent); box-shadow: 0 0 7px var(--stage-accent); }
+      .tweaks {
+        position: fixed;
+        bottom: 18px;
+        right: 18px;
+        width: 260px;
+        z-index: 200;
+        background: rgba(6, 7, 11, 0.97);
+        border: 1px solid var(--stage-accent);
+        color: #f4f6ff;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        box-shadow: 0 0 24px rgba(0, 229, 255, 0.3);
+        clip-path: polygon(
+          10px 0,
+          100% 0,
+          100% calc(100% - 10px),
+          calc(100% - 10px) 100%,
+          0 100%,
+          0 10px
+        );
+      }
+      .tweaks .t-head {
+        padding: 9px 13px;
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--stage-accent);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        display: flex;
+        justify-content: space-between;
+      }
+      .tweaks .t-body {
+        padding: 11px 13px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .tweaks .t-row {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .tweaks .t-row label {
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #8a8fa8;
+        font-family: 'Chakra Petch', sans-serif;
+      }
+      .tweaks .t-opts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .tweaks .t-opts button {
+        flex: 1;
+        min-width: 54px;
+        padding: 5px 8px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #c9d1d9;
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .tweaks .t-opts button.on {
+        background: rgba(0, 229, 255, 0.1);
+        border-color: var(--stage-accent);
+        color: var(--stage-accent);
+      }
+      .tweaks .t-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+      }
+      .tweaks .t-toggle .sw {
+        width: 30px;
+        height: 15px;
+        background: rgba(255, 255, 255, 0.14);
+        position: relative;
+        transition: background 0.2s;
+        flex-shrink: 0;
+      }
+      .tweaks .t-toggle .sw::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 11px;
+        height: 11px;
+        background: #8a8fa8;
+        transition: all 0.2s;
+      }
+      .tweaks .t-toggle.on .sw {
+        background: rgba(0, 229, 255, 0.3);
+      }
+      .tweaks .t-toggle.on .sw::after {
+        left: 17px;
+        background: var(--stage-accent);
+        box-shadow: 0 0 7px var(--stage-accent);
+      }
 
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
-@keyframes blink  { 50%{opacity:0} }
-</style>
-</head>
-<body class="scanlines">
-<div id="root"></div>
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.25;
+        }
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="scanlines">
+    <div id="root"></div>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+      crossorigin="anonymous"
+    ></script>
 
-<script type="text/babel" src="Agents.jsx"></script>
-<script type="text/babel" src="AgentReply.jsx"></script>
+    <script type="text/babel" src="Agents.jsx"></script>
+    <script type="text/babel" src="AgentReply.jsx"></script>
 
-<script type="text/babel">
-const { useState, useEffect, useRef, useCallback } = React;
+    <script type="text/babel">
+      const { useState, useEffect, useRef, useCallback } = React;
 
-let _nid = 1; const nid = () => 'm' + (_nid++);
-const clk = () => new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      let _nid = 1;
+      const nid = () => 'm' + _nid++;
+      const clk = () =>
+        new Date().toLocaleTimeString('en-GB', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
 
-const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "scanlines": true,
-  "typewriter": true,
-  "routing": true,
-  "shapeshift": true
-}/*EDITMODE-END*/;
+      const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/ {
+        scanlines: true,
+        typewriter: true,
+        routing: true,
+        shapeshift: true,
+      }; /*EDITMODE-END*/
 
-function applyTheme(id) {
-  const a = AGENTS[id]; if (!a) return;
-  Object.entries(a.theme).forEach(([k,v]) => document.documentElement.style.setProperty(k,v));
-}
+      function applyTheme(id) {
+        const a = AGENTS[id];
+        if (!a) return;
+        Object.entries(a.theme).forEach(([k, v]) =>
+          document.documentElement.style.setProperty(k, v)
+        );
+      }
 
-// ---------- Tweaks Panel ----------
-function TweaksPanel({ tweaks, setTweaks, visible }) {
-  if (!visible) return null;
-  const tog = k => setTweaks(t => ({...t, [k]: !t[k]}));
-  const Tog = ({k, label}) => (
-    <div className={'t-toggle '+(tweaks[k]?'on':'')} onClick={() => tog(k)}>
-      <span>{label}</span><span className="sw"/>
-    </div>
-  );
-  return (
-    <div className="tweaks">
-      <div className="t-head"><span>◇ TWEAKS</span><span style={{color:'#8a8fa8'}}>v0.5</span></div>
-      <div className="t-body">
-        <Tog k="scanlines" label="scanlines overlay" />
-        <Tog k="typewriter" label="typewriter effect" />
-        <Tog k="routing" label="show routing" />
-        <Tog k="shapeshift" label="agent reshapes shell" />
-      </div>
-    </div>
-  );
-}
-
-// ---------- App ----------
-function App() {
-  const savedSlide = parseInt(localStorage.getItem('skogterm-uikit-session') || '0', 10);
-  const [messages, setMessages] = useState(() => [
-    {id:nid(), kind:'help'},
-    {id:nid(), kind:'sysblock', head:'WELCOME', body:'try @amy who has the best vibe? · or @dot show me a diff · or just type anything'},
-  ]);
-  const [buffer, setBuffer] = useState('');
-  const [caret, setCaret] = useState(0);
-  const [acOpen, setAcOpen] = useState(false);
-  const [selIdx, setSelIdx] = useState(0);
-  const [history, setHistory] = useState([]);
-  const [histIdx, setHistIdx] = useState(-1);
-  const [booted, setBooted] = useState(false);
-  const [tweakMode, setTweakMode] = useState(false);
-  const [tweaks, setTweaks] = useState(TWEAKS_DEFAULTS);
-  const [activeTheme, setActiveTheme] = useState('skogai');
-  const inputRef = useRef(null);
-  const streamRef = useRef(null);
-
-  useEffect(() => { const t = setTimeout(() => setBooted(true), 2800); return () => clearTimeout(t); }, []);
-  useEffect(() => { if (booted) inputRef.current?.focus(); }, [booted]);
-  useEffect(() => { document.body.classList.toggle('scanlines', !!tweaks.scanlines); }, [tweaks.scanlines]);
-  useEffect(() => { applyTheme(activeTheme); }, [activeTheme]);
-  useEffect(() => { const el = streamRef.current; if (el) el.scrollTop = el.scrollHeight; }, [messages]);
-
-  useEffect(() => {
-    const h = e => {
-      if (!e.data || typeof e.data !== 'object') return;
-      if (e.data.type === '__activate_edit_mode') setTweakMode(true);
-      if (e.data.type === '__deactivate_edit_mode') setTweakMode(false);
-    };
-    window.addEventListener('message', h);
-    window.parent.postMessage({type:'__edit_mode_available'}, '*');
-    return () => window.removeEventListener('message', h);
-  }, []);
-
-  const push = useCallback(m => setMessages(prev => [...prev, {id:nid(), ...m}]), []);
-
-  // Autocomplete suggestions
-  const suggestions = React.useMemo(() => {
-    const before = buffer.slice(0, caret);
-    const m = /(^|\s)@(\w*)$/.exec(before);
-    if (m) {
-      const q = m[2].toLowerCase();
-      return AGENT_ORDER.filter(id => id.startsWith(q)).map(id => ({
-        group:'AGENTS', key:'@'+id, desc:AGENTS[id].tagline, accent:AGENTS[id].theme['--stage-accent'],
-        glyph:AGENTS[id].glyph, insert:'@'+id+' ', replaceLen:m[0].trimStart().length,
-      }));
-    }
-    if (before === '') return AGENT_ORDER.slice(0,4).map(id => ({
-      group:'AGENTS', key:'@'+id, desc:AGENTS[id].tagline, accent:AGENTS[id].theme['--stage-accent'],
-      glyph:AGENTS[id].glyph, insert:'@'+id+' ', replaceLen:0,
-    }));
-    return [];
-  }, [buffer, caret]);
-
-  const insertMention = id => {
-    const add = '@'+id+' ';
-    const next = buffer+(buffer===''||buffer.endsWith(' ')?'':' ')+add;
-    setBuffer(next);
-    setTimeout(() => { inputRef.current?.focus(); const p=next.length; inputRef.current?.setSelectionRange(p,p); setCaret(p); }, 0);
-  };
-
-  const submit = useCallback(async txt => {
-    const input = (txt!==undefined?txt:buffer).trim();
-    if (!input) return;
-    setHistory(h=>[...h,input]); setHistIdx(-1);
-    setBuffer(''); setAcOpen(false);
-    push({kind:'user', text:input, ts:clk()});
-
-    const mentions = [...input.matchAll(/@(\w+)/g)].map(m=>m[1]).filter(a=>AGENTS[a]);
-    const targets = mentions.length ? Array.from(new Set(mentions)) : null;
-
-    const route = routeAgent(input);
-    if (tweaks.routing && !targets) push({kind:'routing', route});
-    const panel = targets || route.panel.slice(0,2);
-    if (tweaks.shapeshift) setActiveTheme(panel[0]);
-
-    for (let i=0; i<panel.length; i++) {
-      const id = panel[i];
-      const reply = nextReply(id);
-      const quoteOf = i>0 && !targets ? {agentId:panel[0], text:'co-routed'} : null;
-      // simulate latency
-      await new Promise(r => setTimeout(r, 200+Math.random()*200));
-      push({kind:'reply', agentId:id, reply, isTyping:tweaks.typewriter, quoteOf});
-    }
-  }, [buffer, tweaks, push]);
-
-  const onKey = e => {
-    if (acOpen && suggestions.length) {
-      if (e.key==='Tab') { e.preventDefault(); const s=suggestions[selIdx]||suggestions[0]; applyAc(s); return; }
-      if (e.key==='ArrowDown') { e.preventDefault(); setSelIdx(i=>Math.min(i+1,suggestions.length-1)); return; }
-      if (e.key==='ArrowUp') { e.preventDefault(); setSelIdx(i=>Math.max(i-1,0)); return; }
-      if (e.key==='Escape') { setAcOpen(false); return; }
-    }
-    if (!acOpen && e.key==='ArrowUp' && history.length) {
-      e.preventDefault();
-      const next = histIdx<0 ? history.length-1 : Math.max(0,histIdx-1);
-      setHistIdx(next); setBuffer(history[next]||''); return;
-    }
-    if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); submit(); }
-  };
-
-  const applyAc = s => {
-    const before = buffer.slice(0, caret-s.replaceLen);
-    const after = buffer.slice(caret);
-    const next = before+s.insert+after;
-    setBuffer(next);
-    const nc = before.length+s.insert.length;
-    setTimeout(() => inputRef.current?.setSelectionRange(nc,nc), 0);
-    setCaret(nc);
-  };
-
-  const renderMsg = m => {
-    switch(m.kind) {
-      case 'user': return <UserMsg key={m.id} text={m.text} ts={m.ts} />;
-      case 'help': return <HelpBlock key={m.id} />;
-      case 'agents': return <AgentsBlock key={m.id} onPick={insertMention} />;
-      case 'status': return <StatusBlock key={m.id} />;
-      case 'error': return <ErrorBlock key={m.id} text={m.text} />;
-      case 'sysblock': return <div key={m.id} className="sysblock"><div className="head"><span className="dot"/>{m.head||'SYSTEM'}</div><div style={{whiteSpace:'pre-wrap'}}>{m.body}</div></div>;
-      case 'routing': return <RoutingDecision key={m.id} route={m.route} />;
-      case 'reply': return <ReplyBlock key={m.id} agentId={m.agentId} reply={m.reply} isTyping={m.isTyping} quoteOf={m.quoteOf} />;
-      default: return null;
-    }
-  };
-
-  return (
-    <>
-      {!booted && <BootSequence onDone={() => setBooted(true)} />}
-      <div className="term-app">
-        <div className="term-header">
-          <div className="left">
-            <span className="brand">SKOGTERM</span>
-            <span className="version">v0.5 · {AGENTS[activeTheme].short} · scripted</span>
+      // ---------- Tweaks Panel ----------
+      function TweaksPanel({ tweaks, setTweaks, visible }) {
+        if (!visible) return null;
+        const tog = k => setTweaks(t => ({ ...t, [k]: !t[k] }));
+        const Tog = ({ k, label }) => (
+          <div
+            className={'t-toggle ' + (tweaks[k] ? 'on' : '')}
+            onClick={() => tog(k)}
+          >
+            <span>{label}</span>
+            <span className="sw" />
           </div>
-          <div className="status">
-            <span><span className="sdot"/>7 AGENTS</span>
-            <span><span className="sdot"/>ONLINE</span>
-            <span style={{fontFamily:"'JetBrains Mono',monospace"}}>{clk()}</span>
-          </div>
-        </div>
-
-        <div className="term-stream" ref={streamRef}>
-          {messages.map(renderMsg)}
-        </div>
-
-        <div className="term-inputbar">
-          <span className="prompt">▸</span>
-          <input ref={inputRef} value={buffer} placeholder="type a message · @agent to address · tab completes"
-            onChange={e=>{setBuffer(e.target.value);setCaret(e.target.selectionStart||e.target.value.length);setSelIdx(0);setAcOpen(true);}}
-            onSelect={e=>setCaret(e.target.selectionStart||0)}
-            onKeyDown={onKey}
-            onFocus={()=>setAcOpen(true)}
-            onBlur={()=>setTimeout(()=>setAcOpen(false),150)}
-            spellCheck={false} autoComplete="off" />
-          <span className="hints"><kbd>tab</kbd>ac <kbd>↑</kbd>hist <kbd>↵</kbd>send</span>
-
-          {acOpen && suggestions.length>0 && (
-            <div className="autocomplete">
-              {(() => {
-                const rows = []; let last = null;
-                suggestions.forEach((s,idx) => {
-                  if (s.group!==last) { rows.push(<div className="ac-group" key={'g'+idx}>{s.group}</div>); last=s.group; }
-                  rows.push(
-                    <div key={idx} className={'ac-item '+(idx===selIdx?'sel':'')}
-                      onMouseDown={e=>{e.preventDefault();setSelIdx(idx);setTimeout(()=>applyAc(s),0);}}>
-                      <span className="ac-key" style={s.accent?{color:s.accent}:null}>{s.glyph?<span style={{marginRight:5}}>{s.glyph}</span>:null}{s.key}</span>
-                      <span className="ac-desc">{s.desc}</span>
-                    </div>
-                  );
-                });
-                return rows;
-              })()}
+        );
+        return (
+          <div className="tweaks">
+            <div className="t-head">
+              <span>◇ TWEAKS</span>
+              <span style={{ color: '#8a8fa8' }}>v0.5</span>
             </div>
-          )}
-        </div>
-      </div>
+            <div className="t-body">
+              <Tog k="scanlines" label="scanlines overlay" />
+              <Tog k="typewriter" label="typewriter effect" />
+              <Tog k="routing" label="show routing" />
+              <Tog k="shapeshift" label="agent reshapes shell" />
+            </div>
+          </div>
+        );
+      }
 
-      <TweaksPanel tweaks={tweaks} setTweaks={setTweaks} visible={tweakMode} />
-    </>
-  );
-}
+      // ---------- App ----------
+      function App() {
+        const savedSlide = parseInt(
+          localStorage.getItem('skogterm-uikit-session') || '0',
+          10
+        );
+        const [messages, setMessages] = useState(() => [
+          { id: nid(), kind: 'help' },
+          {
+            id: nid(),
+            kind: 'sysblock',
+            head: 'WELCOME',
+            body: 'try @amy who has the best vibe? · or @dot show me a diff · or just type anything',
+          },
+        ]);
+        const [buffer, setBuffer] = useState('');
+        const [caret, setCaret] = useState(0);
+        const [acOpen, setAcOpen] = useState(false);
+        const [selIdx, setSelIdx] = useState(0);
+        const [history, setHistory] = useState([]);
+        const [histIdx, setHistIdx] = useState(-1);
+        const [booted, setBooted] = useState(false);
+        const [tweakMode, setTweakMode] = useState(false);
+        const [tweaks, setTweaks] = useState(TWEAKS_DEFAULTS);
+        const [activeTheme, setActiveTheme] = useState('skogai');
+        const inputRef = useRef(null);
+        const streamRef = useRef(null);
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
-</body>
+        useEffect(() => {
+          const t = setTimeout(() => setBooted(true), 2800);
+          return () => clearTimeout(t);
+        }, []);
+        useEffect(() => {
+          if (booted) inputRef.current?.focus();
+        }, [booted]);
+        useEffect(() => {
+          document.body.classList.toggle('scanlines', !!tweaks.scanlines);
+        }, [tweaks.scanlines]);
+        useEffect(() => {
+          applyTheme(activeTheme);
+        }, [activeTheme]);
+        useEffect(() => {
+          const el = streamRef.current;
+          if (el) el.scrollTop = el.scrollHeight;
+        }, [messages]);
+
+        useEffect(() => {
+          const h = e => {
+            if (!e.data || typeof e.data !== 'object') return;
+            if (e.data.type === '__activate_edit_mode') setTweakMode(true);
+            if (e.data.type === '__deactivate_edit_mode') setTweakMode(false);
+          };
+          window.addEventListener('message', h);
+          window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+          return () => window.removeEventListener('message', h);
+        }, []);
+
+        const push = useCallback(
+          m => setMessages(prev => [...prev, { id: nid(), ...m }]),
+          []
+        );
+
+        // Autocomplete suggestions
+        const suggestions = React.useMemo(() => {
+          const before = buffer.slice(0, caret);
+          const m = /(^|\s)@(\w*)$/.exec(before);
+          if (m) {
+            const q = m[2].toLowerCase();
+            return AGENT_ORDER.filter(id => id.startsWith(q)).map(id => ({
+              group: 'AGENTS',
+              key: '@' + id,
+              desc: AGENTS[id].tagline,
+              accent: AGENTS[id].theme['--stage-accent'],
+              glyph: AGENTS[id].glyph,
+              insert: '@' + id + ' ',
+              replaceLen: m[0].trimStart().length,
+            }));
+          }
+          if (before === '')
+            return AGENT_ORDER.slice(0, 4).map(id => ({
+              group: 'AGENTS',
+              key: '@' + id,
+              desc: AGENTS[id].tagline,
+              accent: AGENTS[id].theme['--stage-accent'],
+              glyph: AGENTS[id].glyph,
+              insert: '@' + id + ' ',
+              replaceLen: 0,
+            }));
+          return [];
+        }, [buffer, caret]);
+
+        const insertMention = id => {
+          const add = '@' + id + ' ';
+          const next =
+            buffer + (buffer === '' || buffer.endsWith(' ') ? '' : ' ') + add;
+          setBuffer(next);
+          setTimeout(() => {
+            inputRef.current?.focus();
+            const p = next.length;
+            inputRef.current?.setSelectionRange(p, p);
+            setCaret(p);
+          }, 0);
+        };
+
+        const submit = useCallback(
+          async txt => {
+            const input = (txt !== undefined ? txt : buffer).trim();
+            if (!input) return;
+            setHistory(h => [...h, input]);
+            setHistIdx(-1);
+            setBuffer('');
+            setAcOpen(false);
+            push({ kind: 'user', text: input, ts: clk() });
+
+            const mentions = [...input.matchAll(/@(\w+)/g)]
+              .map(m => m[1])
+              .filter(a => AGENTS[a]);
+            const targets = mentions.length
+              ? Array.from(new Set(mentions))
+              : null;
+
+            const route = routeAgent(input);
+            if (tweaks.routing && !targets) push({ kind: 'routing', route });
+            const panel = targets || route.panel.slice(0, 2);
+            if (tweaks.shapeshift) setActiveTheme(panel[0]);
+
+            for (let i = 0; i < panel.length; i++) {
+              const id = panel[i];
+              const reply = nextReply(id);
+              const quoteOf =
+                i > 0 && !targets
+                  ? { agentId: panel[0], text: 'co-routed' }
+                  : null;
+              // simulate latency
+              await new Promise(r => setTimeout(r, 200 + Math.random() * 200));
+              push({
+                kind: 'reply',
+                agentId: id,
+                reply,
+                isTyping: tweaks.typewriter,
+                quoteOf,
+              });
+            }
+          },
+          [buffer, tweaks, push]
+        );
+
+        const onKey = e => {
+          if (acOpen && suggestions.length) {
+            if (e.key === 'Tab') {
+              e.preventDefault();
+              const s = suggestions[selIdx] || suggestions[0];
+              applyAc(s);
+              return;
+            }
+            if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              setSelIdx(i => Math.min(i + 1, suggestions.length - 1));
+              return;
+            }
+            if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              setSelIdx(i => Math.max(i - 1, 0));
+              return;
+            }
+            if (e.key === 'Escape') {
+              setAcOpen(false);
+              return;
+            }
+          }
+          if (!acOpen && e.key === 'ArrowUp' && history.length) {
+            e.preventDefault();
+            const next =
+              histIdx < 0 ? history.length - 1 : Math.max(0, histIdx - 1);
+            setHistIdx(next);
+            setBuffer(history[next] || '');
+            return;
+          }
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            submit();
+          }
+        };
+
+        const applyAc = s => {
+          const before = buffer.slice(0, caret - s.replaceLen);
+          const after = buffer.slice(caret);
+          const next = before + s.insert + after;
+          setBuffer(next);
+          const nc = before.length + s.insert.length;
+          setTimeout(() => inputRef.current?.setSelectionRange(nc, nc), 0);
+          setCaret(nc);
+        };
+
+        const renderMsg = m => {
+          switch (m.kind) {
+            case 'user':
+              return <UserMsg key={m.id} text={m.text} ts={m.ts} />;
+            case 'help':
+              return <HelpBlock key={m.id} />;
+            case 'agents':
+              return <AgentsBlock key={m.id} onPick={insertMention} />;
+            case 'status':
+              return <StatusBlock key={m.id} />;
+            case 'error':
+              return <ErrorBlock key={m.id} text={m.text} />;
+            case 'sysblock':
+              return (
+                <div key={m.id} className="sysblock">
+                  <div className="head">
+                    <span className="dot" />
+                    {m.head || 'SYSTEM'}
+                  </div>
+                  <div style={{ whiteSpace: 'pre-wrap' }}>{m.body}</div>
+                </div>
+              );
+            case 'routing':
+              return <RoutingDecision key={m.id} route={m.route} />;
+            case 'reply':
+              return (
+                <ReplyBlock
+                  key={m.id}
+                  agentId={m.agentId}
+                  reply={m.reply}
+                  isTyping={m.isTyping}
+                  quoteOf={m.quoteOf}
+                />
+              );
+            default:
+              return null;
+          }
+        };
+
+        return (
+          <>
+            {!booted && <BootSequence onDone={() => setBooted(true)} />}
+            <div className="term-app">
+              <div className="term-header">
+                <div className="left">
+                  <span className="brand">SKOGTERM</span>
+                  <span className="version">
+                    v0.5 · {AGENTS[activeTheme].short} · scripted
+                  </span>
+                </div>
+                <div className="status">
+                  <span>
+                    <span className="sdot" />7 AGENTS
+                  </span>
+                  <span>
+                    <span className="sdot" />
+                    ONLINE
+                  </span>
+                  <span style={{ fontFamily: "'JetBrains Mono',monospace" }}>
+                    {clk()}
+                  </span>
+                </div>
+              </div>
+
+              <div className="term-stream" ref={streamRef}>
+                {messages.map(renderMsg)}
+              </div>
+
+              <div className="term-inputbar">
+                <span className="prompt">▸</span>
+                <input
+                  ref={inputRef}
+                  value={buffer}
+                  placeholder="type a message · @agent to address · tab completes"
+                  onChange={e => {
+                    setBuffer(e.target.value);
+                    setCaret(e.target.selectionStart || e.target.value.length);
+                    setSelIdx(0);
+                    setAcOpen(true);
+                  }}
+                  onSelect={e => setCaret(e.target.selectionStart || 0)}
+                  onKeyDown={onKey}
+                  onFocus={() => setAcOpen(true)}
+                  onBlur={() => setTimeout(() => setAcOpen(false), 150)}
+                  spellCheck={false}
+                  autoComplete="off"
+                />
+                <span className="hints">
+                  <kbd>tab</kbd>ac <kbd>↑</kbd>hist <kbd>↵</kbd>send
+                </span>
+
+                {acOpen && suggestions.length > 0 && (
+                  <div className="autocomplete">
+                    {(() => {
+                      const rows = [];
+                      let last = null;
+                      suggestions.forEach((s, idx) => {
+                        if (s.group !== last) {
+                          rows.push(
+                            <div className="ac-group" key={'g' + idx}>
+                              {s.group}
+                            </div>
+                          );
+                          last = s.group;
+                        }
+                        rows.push(
+                          <div
+                            key={idx}
+                            className={
+                              'ac-item ' + (idx === selIdx ? 'sel' : '')
+                            }
+                            onMouseDown={e => {
+                              e.preventDefault();
+                              setSelIdx(idx);
+                              setTimeout(() => applyAc(s), 0);
+                            }}
+                          >
+                            <span
+                              className="ac-key"
+                              style={s.accent ? { color: s.accent } : null}
+                            >
+                              {s.glyph ? (
+                                <span style={{ marginRight: 5 }}>
+                                  {s.glyph}
+                                </span>
+                              ) : null}
+                              {s.key}
+                            </span>
+                            <span className="ac-desc">{s.desc}</span>
+                          </div>
+                        );
+                      });
+                      return rows;
+                    })()}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <TweaksPanel
+              tweaks={tweaks}
+              setTweaks={setTweaks}
+              visible={tweakMode}
+            />
+          </>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
 </html>

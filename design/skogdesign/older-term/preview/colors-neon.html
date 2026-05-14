@@ -1,55 +1,135 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<title>Colors · Palette</title>
-<link rel="stylesheet" href="../colors_and_type.css"/>
-<style>
-  html,body{margin:0;padding:0;background:var(--void-1);}
-  .card{
-    width:700px; height:220px;
-    padding:20px 22px;
-    background:var(--void-1);
-    font-family:var(--font-ui);
-    color:var(--fog-1);
-    position:relative;
-    overflow:hidden;
-  }
-  .grid{display:grid; grid-template-columns:repeat(6,1fr); gap:10px; height:100%;}
-  .swatch{
-    position:relative;
-    display:flex; flex-direction:column; justify-content:space-between;
-    padding:10px 12px;
-    border:1px solid var(--fog-4);
-    font-size:10px;
-    letter-spacing:var(--tracking-wider);
-    text-transform:uppercase;
-  }
-  .swatch .name{color:var(--fog-0); font-weight:600; font-size:11px;}
-  .swatch .hex{font-family:var(--font-mono); color:var(--fog-2); font-size:10px; letter-spacing:0;}
-  .chip{height:38px; margin-top:6px;}
-  .row-label{
-    grid-column: 1 / -1;
-    font-family:var(--font-mono); font-size:10px; letter-spacing:var(--tracking-widest);
-    color:var(--fog-3); text-transform:uppercase;
-    display:flex; align-items:center; gap:8px;
-    margin-bottom:-4px;
-  }
-  .row-label::before{content:''; display:block; width:6px; height:6px; background:var(--cyan);}
-  .row-label.mag::before{background:var(--magenta);}
-</style>
-</head>
-<body>
-<div class="card">
-  <div class="grid">
-    <div class="row-label">// NEON ACCENTS</div>
-    <div class="swatch"><div><div class="name">Cyan</div><div class="hex">#00E5FF</div></div><div class="chip" style="background:#00e5ff; box-shadow:var(--glow-cyan-sm);"></div></div>
-    <div class="swatch"><div><div class="name">Magenta</div><div class="hex">#FF2BD6</div></div><div class="chip" style="background:#ff2bd6; box-shadow:var(--glow-magenta-sm);"></div></div>
-    <div class="swatch"><div><div class="name">Hazard</div><div class="hex">#F2FF00</div></div><div class="chip" style="background:#f2ff00;"></div></div>
-    <div class="swatch"><div><div class="name">Blood</div><div class="hex">#FF2D4A</div></div><div class="chip" style="background:#ff2d4a;"></div></div>
-    <div class="swatch"><div><div class="name">Acid</div><div class="hex">#39FF88</div></div><div class="chip" style="background:#39ff88;"></div></div>
-    <div class="swatch" style="border-color:var(--cyan);"><div><div class="name" style="color:var(--cyan);">Duality</div><div class="hex">135°</div></div><div class="chip" style="background:var(--gradient-duality);"></div></div>
-  </div>
-</div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Colors · Palette</title>
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--void-1);
+      }
+      .card {
+        width: 700px;
+        height: 220px;
+        padding: 20px 22px;
+        background: var(--void-1);
+        font-family: var(--font-ui);
+        color: var(--fog-1);
+        position: relative;
+        overflow: hidden;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        height: 100%;
+      }
+      .swatch {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 12px;
+        border: 1px solid var(--fog-4);
+        font-size: 10px;
+        letter-spacing: var(--tracking-wider);
+        text-transform: uppercase;
+      }
+      .swatch .name {
+        color: var(--fog-0);
+        font-weight: 600;
+        font-size: 11px;
+      }
+      .swatch .hex {
+        font-family: var(--font-mono);
+        color: var(--fog-2);
+        font-size: 10px;
+        letter-spacing: 0;
+      }
+      .chip {
+        height: 38px;
+        margin-top: 6px;
+      }
+      .row-label {
+        grid-column: 1 / -1;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: var(--tracking-widest);
+        color: var(--fog-3);
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: -4px;
+      }
+      .row-label::before {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        background: var(--cyan);
+      }
+      .row-label.mag::before {
+        background: var(--magenta);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="grid">
+        <div class="row-label">// NEON ACCENTS</div>
+        <div class="swatch">
+          <div>
+            <div class="name">Cyan</div>
+            <div class="hex">#00E5FF</div>
+          </div>
+          <div
+            class="chip"
+            style="background: #00e5ff; box-shadow: var(--glow-cyan-sm)"
+          ></div>
+        </div>
+        <div class="swatch">
+          <div>
+            <div class="name">Magenta</div>
+            <div class="hex">#FF2BD6</div>
+          </div>
+          <div
+            class="chip"
+            style="background: #ff2bd6; box-shadow: var(--glow-magenta-sm)"
+          ></div>
+        </div>
+        <div class="swatch">
+          <div>
+            <div class="name">Hazard</div>
+            <div class="hex">#F2FF00</div>
+          </div>
+          <div class="chip" style="background: #f2ff00"></div>
+        </div>
+        <div class="swatch">
+          <div>
+            <div class="name">Blood</div>
+            <div class="hex">#FF2D4A</div>
+          </div>
+          <div class="chip" style="background: #ff2d4a"></div>
+        </div>
+        <div class="swatch">
+          <div>
+            <div class="name">Acid</div>
+            <div class="hex">#39FF88</div>
+          </div>
+          <div class="chip" style="background: #39ff88"></div>
+        </div>
+        <div class="swatch" style="border-color: var(--cyan)">
+          <div>
+            <div class="name" style="color: var(--cyan)">Duality</div>
+            <div class="hex">135°</div>
+          </div>
+          <div class="chip" style="background: var(--gradient-duality)"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

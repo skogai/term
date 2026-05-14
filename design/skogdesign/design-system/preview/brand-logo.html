@@ -1,30 +1,126 @@
-<!DOCTYPE html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Chakra+Petch:wght@500&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#000;display:flex;align-items:stretch;height:100vh;}
-.hero{flex:1;position:relative;overflow:hidden;display:flex;align-items:flex-end;}
-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;}
-.overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.1) 50%,transparent 100%);}
-.info{position:relative;z-index:2;padding:16px 20px;width:100%;}
-.eyebrow{font-family:'Chakra Petch',sans-serif;font-size:9px;letter-spacing:0.28em;color:#00e5ff;text-transform:uppercase;margin-bottom:4px;}
-.name{font-family:'Orbitron',sans-serif;font-weight:900;font-size:22px;letter-spacing:0.2em;background:linear-gradient(135deg,#00e5ff,#ff2bd6);-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;}
-.desc{font-family:'Chakra Petch',sans-serif;font-size:10px;color:#8a8fa8;letter-spacing:0.12em;margin-top:3px;}
-.tags{display:flex;gap:6px;margin-top:8px;}
-.tag{font-family:'Chakra Petch',sans-serif;font-size:8px;letter-spacing:0.16em;text-transform:uppercase;padding:3px 8px;border:1px solid;clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);}
-</style></head><body>
-<div class="hero">
-  <img src="../assets/skogai-logo-mask.png" alt="SkogAI hero mark">
-  <div class="overlay"></div>
-  <div class="info">
-    <div class="eyebrow">brand hero · primary mark</div>
-    <div class="name">SkogAI</div>
-    <div class="desc">Hooded figure · red glow eyes · visor label · hazard-yellow graffiti wordmark</div>
-    <div class="tags">
-      <span class="tag" style="border-color:#00e5ff;color:#00e5ff;">cyan aura</span>
-      <span class="tag" style="border-color:#ff2d4a;color:#ff2d4a;">red eyes</span>
-      <span class="tag" style="border-color:#f2ff00;color:#f2ff00;">hazard wordmark</span>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Chakra+Petch:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #000;
+        display: flex;
+        align-items: stretch;
+        height: 100vh;
+      }
+      .hero {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+      }
+      img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+      .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.8) 0%,
+          rgba(0, 0, 0, 0.1) 50%,
+          transparent 100%
+        );
+      }
+      .info {
+        position: relative;
+        z-index: 2;
+        padding: 16px 20px;
+        width: 100%;
+      }
+      .eyebrow {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        color: #00e5ff;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .name {
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 900;
+        font-size: 22px;
+        letter-spacing: 0.2em;
+        background: linear-gradient(135deg, #00e5ff, #ff2bd6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-transform: uppercase;
+      }
+      .desc {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 10px;
+        color: #8a8fa8;
+        letter-spacing: 0.12em;
+        margin-top: 3px;
+      }
+      .tags {
+        display: flex;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .tag {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 8px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border: 1px solid;
+        clip-path: polygon(
+          4px 0,
+          100% 0,
+          100% calc(100% - 4px),
+          calc(100% - 4px) 100%,
+          0 100%,
+          0 4px
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <img src="../assets/skogai-logo-mask.png" alt="SkogAI hero mark" />
+      <div class="overlay"></div>
+      <div class="info">
+        <div class="eyebrow">brand hero · primary mark</div>
+        <div class="name">SkogAI</div>
+        <div class="desc">
+          Hooded figure · red glow eyes · visor label · hazard-yellow graffiti
+          wordmark
+        </div>
+        <div class="tags">
+          <span class="tag" style="border-color: #00e5ff; color: #00e5ff"
+            >cyan aura</span
+          >
+          <span class="tag" style="border-color: #ff2d4a; color: #ff2d4a"
+            >red eyes</span
+          >
+          <span class="tag" style="border-color: #f2ff00; color: #f2ff00"
+            >hazard wordmark</span
+          >
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-</body></html>
+  </body>
+</html>

@@ -1,13 +1,13 @@
 const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
 const clk = () =>
-  new Date().toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
+  new Date().toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
   });
 let _nid = 1;
-const nid = () => "m" + _nid++;
+const nid = () => 'm' + _nid++;
 
 function useAutocomplete(buffer, caret, cmdNames) {
   return useMemo(() => {
@@ -16,52 +16,50 @@ function useAutocomplete(buffer, caret, cmdNames) {
     if (slashM) {
       const q = slashM[1].toLowerCase();
       return cmdNames
-        .filter((n) => n.startsWith(q))
-        .map((n) => ({
-          group: "COMMANDS",
-          key: "/" + n,
-          desc: window.commandRegistry.get(n)?.desc || "",
-          insert: "/" + n + " ",
+        .filter(n => n.startsWith(q))
+        .map(n => ({
+          group: 'COMMANDS',
+          key: '/' + n,
+          desc: window.commandRegistry.get(n)?.desc || '',
+          insert: '/' + n + ' ',
           replaceLen: slashM[0].length,
         }));
     }
     const askM = /^\/(ask|theme)\s+(\w*)$/.exec(before);
     if (askM) {
       const q = askM[2].toLowerCase();
-      return AGENT_ORDER.filter((id) => id.startsWith(q)).map((id) => ({
-        group: "AGENTS",
+      return AGENT_ORDER.filter(id => id.startsWith(q)).map(id => ({
+        group: 'AGENTS',
         key: id,
         desc: AGENTS[id].tagline,
-        accent: AGENTS[id].theme["--stage-accent"],
+        accent: AGENTS[id].theme['--stage-accent'],
         glyph: AGENTS[id].glyph,
-        insert: "/" + askM[1] + " " + id + " ",
+        insert: '/' + askM[1] + ' ' + id + ' ',
         replaceLen: askM[0].length,
       }));
     }
     const mM = /(^|\s)@(\w*)$/.exec(before);
     if (mM) {
       const q = mM[2].toLowerCase();
-      const tok = "@" + mM[2];
-      return AGENT_ORDER.filter((id) => id.startsWith(q)).map((id) => ({
-        group: "MENTIONS",
-        key: "@" + id,
+      const tok = '@' + mM[2];
+      return AGENT_ORDER.filter(id => id.startsWith(q)).map(id => ({
+        group: 'MENTIONS',
+        key: '@' + id,
         desc: AGENTS[id].tagline,
-        accent: AGENTS[id].theme["--stage-accent"],
+        accent: AGENTS[id].theme['--stage-accent'],
         glyph: AGENTS[id].glyph,
-        insert: "@" + id + " ",
+        insert: '@' + id + ' ',
         replaceLen: tok.length,
       }));
     }
-    if (before === "")
-      return cmdNames
-        .slice(0, 10)
-        .map((n) => ({
-          group: "COMMANDS",
-          key: "/" + n,
-          desc: window.commandRegistry.get(n)?.desc || "",
-          insert: "/" + n + " ",
-          replaceLen: 0,
-        }));
+    if (before === '')
+      return cmdNames.slice(0, 10).map(n => ({
+        group: 'COMMANDS',
+        key: '/' + n,
+        desc: window.commandRegistry.get(n)?.desc || '',
+        insert: '/' + n + ' ',
+        replaceLen: 0,
+      }));
     return [];
   }, [buffer, caret, cmdNames]);
 }
@@ -71,8 +69,8 @@ const DEFAULT_TWEAKS = /*EDITMODE-BEGIN*/ {
   typewriter: true,
   routing: true,
   shapeshift: true,
-  density: "often",
-  layout: "stacked",
+  density: 'often',
+  layout: 'stacked',
 }; /*EDITMODE-END*/
 
 function applyAgentTheme(id) {
@@ -91,11 +89,11 @@ function TweaksPanel({
   setBackend,
 }) {
   if (!visible) return null;
-  const set = (k, v) => setTweaks((t) => ({ ...t, [k]: v }));
-  const tog = (k) => setTweaks((t) => ({ ...t, [k]: !t[k] }));
+  const set = (k, v) => setTweaks(t => ({ ...t, [k]: v }));
+  const tog = k => setTweaks(t => ({ ...t, [k]: !t[k] }));
   const Tog = ({ k, label }) => (
     <div
-      className={"t-toggle " + (tweaks[k] ? "on" : "")}
+      className={'t-toggle ' + (tweaks[k] ? 'on' : '')}
       onClick={() => tog(k)}
     >
       <span>{label}</span>
@@ -106,10 +104,10 @@ function TweaksPanel({
     <div className="t-row">
       <label>{label}</label>
       <div className="t-opts">
-        {opts.map((o) => (
+        {opts.map(o => (
           <button
             key={o}
-            className={tweaks[k] === o ? "on" : ""}
+            className={tweaks[k] === o ? 'on' : ''}
             onClick={() => set(k, o)}
           >
             {o}
@@ -122,16 +120,16 @@ function TweaksPanel({
     <div className="tweaks">
       <div className="t-head">
         <span>◇ TWEAKS</span>
-        <span style={{ color: "#8a8fa8" }}>v0.5</span>
+        <span style={{ color: '#8a8fa8' }}>v0.5</span>
       </div>
       <div className="t-body">
         <div className="t-row">
           <label>backend</label>
           <div className="t-opts">
-            {Object.keys(window.BACKENDS).map((n) => (
+            {Object.keys(window.BACKENDS).map(n => (
               <button
                 key={n}
-                className={backend === n ? "on" : ""}
+                className={backend === n ? 'on' : ''}
                 onClick={() => setBackend(n)}
               >
                 {n}
@@ -149,12 +147,12 @@ function TweaksPanel({
         <Opts
           k="density"
           label="chorus density"
-          opts={["never", "sometimes", "often"]}
+          opts={['never', 'sometimes', 'often']}
         />
         <Opts
           k="layout"
           label="reply layout"
-          opts={["stacked", "panel", "inline"]}
+          opts={['stacked', 'panel', 'inline']}
         />
       </div>
     </div>
@@ -163,19 +161,19 @@ function TweaksPanel({
 
 function seedMessages() {
   return [
-    { id: nid(), kind: "help" },
+    { id: nid(), kind: 'help' },
     {
       id: nid(),
-      kind: "sysblock",
-      head: "WELCOME",
-      body: "try /commands to add your own · /backend claude to wire a real LLM · /poll to ask all 7 agents at once",
+      kind: 'sysblock',
+      head: 'WELCOME',
+      body: 'try /commands to add your own · /backend claude to wire a real LLM · /poll to ask all 7 agents at once',
     },
   ];
 }
 
 function App() {
   const [messages, setMessages] = useState(() => seedMessages());
-  const [buffer, setBuffer] = useState("");
+  const [buffer, setBuffer] = useState('');
   const [caret, setCaret] = useState(0);
   const [selIdx, setSelIdx] = useState(0);
   const [acOpen, setAcOpen] = useState(false);
@@ -184,7 +182,7 @@ function App() {
   const [booted, setBooted] = useState(true);
   const [tweakMode, setTweakMode] = useState(false);
   const [tweaks, setTweaks] = useState(DEFAULT_TWEAKS);
-  const [activeTheme, setActiveTheme] = useState("skogai");
+  const [activeTheme, setActiveTheme] = useState('skogai');
   const [editorOpen, setEditorOpen] = useState(false);
   const [backend, setBackendState] = useState(window.backends.current);
   const [regVer, setRegVer] = useState(0);
@@ -192,12 +190,12 @@ function App() {
   const streamRef = useRef(null);
 
   useEffect(
-    () => window.commandRegistry.subscribe(() => setRegVer((v) => v + 1)),
-    [],
+    () => window.commandRegistry.subscribe(() => setRegVer(v => v + 1)),
+    []
   );
   const cmdNames = useMemo(
-    () => window.commandRegistry.list().map((c) => c.name),
-    [regVer],
+    () => window.commandRegistry.list().map(c => c.name),
+    [regVer]
   );
   const suggestions = useAutocomplete(buffer, caret, cmdNames);
 
@@ -209,7 +207,7 @@ function App() {
     if (booted) inputRef.current?.focus();
   }, [booted]);
   useEffect(() => {
-    document.body.classList.toggle("scanlines", !!tweaks.scanlines);
+    document.body.classList.toggle('scanlines', !!tweaks.scanlines);
   }, [tweaks.scanlines]);
   useEffect(() => {
     applyAgentTheme(activeTheme);
@@ -220,36 +218,36 @@ function App() {
   }, [messages]);
 
   useEffect(() => {
-    const onMsg = (e) => {
-      if (!e.data || typeof e.data !== "object") return;
-      if (e.data.type === "__activate_edit_mode") setTweakMode(true);
-      if (e.data.type === "__deactivate_edit_mode") setTweakMode(false);
+    const onMsg = e => {
+      if (!e.data || typeof e.data !== 'object') return;
+      if (e.data.type === '__activate_edit_mode') setTweakMode(true);
+      if (e.data.type === '__deactivate_edit_mode') setTweakMode(false);
     };
-    window.addEventListener("message", onMsg);
-    window.parent.postMessage({ type: "__edit_mode_available" }, "*");
-    return () => window.removeEventListener("message", onMsg);
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
   }, []);
 
   const push = useCallback(
-    (m) => setMessages((prev) => [...prev, { id: nid(), ...m }]),
-    [],
+    m => setMessages(prev => [...prev, { id: nid(), ...m }]),
+    []
   );
 
   const setBackend = useCallback(
-    (name) => {
+    name => {
       try {
         window.backends.set(name);
         setBackendState(name);
         push({
-          kind: "sysblock",
-          head: "BACKEND",
-          body: "switched to " + name,
+          kind: 'sysblock',
+          head: 'BACKEND',
+          body: 'switched to ' + name,
         });
       } catch (e) {
-        push({ kind: "error", text: e.message });
+        push({ kind: 'error', text: e.message });
       }
     },
-    [push],
+    [push]
   );
 
   // ---- Build ctx passed to every command handler ----
@@ -260,19 +258,19 @@ function App() {
         raw,
         query: fullQuery,
         agents: AGENTS,
-        route: (q) => routeAgent(q || raw, AGENT_ORDER),
+        route: q => routeAgent(q || raw, AGENT_ORDER),
         ask: async (id, q) => {
           if (!AGENTS[id]) {
-            push({ kind: "error", text: "unknown agent: " + id });
+            push({ kind: 'error', text: 'unknown agent: ' + id });
             return;
           }
           push({
-            kind: "routing",
+            kind: 'routing',
             route: {
               primary: id,
               panel: [id],
               scores: { [id]: 99 },
-              matched: { [id]: ["/ask"] },
+              matched: { [id]: ['/ask'] },
               reasoning: [
                 `ctx.ask → ${id.toUpperCase()}`,
                 `backend: ${window.backends.current}`,
@@ -281,10 +279,10 @@ function App() {
           });
           if (tweaks.shapeshift) setActiveTheme(id);
           const reply = await window.backends.call(id, q, {
-            history: history.slice(-6).map((h) => ({ role: "user", text: h })),
+            history: history.slice(-6).map(h => ({ role: 'user', text: h })),
           });
           push({
-            kind: "reply",
+            kind: 'reply',
             agentId: id,
             reply,
             isTyping: tweaks.typewriter,
@@ -295,39 +293,39 @@ function App() {
         },
         say: (id, prose) =>
           push({
-            kind: "reply",
+            kind: 'reply',
             agentId: id,
             reply: { prose },
             isTyping: tweaks.typewriter,
           }),
         sys: (kind, msg) =>
           push({
-            kind: kind === "error" ? "error" : "sysblock",
-            head: kind === "ok" ? "OK" : kind === "info" ? "INFO" : "SYSTEM",
+            kind: kind === 'error' ? 'error' : 'sysblock',
+            head: kind === 'ok' ? 'OK' : kind === 'info' ? 'INFO' : 'SYSTEM',
             body: msg,
             text: msg,
           }),
-        theme: (id) => {
+        theme: id => {
           if (AGENTS[id]) {
             setActiveTheme(id);
             push({
-              kind: "sysblock",
-              head: "SHELL RESHAPED",
-              body: "now channeling " + AGENTS[id].name,
+              kind: 'sysblock',
+              head: 'SHELL RESHAPED',
+              body: 'now channeling ' + AGENTS[id].name,
             });
           }
         },
         clear: () => setMessages([]),
-        emit: (m) => push(m),
+        emit: m => push(m),
         openCommandEditor: () => setEditorOpen(true),
-        setBackend: (n) => setBackend(n),
+        setBackend: n => setBackend(n),
         currentBackend: () => window.backends.current,
         exportConfig: () => {
           const config = {
             version: 1,
             commands: window.commandRegistry
               .list()
-              .filter((c) => c.source === "user")
+              .filter(c => c.source === 'user')
               .map(({ name, args, desc, body }) => ({
                 name,
                 args,
@@ -339,34 +337,34 @@ function App() {
             tweaks,
           };
           const blob = new Blob([JSON.stringify(config, null, 2)], {
-            type: "application/json",
+            type: 'application/json',
           });
           const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
+          const a = document.createElement('a');
           a.href = url;
-          a.download = "skogterm-config.json";
+          a.download = 'skogterm-config.json';
           a.click();
           URL.revokeObjectURL(url);
           push({
-            kind: "sysblock",
-            head: "SAVED",
+            kind: 'sysblock',
+            head: 'SAVED',
             body:
-              "skogterm-config.json · " +
+              'skogterm-config.json · ' +
               config.commands.length +
-              " user commands",
+              ' user commands',
           });
         },
         importConfig: () => {
-          const inp = document.createElement("input");
-          inp.type = "file";
-          inp.accept = "application/json";
+          const inp = document.createElement('input');
+          inp.type = 'file';
+          inp.accept = 'application/json';
           inp.onchange = async () => {
             const f = inp.files[0];
             if (!f) return;
             try {
               const cfg = JSON.parse(await f.text());
-              (cfg.commands || []).forEach((c) =>
-                window.commandRegistry.upsert(c),
+              (cfg.commands || []).forEach(c =>
+                window.commandRegistry.upsert(c)
               );
               if (cfg.backend) {
                 window.backends.set(cfg.backend);
@@ -375,32 +373,32 @@ function App() {
               if (cfg.webhook) window.backends.setWebhook(cfg.webhook);
               if (cfg.tweaks) setTweaks(cfg.tweaks);
               push({
-                kind: "sysblock",
-                head: "LOADED",
-                body: "imported " + (cfg.commands || []).length + " commands",
+                kind: 'sysblock',
+                head: 'LOADED',
+                body: 'imported ' + (cfg.commands || []).length + ' commands',
               });
             } catch (e) {
-              push({ kind: "error", text: "import failed: " + e.message });
+              push({ kind: 'error', text: 'import failed: ' + e.message });
             }
           };
           inp.click();
         },
         resetAll: () => {
           window.commandRegistry.reset();
-          window.backends.set("scripted");
-          setBackendState("scripted");
+          window.backends.set('scripted');
+          setBackendState('scripted');
         },
         storage: {
-          get: (k) => window.userStorage.get(k),
+          get: k => window.userStorage.get(k),
           set: (k, v) => window.userStorage.set(k, v),
           all: () => window.userStorage.all(),
         },
         state: { history: history.slice(), messages: messages.slice() },
-        log: (...xs) => console.log("[cmd]", ...xs),
+        log: (...xs) => console.log('[cmd]', ...xs),
       };
       return self;
     },
-    [push, history, messages, tweaks, setBackend],
+    [push, history, messages, tweaks, setBackend]
   );
 
   const execCommand = useCallback(
@@ -408,15 +406,15 @@ function App() {
       const cmd = window.commandRegistry.get(name);
       if (!cmd) {
         push({
-          kind: "error",
-          text: "unknown command: /" + name + " — try /help",
+          kind: 'error',
+          text: 'unknown command: /' + name + ' — try /help',
         });
         return;
       }
       if (!cmd.fn) {
         push({
-          kind: "error",
-          text: "/" + name + " failed to compile: " + cmd.error,
+          kind: 'error',
+          text: '/' + name + ' failed to compile: ' + cmd.error,
         });
         return;
       }
@@ -427,45 +425,45 @@ function App() {
         if (compiled.error) throw new Error(compiled.error);
         await compiled.fn(ctx);
       } catch (e) {
-        push({ kind: "error", text: "/" + name + " runtime: " + e.message });
+        push({ kind: 'error', text: '/' + name + ' runtime: ' + e.message });
       }
     },
-    [buildCtx, push],
+    [buildCtx, push]
   );
 
   const submit = useCallback(
-    async (txt) => {
+    async txt => {
       const input = (txt !== undefined ? txt : buffer).trim();
       if (!input) return;
-      setHistory((h) => [...h, input]);
+      setHistory(h => [...h, input]);
       setHistIdx(-1);
-      setBuffer("");
+      setBuffer('');
       setAcOpen(false);
 
-      push({ kind: "user", text: input, ts: clk() });
+      push({ kind: 'user', text: input, ts: clk() });
 
-      if (input.startsWith("/")) {
+      if (input.startsWith('/')) {
         const m = /^\/(\w+)\s*(.*)$/.exec(input);
         const name = m[1];
-        const rest = m[2] || "";
+        const rest = m[2] || '';
         await execCommand(name, rest, input);
         return;
       }
 
       const mentions = [...input.matchAll(/@(\w+)/g)]
-        .map((m) => m[1])
-        .filter((a) => AGENTS[a]);
+        .map(m => m[1])
+        .filter(a => AGENTS[a]);
       if (mentions.length) {
         const uniq = Array.from(new Set(mentions));
         push({
-          kind: "routing",
+          kind: 'routing',
           route: {
             primary: uniq[0],
             panel: uniq,
             scores: {},
             matched: {},
             reasoning: [
-              `@mention → ${uniq.map((x) => x.toUpperCase()).join(" + ")}`,
+              `@mention → ${uniq.map(x => x.toUpperCase()).join(' + ')}`,
             ],
           },
         });
@@ -476,20 +474,20 @@ function App() {
             history: history.slice(-6),
           });
           push({
-            kind: "reply",
+            kind: 'reply',
             agentId: id,
             reply,
             isTyping: tweaks.typewriter,
-            quoteOf: i > 0 ? { agentId: uniq[0], text: "co-addressed" } : null,
+            quoteOf: i > 0 ? { agentId: uniq[0], text: 'co-addressed' } : null,
           });
         }
         return;
       }
 
       const route = routeAgent(input, AGENT_ORDER);
-      if (tweaks.routing) push({ kind: "routing", route });
-      const density = tweaks.density || "often";
-      const max = density === "never" ? 1 : density === "sometimes" ? 2 : 3;
+      if (tweaks.routing) push({ kind: 'routing', route });
+      const density = tweaks.density || 'often';
+      const max = density === 'never' ? 1 : density === 'sometimes' ? 2 : 3;
       const panel = route.panel.slice(0, max);
       if (tweaks.shapeshift) setActiveTheme(panel[0]);
       for (let i = 0; i < panel.length; i++) {
@@ -499,10 +497,10 @@ function App() {
         });
         const quoteOf =
           i > 0 && Math.random() < 0.5
-            ? { agentId: panel[0], text: "co-routed" }
+            ? { agentId: panel[0], text: 'co-routed' }
             : null;
         push({
-          kind: "reply",
+          kind: 'reply',
           agentId: id,
           reply,
           isTyping: tweaks.typewriter,
@@ -510,14 +508,14 @@ function App() {
         });
       }
     },
-    [buffer, tweaks, push, execCommand, history],
+    [buffer, tweaks, push, execCommand, history]
   );
 
-  const onKey = (e) => {
+  const onKey = e => {
     if (acOpen && suggestions.length) {
       if (
-        e.key === "Tab" ||
-        (e.key === "Enter" &&
+        e.key === 'Tab' ||
+        (e.key === 'Enter' &&
           suggestions[selIdx] &&
           /^[/@]\w*$/.test(buffer.slice(0, caret).split(/\s/).pop()))
       ) {
@@ -532,59 +530,59 @@ function App() {
         setCaret(nc);
         return;
       }
-      if (e.key === "ArrowDown") {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
-        setSelIdx((i) => Math.min(i + 1, suggestions.length - 1));
+        setSelIdx(i => Math.min(i + 1, suggestions.length - 1));
         return;
       }
-      if (e.key === "ArrowUp") {
+      if (e.key === 'ArrowUp') {
         e.preventDefault();
-        setSelIdx((i) => Math.max(i - 1, 0));
+        setSelIdx(i => Math.max(i - 1, 0));
         return;
       }
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         setAcOpen(false);
         return;
       }
     }
-    if (!acOpen && e.key === "ArrowUp" && history.length) {
+    if (!acOpen && e.key === 'ArrowUp' && history.length) {
       e.preventDefault();
       const next = histIdx < 0 ? history.length - 1 : Math.max(0, histIdx - 1);
       setHistIdx(next);
-      setBuffer(history[next] || "");
+      setBuffer(history[next] || '');
       return;
     }
-    if (!acOpen && e.key === "ArrowDown" && history.length) {
+    if (!acOpen && e.key === 'ArrowDown' && history.length) {
       e.preventDefault();
       if (histIdx < 0) return;
       const next = histIdx + 1;
       if (next >= history.length) {
         setHistIdx(-1);
-        setBuffer("");
+        setBuffer('');
       } else {
         setHistIdx(next);
         setBuffer(history[next]);
       }
       return;
     }
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       submit();
     }
   };
 
-  const onChange = (e) => {
+  const onChange = e => {
     setBuffer(e.target.value);
     setCaret(e.target.selectionStart || e.target.value.length);
     setSelIdx(0);
     setAcOpen(true);
   };
-  const onSelect = (e) => setCaret(e.target.selectionStart || 0);
+  const onSelect = e => setCaret(e.target.selectionStart || 0);
 
-  const insertMention = (id) => {
-    const add = "@" + id + " ";
+  const insertMention = id => {
+    const add = '@' + id + ' ';
     const next =
-      buffer + (buffer === "" || buffer.endsWith(" ") ? "" : " ") + add;
+      buffer + (buffer === '' || buffer.endsWith(' ') ? '' : ' ') + add;
     setBuffer(next);
     setTimeout(() => {
       inputRef.current?.focus();
@@ -594,31 +592,31 @@ function App() {
     }, 0);
   };
 
-  const renderMsg = (m) => {
+  const renderMsg = m => {
     switch (m.kind) {
-      case "user":
+      case 'user':
         return <UserMsg key={m.id} text={m.text} ts={m.ts} />;
-      case "help":
+      case 'help':
         return <HelpBlock key={m.id} />;
-      case "agents":
+      case 'agents':
         return <AgentsBlock key={m.id} onPick={insertMention} />;
-      case "status":
+      case 'status':
         return <StatusBlock key={m.id} />;
-      case "error":
+      case 'error':
         return <ErrorBlock key={m.id} text={m.text} />;
-      case "sysblock":
+      case 'sysblock':
         return (
           <div key={m.id} className="sysblock">
             <div className="head">
               <span className="dot" />
-              {m.head || "SYSTEM"}
+              {m.head || 'SYSTEM'}
             </div>
-            <div style={{ whiteSpace: "pre-wrap" }}>{m.body}</div>
+            <div style={{ whiteSpace: 'pre-wrap' }}>{m.body}</div>
           </div>
         );
-      case "routing":
+      case 'routing':
         return <RoutingDecision key={m.id} route={m.route} />;
-      case "reply":
+      case 'reply':
         return (
           <ReplyBlock
             key={m.id}
@@ -687,17 +685,17 @@ function App() {
                 suggestions.forEach((s, idx) => {
                   if (s.group !== last) {
                     rows.push(
-                      <div className="ac-group" key={"g" + idx}>
+                      <div className="ac-group" key={'g' + idx}>
                         {s.group}
-                      </div>,
+                      </div>
                     );
                     last = s.group;
                   }
                   rows.push(
                     <div
                       key={idx}
-                      className={"ac-item " + (idx === selIdx ? "sel" : "")}
-                      onMouseDown={(e) => {
+                      className={'ac-item ' + (idx === selIdx ? 'sel' : '')}
+                      onMouseDown={e => {
                         e.preventDefault();
                         setSelIdx(idx);
                         setTimeout(() => {
@@ -722,7 +720,7 @@ function App() {
                         {s.key}
                       </span>
                       <span className="ac-desc">{s.desc}</span>
-                    </div>,
+                    </div>
                   );
                 });
                 return rows;
@@ -746,5 +744,5 @@ function App() {
   );
 }
 
-const _root = ReactDOM.createRoot(document.getElementById("root"));
+const _root = ReactDOM.createRoot(document.getElementById('root'));
 _root.render(<App />);

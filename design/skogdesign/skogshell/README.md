@@ -8,25 +8,25 @@ Instead of learning tools passively, users actively **solve challenges using rea
 
 ## 🚀 Features
 
-* 🧠 **Learn by Doing** — Solve hands-on challenges instead of reading theory
-* 🖥️ **Fully Terminal-Based UI** — No buttons, no shortcuts — just commands
-* 🔐 **Real-World Tools Simulation**:
+- 🧠 **Learn by Doing** — Solve hands-on challenges instead of reading theory
+- 🖥️ **Fully Terminal-Based UI** — No buttons, no shortcuts — just commands
+- 🔐 **Real-World Tools Simulation**:
+  - Linux: `ls`, `cd`, `grep`, `find`, `env`
+  - Network: `nmap`, `netstat`, `whois`, `dig`
+  - Crypto: `base64`, `rot13`, `john`, `xor`
+  - Web: `curl`, `gobuster`, `cookies`
+  - Forensics: `file`, `strings`, `exif`
 
-  * Linux: `ls`, `cd`, `grep`, `find`, `env`
-  * Network: `nmap`, `netstat`, `whois`, `dig`
-  * Crypto: `base64`, `rot13`, `john`, `xor`
-  * Web: `curl`, `gobuster`, `cookies`
-  * Forensics: `file`, `strings`, `exif`
-* 🎯 **Progressive Levels** — Each level teaches a real-world concept
-* 🧩 **5 Tracks, 26 Levels**:
+- 🎯 **Progressive Levels** — Each level teaches a real-world concept
+- 🧩 **5 Tracks, 26 Levels**:
+  - 🐧 Linux (8 levels)
+  - 🌐 Network (6 levels)
+  - 🔐 Crypto (7 levels)
+  - 🕸 Web (5 levels)
+  - 🔍 Forensics (5 levels)
 
-  * 🐧 Linux (8 levels)
-  * 🌐 Network (6 levels)
-  * 🔐 Crypto (7 levels)
-  * 🕸 Web (5 levels)
-  * 🔍 Forensics (5 levels)
-* 📊 **Progress Tracking System**
-* ⚡ **Command Autocomplete + History**
+- 📊 **Progress Tracking System**
+- ⚡ **Command Autocomplete + History**
 
 ---
 
@@ -66,17 +66,17 @@ Shellscape is built on a simple idea:
 
 Each level is designed around:
 
-* Real misconfigurations
-* Common vulnerabilities
-* Actual attacker workflows
+- Real misconfigurations
+- Common vulnerabilities
+- Actual attacker workflows
 
 Examples:
 
-* Finding credentials in `.env` files
-* Exploiting exposed `robots.txt`
-* Cracking MD5 hashes with wordlists
-* Discovering services via `nmap`
-* Extracting secrets from binaries using `strings`
+- Finding credentials in `.env` files
+- Exploiting exposed `robots.txt`
+- Cracking MD5 hashes with wordlists
+- Discovering services via `nmap`
+- Extracting secrets from binaries using `strings`
 
 ---
 
@@ -98,19 +98,19 @@ Shellscape/
 
 ### 🔧 Core Components
 
-* **engine.js** → Handles level switching, SSH simulation, and progress tracking
-* **commands.js** → Implements all terminal commands (Linux, Network, Crypto, Web, Forensics)
-* **levels.js** → Stores all levels, files, and challenge data
-* **terminal.js** → Manages UI behavior, cursor, input, and history
-* **style.css** → Defines the terminal look and feel
-* **index.html** → Loads everything and acts as the main interface
+- **engine.js** → Handles level switching, SSH simulation, and progress tracking
+- **commands.js** → Implements all terminal commands (Linux, Network, Crypto, Web, Forensics)
+- **levels.js** → Stores all levels, files, and challenge data
+- **terminal.js** → Manages UI behavior, cursor, input, and history
+- **style.css** → Defines the terminal look and feel
+- **index.html** → Loads everything and acts as the main interface
 
 ---
 
 ## 🛠️ Tech Stack
 
-* Frontend: HTML, CSS, JavaScript
-* Runtime: Browser-based terminal simulation
+- Frontend: HTML, CSS, JavaScript
+- Runtime: Browser-based terminal simulation
 
 ---
 
@@ -140,24 +140,24 @@ $ ssh level1@linux
 
 ## 🧪 Skills You Gain
 
-* Linux enumeration
-* File system analysis
-* Network reconnaissance
-* OSINT techniques
-* Cryptography basics
-* Web vulnerability discovery
-* Digital forensics fundamentals
+- Linux enumeration
+- File system analysis
+- Network reconnaissance
+- OSINT techniques
+- Cryptography basics
+- Web vulnerability discovery
+- Digital forensics fundamentals
 
 ---
 
 ## 📈 Future Improvements
 
-* 👤 User authentication system
-* 💾 Persistent progress (database)
-* 🏆 Leaderboards
-* 🌍 Multiplayer / competitive mode
-* 🧠 AI-generated levels
-* 🐳 Dockerized deployment
+- 👤 User authentication system
+- 💾 Persistent progress (database)
+- 🏆 Leaderboards
+- 🌍 Multiplayer / competitive mode
+- 🧠 AI-generated levels
+- 🐳 Dockerized deployment
 
 ---
 
@@ -167,10 +167,10 @@ Contributions are welcome.
 
 You can help by:
 
-* Adding new levels
-* Improving command realism
-* Fixing bugs
-* Enhancing UI/UX
+- Adding new levels
+- Improving command realism
+- Fixing bugs
+- Enhancing UI/UX
 
 ---
 
@@ -184,10 +184,10 @@ MIT License
 
 Inspired by:
 
-* CTF platforms
-* Hack The Box
-* OverTheWire (Bandit)
-* Real-world penetration testing workflows
+- CTF platforms
+- Hack The Box
+- OverTheWire (Bandit)
+- Real-world penetration testing workflows
 
 ---
 

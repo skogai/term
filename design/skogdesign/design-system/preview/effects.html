@@ -1,81 +1,315 @@
-<!DOCTYPE html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Chakra+Petch:wght@500&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#06070b;padding:14px;display:flex;flex-direction:column;gap:10px;}
-.row{display:flex;gap:8px;}
-.cell{display:flex;flex-direction:column;gap:6px;}
-.lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:#545970;letter-spacing:0.08em;}
-.section{font-size:9px;letter-spacing:0.2em;color:#545970;font-family:'Chakra Petch',sans-serif;text-transform:uppercase;}
-.swatch{height:52px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-</style>
-<style>
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'JetBrains Mono'; font-style: italic; font-weight: 400; src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype'); font-display: swap; }
-</style>
-</head><body>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Chakra+Petch:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+      }
+      .cell {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .lbl {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8px;
+        color: #545970;
+        letter-spacing: 0.08em;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+      }
+      .swatch {
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Regular.ttf')
+          format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500;
+        src: url('../fonts/JetBrainsMonoNerdFont-Medium.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: url('../fonts/JetBrainsMonoNerdFont-Bold.ttf') format('truetype');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: url('../fonts/JetBrainsMonoNerdFont-Italic.ttf') format('truetype');
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="cell" style="flex: 1">
+        <div class="lbl">VOID GRADIENT</div>
+        <div
+          class="swatch"
+          style="
+            background: radial-gradient(
+              ellipse at top,
+              #16192a 0%,
+              #06070b 55%,
+              #000 100%
+            );
+          "
+        >
+          <span
+            style="
+              font-family: 'Orbitron', sans-serif;
+              font-size: 11px;
+              color: #00e5ff;
+              letter-spacing: 0.2em;
+            "
+            >STAGE BG</span
+          >
+        </div>
+      </div>
+      <div class="cell" style="flex: 1">
+        <div class="lbl">SCANLINES OVERLAY</div>
+        <div class="swatch" style="background: #0b0d15">
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 229, 255, 0.07) 0,
+                rgba(0, 229, 255, 0.07) 1px,
+                transparent 1px,
+                transparent 3px
+              );
+              mix-blend-mode: screen;
+            "
+          ></div>
+          <span
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 10px;
+              color: #8a8fa8;
+              letter-spacing: 0.12em;
+              position: relative;
+            "
+            >scanlines</span
+          >
+        </div>
+      </div>
+      <div class="cell" style="flex: 1">
+        <div class="lbl">GRID TEXTURE</div>
+        <div
+          class="swatch"
+          style="
+            background-color: #0d1117;
+            background-image:
+              linear-gradient(rgba(63, 185, 80, 0.07) 1px, transparent 1px),
+              linear-gradient(
+                90deg,
+                rgba(63, 185, 80, 0.07) 1px,
+                transparent 1px
+              );
+            background-size: 16px 16px;
+          "
+        >
+          <span
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 10px;
+              color: #3fb950;
+              letter-spacing: 0.1em;
+              position: relative;
+            "
+            >DOT theme</span
+          >
+        </div>
+      </div>
+    </div>
 
-<div class="row">
-  <div class="cell" style="flex:1;">
-    <div class="lbl">VOID GRADIENT</div>
-    <div class="swatch" style="background:radial-gradient(ellipse at top,#16192a 0%,#06070b 55%,#000 100%);">
-      <span style="font-family:'Orbitron',sans-serif;font-size:11px;color:#00e5ff;letter-spacing:0.2em;">STAGE BG</span>
+    <div class="row">
+      <div class="cell" style="flex: 1">
+        <div class="lbl">DUALITY GRADIENT TEXT</div>
+        <div class="swatch" style="background: #06070b">
+          <span
+            style="
+              font-family: 'Orbitron', sans-serif;
+              font-size: 22px;
+              font-weight: 900;
+              letter-spacing: 0.1em;
+              background: linear-gradient(135deg, #00e5ff, #ff2bd6);
+              -webkit-background-clip: text;
+              background-clip: text;
+              color: transparent;
+              text-transform: uppercase;
+            "
+            >SKOG</span
+          >
+        </div>
+      </div>
+      <div class="cell" style="flex: 1">
+        <div class="lbl">GLITCH TEXT SHADOW</div>
+        <div class="swatch" style="background: #06070b">
+          <span
+            style="
+              font-family: 'Orbitron', sans-serif;
+              font-size: 18px;
+              font-weight: 700;
+              color: #f4f6ff;
+              letter-spacing: 0.1em;
+              text-shadow:
+                2px 0 0 rgba(255, 43, 214, 0.7),
+                -2px 0 0 rgba(0, 229, 255, 0.7);
+              text-transform: uppercase;
+            "
+            >GLITCH</span
+          >
+        </div>
+      </div>
+      <div class="cell" style="flex: 1">
+        <div class="lbl">INNER CYAN GLOW</div>
+        <div
+          class="swatch"
+          style="
+            background: #0b0d15;
+            box-shadow: inset 0 0 28px rgba(0, 229, 255, 0.15);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+          "
+        >
+          <span
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 9px;
+              color: #00e5ff;
+              letter-spacing: 0.14em;
+            "
+            >inner glow</span
+          >
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="cell" style="flex:1;">
-    <div class="lbl">SCANLINES OVERLAY</div>
-    <div class="swatch" style="background:#0b0d15;">
-      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,229,255,0.07) 0,rgba(0,229,255,0.07) 1px,transparent 1px,transparent 3px);mix-blend-mode:screen;"></div>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8fa8;letter-spacing:0.12em;position:relative;">scanlines</span>
-    </div>
-  </div>
-  <div class="cell" style="flex:1;">
-    <div class="lbl">GRID TEXTURE</div>
-    <div class="swatch" style="background-color:#0d1117;background-image:linear-gradient(rgba(63,185,80,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(63,185,80,0.07) 1px,transparent 1px);background-size:16px 16px;">
-      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3fb950;letter-spacing:0.1em;position:relative;">DOT theme</span>
-    </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="cell" style="flex:1;">
-    <div class="lbl">DUALITY GRADIENT TEXT</div>
-    <div class="swatch" style="background:#06070b;">
-      <span style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;letter-spacing:0.1em;background:linear-gradient(135deg,#00e5ff,#ff2bd6);-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;">SKOG</span>
+    <div class="row">
+      <div class="cell" style="flex: 1">
+        <div class="lbl">LEFT-BORDER ACCENT (routing)</div>
+        <div
+          style="
+            background: linear-gradient(
+              90deg,
+              rgba(0, 229, 255, 0.08),
+              transparent 60%
+            );
+            border-left: 2px solid #00e5ff;
+            padding: 10px 12px;
+          "
+        >
+          <div
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 10px;
+              color: #00e5ff;
+              letter-spacing: 0.2em;
+            "
+          >
+            ROUTING · STEP 3/4
+          </div>
+          <div
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 10px;
+              color: #8a8fa8;
+              margin-top: 3px;
+            "
+          >
+            route → SKOGAI
+          </div>
+        </div>
+      </div>
+      <div class="cell" style="flex: 1">
+        <div class="lbl">PULSE ANIMATION</div>
+        <div
+          style="
+            background: #0b0d15;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          "
+        >
+          <div
+            style="
+              width: 7px;
+              height: 7px;
+              background: #00e5ff;
+              box-shadow: 0 0 8px #00e5ff;
+              animation: pulse 1.2s infinite;
+              flex-shrink: 0;
+            "
+          ></div>
+          <span
+            style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 10px;
+              color: #8a8fa8;
+              letter-spacing: 0.12em;
+            "
+            >ONLINE · 7/7</span
+          >
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="cell" style="flex:1;">
-    <div class="lbl">GLITCH TEXT SHADOW</div>
-    <div class="swatch" style="background:#06070b;">
-      <span style="font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:#f4f6ff;letter-spacing:0.1em;text-shadow:2px 0 0 rgba(255,43,214,0.7),-2px 0 0 rgba(0,229,255,0.7);text-transform:uppercase;">GLITCH</span>
-    </div>
-  </div>
-  <div class="cell" style="flex:1;">
-    <div class="lbl">INNER CYAN GLOW</div>
-    <div class="swatch" style="background:#0b0d15;box-shadow:inset 0 0 28px rgba(0,229,255,0.15);border:1px solid rgba(0,229,255,0.2);">
-      <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#00e5ff;letter-spacing:0.14em;">inner glow</span>
-    </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="cell" style="flex:1;">
-    <div class="lbl">LEFT-BORDER ACCENT (routing)</div>
-    <div style="background:linear-gradient(90deg,rgba(0,229,255,0.08),transparent 60%);border-left:2px solid #00e5ff;padding:10px 12px;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#00e5ff;letter-spacing:0.2em;">ROUTING · STEP 3/4</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8fa8;margin-top:3px;">route → SKOGAI</div>
-    </div>
-  </div>
-  <div class="cell" style="flex:1;">
-    <div class="lbl">PULSE ANIMATION</div>
-    <div style="background:#0b0d15;border:1px solid rgba(0,229,255,0.2);padding:10px 12px;display:flex;align-items:center;gap:8px;">
-      <div style="width:7px;height:7px;background:#00e5ff;box-shadow:0 0 8px #00e5ff;animation:pulse 1.2s infinite;flex-shrink:0;"></div>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a8fa8;letter-spacing:0.12em;">ONLINE · 7/7</span>
-    </div>
-  </div>
-</div>
-
-<style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.25}}</style>
-</body></html>
+    <style>
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.25;
+        }
+      }
+    </style>
+  </body>
+</html>

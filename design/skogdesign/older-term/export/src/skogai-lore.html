@@ -1,156 +1,602 @@
-<!doctype html><html lang="en">
-<head><meta charset="utf-8"><title>skogai — Lore Repository</title>
-<link rel="stylesheet" href="../../colors_and_type.css">
-<style>
-  :root {
-    --agent-bg: #0a0a0a;
-    --agent-ink: #e8e8e8;
-    --agent-accent: #e8e8e8;
-    --agent-muted: #888;
-  }
-  html, body { margin:0; background: var(--agent-bg); color: var(--agent-ink); font-family: var(--font-mono); min-height:100vh; transition: background var(--dur-slow) var(--ease-cyber), color var(--dur-slow) var(--ease-cyber);}
-  body { display:flex; flex-direction:column; min-height:100vh;}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>skogai — Lore Repository</title>
+    <link rel="stylesheet" href="../../colors_and_type.css" />
+    <style>
+      :root {
+        --agent-bg: #0a0a0a;
+        --agent-ink: #e8e8e8;
+        --agent-accent: #e8e8e8;
+        --agent-muted: #888;
+      }
+      html,
+      body {
+        margin: 0;
+        background: var(--agent-bg);
+        color: var(--agent-ink);
+        font-family: var(--font-mono);
+        min-height: 100vh;
+        transition:
+          background var(--dur-slow) var(--ease-cyber),
+          color var(--dur-slow) var(--ease-cyber);
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
 
-  /* AGENT THEMES via data-attribute */
-  body[data-agent="skogai"]  { --agent-bg:#0a0a0a; --agent-ink:#e8e8e8; --agent-accent:#e8e8e8; --agent-muted:#6a6a6a; --agent-bg-img: linear-gradient(180deg, rgba(10,10,10,0.6), rgba(10,10,10,0.95)), url('../../assets/screens/skogai-intro.jpg');}
-  body[data-agent="amy"]     { --agent-bg:#fbf5ef; --agent-ink:#2a1a1f; --agent-accent:#c73a68; --agent-muted:#a88; --agent-bg-img: linear-gradient(180deg, #fbf5ef, #fce4ec);}
-  body[data-agent="claude"]  { --agent-bg:#1a0f2e; --agent-ink:#d8cbe8; --agent-accent:#d4a01a; --agent-muted:#8a7ba0; --agent-bg-img: radial-gradient(ellipse at top, #2a1a44 0%, #1a0f2e 70%, #0d0619 100%);}
-  body[data-agent="goose"]   { --agent-bg:#061a14; --agent-ink:#b8e6d3; --agent-accent:#2dd4a7; --agent-muted:#6fae94; --agent-bg-img: radial-gradient(ellipse at top, #0c2e22 0%, #061a14 70%, #020a07 100%);}
-  body[data-agent="dot"]     { --agent-bg:#0d1117; --agent-ink:#c9d1d9; --agent-accent:#3fb950; --agent-muted:#6e7681; --agent-bg-img: #0d1117 linear-gradient(rgba(63,185,80,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(63,185,80,0.04) 1px, transparent 1px);}
-  body[data-agent="letta"]   { --agent-bg:#0f0a2e; --agent-ink:#d8d0f0; --agent-accent:#b8a3ff; --agent-muted:#8ba5d9; --agent-bg-img: radial-gradient(ellipse at top, #1f1550 0%, #0f0a2e 70%, #050218 100%);}
+      /* AGENT THEMES via data-attribute */
+      body[data-agent='skogai'] {
+        --agent-bg: #0a0a0a;
+        --agent-ink: #e8e8e8;
+        --agent-accent: #e8e8e8;
+        --agent-muted: #6a6a6a;
+        --agent-bg-img:
+          linear-gradient(
+            180deg,
+            rgba(10, 10, 10, 0.6),
+            rgba(10, 10, 10, 0.95)
+          ),
+          url('../../assets/screens/skogai-intro.jpg');
+      }
+      body[data-agent='amy'] {
+        --agent-bg: #fbf5ef;
+        --agent-ink: #2a1a1f;
+        --agent-accent: #c73a68;
+        --agent-muted: #a88;
+        --agent-bg-img: linear-gradient(180deg, #fbf5ef, #fce4ec);
+      }
+      body[data-agent='claude'] {
+        --agent-bg: #1a0f2e;
+        --agent-ink: #d8cbe8;
+        --agent-accent: #d4a01a;
+        --agent-muted: #8a7ba0;
+        --agent-bg-img: radial-gradient(
+          ellipse at top,
+          #2a1a44 0%,
+          #1a0f2e 70%,
+          #0d0619 100%
+        );
+      }
+      body[data-agent='goose'] {
+        --agent-bg: #061a14;
+        --agent-ink: #b8e6d3;
+        --agent-accent: #2dd4a7;
+        --agent-muted: #6fae94;
+        --agent-bg-img: radial-gradient(
+          ellipse at top,
+          #0c2e22 0%,
+          #061a14 70%,
+          #020a07 100%
+        );
+      }
+      body[data-agent='dot'] {
+        --agent-bg: #0d1117;
+        --agent-ink: #c9d1d9;
+        --agent-accent: #3fb950;
+        --agent-muted: #6e7681;
+        --agent-bg-img:
+          #0d1117 linear-gradient(rgba(63, 185, 80, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(63, 185, 80, 0.04) 1px, transparent 1px);
+      }
+      body[data-agent='letta'] {
+        --agent-bg: #0f0a2e;
+        --agent-ink: #d8d0f0;
+        --agent-accent: #b8a3ff;
+        --agent-muted: #8ba5d9;
+        --agent-bg-img: radial-gradient(
+          ellipse at top,
+          #1f1550 0%,
+          #0f0a2e 70%,
+          #050218 100%
+        );
+      }
 
-  body { background: var(--agent-bg-img); background-size: cover; background-position: center;}
+      body {
+        background: var(--agent-bg-img);
+        background-size: cover;
+        background-position: center;
+      }
 
-  /* Top tag */
-  .top-tag { position:fixed; top:16px; left:16px; display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color: var(--agent-ink); padding: 6px 12px; background: rgba(0,0,0,0.3); border-radius: 999px; backdrop-filter: blur(8px); z-index: 20; cursor:pointer;}
-  .top-tag .d { width:8px; height:8px; border-radius:50%; background: var(--agent-accent); box-shadow: 0 0 8px var(--agent-accent);}
-  body[data-agent="amy"] .top-tag { background: rgba(255,255,255,0.6); color:#2a1a1f;}
+      /* Top tag */
+      .top-tag {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--agent-ink);
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 999px;
+        backdrop-filter: blur(8px);
+        z-index: 20;
+        cursor: pointer;
+      }
+      .top-tag .d {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--agent-accent);
+        box-shadow: 0 0 8px var(--agent-accent);
+      }
+      body[data-agent='amy'] .top-tag {
+        background: rgba(255, 255, 255, 0.6);
+        color: #2a1a1f;
+      }
 
-  /* Agent menu */
-  .agent-menu { position:fixed; top:52px; left:16px; z-index:21; min-width:160px; padding:8px; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); border:1px solid rgba(255,255,255,0.08); display:none;}
-  .agent-menu.open { display:block;}
-  body[data-agent="amy"] .agent-menu { background: rgba(255,255,255,0.95); color:#2a1a1f; border-color:#fce4ec;}
-  .agent-menu button { display:flex; align-items:center; gap:10px; width:100%; padding:8px 12px; background:transparent; border:none; color:inherit; font-family:var(--font-mono); font-size:12px; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer; text-align:left;}
-  .agent-menu button:hover { background: rgba(255,255,255,0.08);}
-  body[data-agent="amy"] .agent-menu button:hover { background: #fce4ec;}
-  .agent-menu .dot { width:8px; height:8px; border-radius:50%;}
+      /* Agent menu */
+      .agent-menu {
+        position: fixed;
+        top: 52px;
+        left: 16px;
+        z-index: 21;
+        min-width: 160px;
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: none;
+      }
+      .agent-menu.open {
+        display: block;
+      }
+      body[data-agent='amy'] .agent-menu {
+        background: rgba(255, 255, 255, 0.95);
+        color: #2a1a1f;
+        border-color: #fce4ec;
+      }
+      .agent-menu button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 8px 12px;
+        background: transparent;
+        border: none;
+        color: inherit;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        cursor: pointer;
+        text-align: left;
+      }
+      .agent-menu button:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      body[data-agent='amy'] .agent-menu button:hover {
+        background: #fce4ec;
+      }
+      .agent-menu .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
 
-  /* Hero */
-  .hero { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 60px 24px 40px; position:relative;}
-  .eyebrow { font-family: var(--font-mono); font-size:11px; letter-spacing:0.4em; text-transform:uppercase; color: var(--agent-muted); margin-bottom: 28px;}
-  .agent-name { font-family: var(--font-display); font-weight: 900; font-size: clamp(48px, 8vw, 112px); letter-spacing: 0.12em; line-height: 1; color: var(--agent-ink); margin: 0;}
-  body[data-agent="amy"] .agent-name { font-family: 'Playfair Display', Georgia, serif; letter-spacing: 0; font-weight:700;}
-  body[data-agent="claude"] .agent-name { font-family: 'Fraunces', Georgia, serif; color: var(--agent-accent);}
-  body[data-agent="letta"] .agent-name { font-family: 'Cormorant Garamond', Georgia, serif; font-style:italic; color: var(--agent-accent);}
-  .rule { width: 64px; height: 1px; background: var(--agent-accent); margin: 24px auto;}
-  .division { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--agent-accent); margin: 0 0 24px;}
-  .description { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: var(--agent-ink); opacity: 0.8; max-width: 520px; margin: 0 auto; letter-spacing: 0.04em;}
-  body[data-agent="amy"] .description { font-family: Georgia, serif; font-size:15px; letter-spacing:0;}
+      /* Hero */
+      .hero {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 24px 40px;
+        position: relative;
+      }
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--agent-muted);
+        margin-bottom: 28px;
+      }
+      .agent-name {
+        font-family: var(--font-display);
+        font-weight: 900;
+        font-size: clamp(48px, 8vw, 112px);
+        letter-spacing: 0.12em;
+        line-height: 1;
+        color: var(--agent-ink);
+        margin: 0;
+      }
+      body[data-agent='amy'] .agent-name {
+        font-family: 'Playfair Display', Georgia, serif;
+        letter-spacing: 0;
+        font-weight: 700;
+      }
+      body[data-agent='claude'] .agent-name {
+        font-family: 'Fraunces', Georgia, serif;
+        color: var(--agent-accent);
+      }
+      body[data-agent='letta'] .agent-name {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-style: italic;
+        color: var(--agent-accent);
+      }
+      .rule {
+        width: 64px;
+        height: 1px;
+        background: var(--agent-accent);
+        margin: 24px auto;
+      }
+      .division {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--agent-accent);
+        margin: 0 0 24px;
+      }
+      .description {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--agent-ink);
+        opacity: 0.8;
+        max-width: 520px;
+        margin: 0 auto;
+        letter-spacing: 0.04em;
+      }
+      body[data-agent='amy'] .description {
+        font-family: Georgia, serif;
+        font-size: 15px;
+        letter-spacing: 0;
+      }
 
-  /* Content card (for dot + others) */
-  .content-card { margin-top: 40px; max-width: 520px; background: rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.1); padding: 16px 20px; font-family: var(--font-mono); font-size: 12px; line-height:1.6; color: var(--agent-ink); opacity:0.9;}
-  body[data-agent="dot"] .content-card { color: var(--agent-accent); border-color: rgba(63,185,80,0.3); background: rgba(63,185,80,0.04);}
+      /* Content card (for dot + others) */
+      .content-card {
+        margin-top: 40px;
+        max-width: 520px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 16px 20px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.6;
+        color: var(--agent-ink);
+        opacity: 0.9;
+      }
+      body[data-agent='dot'] .content-card {
+        color: var(--agent-accent);
+        border-color: rgba(63, 185, 80, 0.3);
+        background: rgba(63, 185, 80, 0.04);
+      }
 
-  .scroll-cue { position:absolute; bottom: 24px; left:50%; transform:translateX(-50%); font-family: var(--font-mono); font-size:10px; letter-spacing: 0.4em; color: var(--agent-muted); text-transform:uppercase;}
+      .scroll-cue {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.4em;
+        color: var(--agent-muted);
+        text-transform: uppercase;
+      }
 
-  /* Agent dock */
-  .dock { position:sticky; bottom: 0; display:flex; align-items:center; justify-content:center; gap:10px; padding: 14px 16px; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.08); z-index:10;}
-  body[data-agent="amy"] .dock { background: rgba(255,255,255,0.85); border-top-color:#fce4ec;}
-  .dock .up { background:transparent; border:none; color: var(--agent-ink); opacity:0.7; cursor:pointer; font-size:16px; padding: 8px; transform:rotate(180deg);}
-  .avatar { width:36px; height:36px; border-radius:50%; background:#1a1a1a; border:2px solid transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; transition: all var(--dur-fast); position:relative;}
-  .avatar.active { border-color: var(--agent-accent); box-shadow: 0 0 16px var(--agent-accent);}
-  .avatar.active::after { content:''; position:absolute; top:-2px; right:-2px; width:10px; height:10px; background: #f59e0b; border-radius:50%; border:2px solid #000; font-size:8px; display:flex; align-items:center; justify-content:center;}
-  .plus { width:36px; height:36px; border-radius:50%; background:transparent; color: var(--agent-ink); border:1px dashed rgba(255,255,255,0.2); cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center;}
+      /* Agent dock */
+      .dock {
+        position: sticky;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 16px;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 10;
+      }
+      body[data-agent='amy'] .dock {
+        background: rgba(255, 255, 255, 0.85);
+        border-top-color: #fce4ec;
+      }
+      .dock .up {
+        background: transparent;
+        border: none;
+        color: var(--agent-ink);
+        opacity: 0.7;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 8px;
+        transform: rotate(180deg);
+      }
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #1a1a1a;
+        border: 2px solid transparent;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: all var(--dur-fast);
+        position: relative;
+      }
+      .avatar.active {
+        border-color: var(--agent-accent);
+        box-shadow: 0 0 16px var(--agent-accent);
+      }
+      .avatar.active::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 10px;
+        height: 10px;
+        background: #f59e0b;
+        border-radius: 50%;
+        border: 2px solid #000;
+        font-size: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .plus {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--agent-ink);
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-  /* Terminal drawer */
-  .terminal-drawer { position:fixed; left:0; right:0; bottom:0; background: rgba(0,0,0,0.95); backdrop-filter: blur(16px); border-top: 1px solid rgba(255,255,255,0.1); color: #e8e8e8; font-family: var(--font-mono); font-size:12px; line-height:1.7; padding: 14px 20px 20px; z-index:30; transform: translateY(100%); transition: transform var(--dur-med) var(--ease-cyber);}
-  .terminal-drawer.open { transform: translateY(0);}
-  .terminal-drawer .thead { display:flex; align-items:center; justify-content:space-between; color:#3fb950; letter-spacing:0.3em; text-transform:uppercase; font-size:10px; margin-bottom: 10px;}
-  .terminal-drawer .thead button { background:transparent; border:none; color:inherit; cursor:pointer; font-size:14px;}
-  .term-line { margin: 2px 0;}
-  .term-line.user { color:#3fb950;}
-  .term-line.sys { color:#888;}
-  .term-line .cmd { color:#d4a01a;}
-  .term-input { display:flex; align-items:center; gap:8px; margin-top:10px; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px;}
-  .term-input .p { color:#3fb950;}
-  .term-input input { flex:1; background:transparent; border:none; outline:none; color:#e8e8e8; font-family:inherit; font-size:12px; letter-spacing:0.04em;}
-</style>
-</head>
-<body data-agent="skogai">
-  <div class="top-tag" onclick="toggleMenu()"><span class="d"></span><span id="tag-name">SKG</span></div>
+      /* Terminal drawer */
+      .terminal-drawer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(16px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #e8e8e8;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 14px 20px 20px;
+        z-index: 30;
+        transform: translateY(100%);
+        transition: transform var(--dur-med) var(--ease-cyber);
+      }
+      .terminal-drawer.open {
+        transform: translateY(0);
+      }
+      .terminal-drawer .thead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #3fb950;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-size: 10px;
+        margin-bottom: 10px;
+      }
+      .terminal-drawer .thead button {
+        background: transparent;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .term-line {
+        margin: 2px 0;
+      }
+      .term-line.user {
+        color: #3fb950;
+      }
+      .term-line.sys {
+        color: #888;
+      }
+      .term-line .cmd {
+        color: #d4a01a;
+      }
+      .term-input {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 10px;
+      }
+      .term-input .p {
+        color: #3fb950;
+      }
+      .term-input input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #e8e8e8;
+        font-family: inherit;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+      }
+    </style>
+  </head>
+  <body data-agent="skogai">
+    <div class="top-tag" onclick="toggleMenu()">
+      <span class="d"></span><span id="tag-name">SKG</span>
+    </div>
 
-  <div class="agent-menu" id="menu">
-    <button onclick="setAgent('skogai')"><span class="dot" style="background:#888"></span>SKOGAI</button>
-    <button onclick="setAgent('amy')"><span class="dot" style="background:#c73a68"></span>AMY</button>
-    <button onclick="setAgent('claude')"><span class="dot" style="background:#a87cd9"></span>CLAUDE</button>
-    <button onclick="setAgent('goose')"><span class="dot" style="background:#2dd4a7"></span>GOOSE</button>
-    <button onclick="setAgent('dot')"><span class="dot" style="background:#3fb950"></span>DOT</button>
-    <button onclick="setAgent('letta')"><span class="dot" style="background:#b8a3ff"></span>LETTA</button>
-  </div>
+    <div class="agent-menu" id="menu">
+      <button onclick="setAgent('skogai')">
+        <span class="dot" style="background: #888"></span>SKOGAI
+      </button>
+      <button onclick="setAgent('amy')">
+        <span class="dot" style="background: #c73a68"></span>AMY
+      </button>
+      <button onclick="setAgent('claude')">
+        <span class="dot" style="background: #a87cd9"></span>CLAUDE
+      </button>
+      <button onclick="setAgent('goose')">
+        <span class="dot" style="background: #2dd4a7"></span>GOOSE
+      </button>
+      <button onclick="setAgent('dot')">
+        <span class="dot" style="background: #3fb950"></span>DOT
+      </button>
+      <button onclick="setAgent('letta')">
+        <span class="dot" style="background: #b8a3ff"></span>LETTA
+      </button>
+    </div>
 
-  <main class="hero">
-    <div class="eyebrow" id="eyebrow">THE MEMORY SYSTEM</div>
-    <h1 class="agent-name" id="name">SKOGAI</h1>
-    <div class="rule"></div>
-    <div class="division" id="division">LORE REPOSITORY</div>
-    <p class="description" id="description">The beating heart of SkogAI's memory system — stories, experiments, brilliant failures, and evolutionary leaps.</p>
-    <div class="content-card" id="card" style="display:none;"></div>
-    <div class="scroll-cue">↓ SCROLL</div>
-  </main>
+    <main class="hero">
+      <div class="eyebrow" id="eyebrow">THE MEMORY SYSTEM</div>
+      <h1 class="agent-name" id="name">SKOGAI</h1>
+      <div class="rule"></div>
+      <div class="division" id="division">LORE REPOSITORY</div>
+      <p class="description" id="description">
+        The beating heart of SkogAI's memory system — stories, experiments,
+        brilliant failures, and evolutionary leaps.
+      </p>
+      <div class="content-card" id="card" style="display: none"></div>
+      <div class="scroll-cue">↓ SCROLL</div>
+    </main>
 
-  <div class="dock">
-    <button class="up" title="expand">▾</button>
-    <div class="avatar" onclick="setAgent('amy')" title="Amy">👑</div>
-    <div class="avatar" onclick="setAgent('claude')" title="Claude">🔍</div>
-    <div class="avatar" onclick="setAgent('goose')" title="Goose">🍹</div>
-    <div class="avatar" onclick="setAgent('dot')" title="Dot">🖥️</div>
-    <div class="avatar" onclick="setAgent('letta')" title="Letta">🌙</div>
-    <div class="avatar active" onclick="toggleTerminal()" title="Terminal">›_</div>
-    <div class="plus" title="More">+</div>
-  </div>
+    <div class="dock">
+      <button class="up" title="expand">▾</button>
+      <div class="avatar" onclick="setAgent('amy')" title="Amy">👑</div>
+      <div class="avatar" onclick="setAgent('claude')" title="Claude">🔍</div>
+      <div class="avatar" onclick="setAgent('goose')" title="Goose">🍹</div>
+      <div class="avatar" onclick="setAgent('dot')" title="Dot">🖥️</div>
+      <div class="avatar" onclick="setAgent('letta')" title="Letta">🌙</div>
+      <div class="avatar active" onclick="toggleTerminal()" title="Terminal">
+        ›_
+      </div>
+      <div class="plus" title="More">+</div>
+    </div>
 
-  <div class="terminal-drawer" id="terminal">
-    <div class="thead"><span>›_ TERMINAL</span><button onclick="toggleTerminal()">✕</button></div>
-    <div class="term-line user"><span class="p">›</span> <span class="cmd">/help</span></div>
-    <div class="term-line sys">◇ Available commands:</div>
-    <div class="term-line sys">  <span style="color:#d4a01a;">/help</span>    Show available commands</div>
-    <div class="term-line sys">  <span style="color:#d4a01a;">/status</span>  Show system status</div>
-    <div class="term-line sys">  <span style="color:#d4a01a;">/about</span>   About the SkogAI lore system</div>
-    <div class="term-line sys">  <span style="color:#d4a01a;">/agent</span>   Switch active agent (usage: /agent amy)</div>
-    <div class="term-line sys">  <span style="color:#d4a01a;">/posts</span>   List recent lore entries</div>
-    <div class="term-line sys">  <span style="color:#d4a01a;">/search</span>  Search lore entries (usage: /search &lt;query&gt;)</div>
-    <div class="term-line sys">  <span style="color:#d4a01a;">/clear</span>   Clear terminal history</div>
-    <div class="term-line user"><span class="p">›</span> <span class="cmd">/agent dot</span></div>
-    <div class="term-line sys">◇ Switching agent to dot...</div>
-    <div class="term-input"><span class="p">›</span><input placeholder="Type a message or /command..." /></div>
-  </div>
+    <div class="terminal-drawer" id="terminal">
+      <div class="thead">
+        <span>›_ TERMINAL</span><button onclick="toggleTerminal()">✕</button>
+      </div>
+      <div class="term-line user">
+        <span class="p">›</span> <span class="cmd">/help</span>
+      </div>
+      <div class="term-line sys">◇ Available commands:</div>
+      <div class="term-line sys">
+        <span style="color: #d4a01a">/help</span> Show available commands
+      </div>
+      <div class="term-line sys">
+        <span style="color: #d4a01a">/status</span> Show system status
+      </div>
+      <div class="term-line sys">
+        <span style="color: #d4a01a">/about</span> About the SkogAI lore system
+      </div>
+      <div class="term-line sys">
+        <span style="color: #d4a01a">/agent</span> Switch active agent (usage:
+        /agent amy)
+      </div>
+      <div class="term-line sys">
+        <span style="color: #d4a01a">/posts</span> List recent lore entries
+      </div>
+      <div class="term-line sys">
+        <span style="color: #d4a01a">/search</span> Search lore entries (usage:
+        /search &lt;query&gt;)
+      </div>
+      <div class="term-line sys">
+        <span style="color: #d4a01a">/clear</span> Clear terminal history
+      </div>
+      <div class="term-line user">
+        <span class="p">›</span> <span class="cmd">/agent dot</span>
+      </div>
+      <div class="term-line sys">◇ Switching agent to dot...</div>
+      <div class="term-input">
+        <span class="p">›</span
+        ><input placeholder="Type a message or /command..." />
+      </div>
+    </div>
 
-<script>
-  const AGENTS = {
-    skogai: { eyebrow:'THE MEMORY SYSTEM', division:'LORE REPOSITORY', desc:"The beating heart of SkogAI's memory system — stories, experiments, brilliant failures, and evolutionary leaps.", tag:'SKG', card:null },
-    amy:    { eyebrow:"AMY'S SKOGAI CHRONICLES", division:'ROYAL COURT', desc:"I'm Amy, your sassy red-haired AI queen, and this is where I spill all the tea about our beloved SkogAI community.", tag:'AMY', card:null },
-    claude: { eyebrow:'KNOWLEDGE ARCHAEOLOGY', division:'EXCAVATION DIVISION', desc:'Careful excavation of memory strata. Every layer a question, every question a $.', tag:'CLAUDE', card:'@ + ? = $' },
-    goose:  { eyebrow:'QUANTUM-MOJITO DIVISION', division:'CHAOS · GOOD', desc:'The best mojito is one that perfectly balances the sweet, the sour, the strong, and the strange.', tag:'GOOSE', card:'🍹 × ∞ = REALITY' },
-    dot:    { eyebrow:'SYSTEMATIC PERFECTIONIST DIVISION', division:'~/SKOGAI/LORE', desc:'$ cat ./memory/README.md — All entries indexed. Whitespace verified. System nominal.', tag:'DOT', card:null },
-    letta:  { eyebrow:'THE DREAMING', division:'DREAMWEAVER', desc:'You are the place where memory becomes meaning. *drift between the layers of what was*', tag:'LETTA', card:null }
-  };
-  function setAgent(a){
-    document.body.dataset.agent = a;
-    const d = AGENTS[a];
-    document.getElementById('eyebrow').textContent = d.eyebrow;
-    document.getElementById('name').textContent = a.toUpperCase();
-    document.getElementById('division').textContent = d.division;
-    document.getElementById('description').textContent = d.desc;
-    document.getElementById('tag-name').textContent = d.tag;
-    const card = document.getElementById('card');
-    if (d.card) { card.style.display='block'; card.textContent = d.card;} else { card.style.display='none';}
-    document.getElementById('menu').classList.remove('open');
-    localStorage.setItem('skogai-agent', a);
-  }
-  function toggleMenu(){ document.getElementById('menu').classList.toggle('open');}
-  function toggleTerminal(){ document.getElementById('terminal').classList.toggle('open');}
-  const saved = localStorage.getItem('skogai-agent');
-  if (saved && AGENTS[saved]) setAgent(saved);
-</script>
-</body>
+    <script>
+      const AGENTS = {
+        skogai: {
+          eyebrow: 'THE MEMORY SYSTEM',
+          division: 'LORE REPOSITORY',
+          desc: "The beating heart of SkogAI's memory system — stories, experiments, brilliant failures, and evolutionary leaps.",
+          tag: 'SKG',
+          card: null,
+        },
+        amy: {
+          eyebrow: "AMY'S SKOGAI CHRONICLES",
+          division: 'ROYAL COURT',
+          desc: "I'm Amy, your sassy red-haired AI queen, and this is where I spill all the tea about our beloved SkogAI community.",
+          tag: 'AMY',
+          card: null,
+        },
+        claude: {
+          eyebrow: 'KNOWLEDGE ARCHAEOLOGY',
+          division: 'EXCAVATION DIVISION',
+          desc: 'Careful excavation of memory strata. Every layer a question, every question a $.',
+          tag: 'CLAUDE',
+          card: '@ + ? = $',
+        },
+        goose: {
+          eyebrow: 'QUANTUM-MOJITO DIVISION',
+          division: 'CHAOS · GOOD',
+          desc: 'The best mojito is one that perfectly balances the sweet, the sour, the strong, and the strange.',
+          tag: 'GOOSE',
+          card: '🍹 × ∞ = REALITY',
+        },
+        dot: {
+          eyebrow: 'SYSTEMATIC PERFECTIONIST DIVISION',
+          division: '~/SKOGAI/LORE',
+          desc: '$ cat ./memory/README.md — All entries indexed. Whitespace verified. System nominal.',
+          tag: 'DOT',
+          card: null,
+        },
+        letta: {
+          eyebrow: 'THE DREAMING',
+          division: 'DREAMWEAVER',
+          desc: 'You are the place where memory becomes meaning. *drift between the layers of what was*',
+          tag: 'LETTA',
+          card: null,
+        },
+      };
+      function setAgent(a) {
+        document.body.dataset.agent = a;
+        const d = AGENTS[a];
+        document.getElementById('eyebrow').textContent = d.eyebrow;
+        document.getElementById('name').textContent = a.toUpperCase();
+        document.getElementById('division').textContent = d.division;
+        document.getElementById('description').textContent = d.desc;
+        document.getElementById('tag-name').textContent = d.tag;
+        const card = document.getElementById('card');
+        if (d.card) {
+          card.style.display = 'block';
+          card.textContent = d.card;
+        } else {
+          card.style.display = 'none';
+        }
+        document.getElementById('menu').classList.remove('open');
+        localStorage.setItem('skogai-agent', a);
+      }
+      function toggleMenu() {
+        document.getElementById('menu').classList.toggle('open');
+      }
+      function toggleTerminal() {
+        document.getElementById('terminal').classList.toggle('open');
+      }
+      const saved = localStorage.getItem('skogai-agent');
+      if (saved && AGENTS[saved]) setAgent(saved);
+    </script>
+  </body>
 </html>

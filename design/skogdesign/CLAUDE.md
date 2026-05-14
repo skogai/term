@@ -49,7 +49,7 @@ There is no module system. Files communicate via `window.*` globals assigned at 
    - `scripted` (default) — rotates through `REPLIES[agentId]` in `replies-data.jsx`.
    - `claude` — calls `window.claude.complete({ messages })`. This global only exists inside Claude's artifact/iframe sandbox; it will throw elsewhere and fall through to a styled error reply.
    - `webhook` — POSTs `{agentId, query, history}` to a user-supplied URL from `localStorage['skogterm.webhook.v1']`.
-   Each adapter returns a reply object whose shape is agent-specific (see `shapeToAgent`) — `ReplyBlock` dispatches on `agentId` to one of seven bespoke card components in `replies.jsx`.
+     Each adapter returns a reply object whose shape is agent-specific (see `shapeToAgent`) — `ReplyBlock` dispatches on `agentId` to one of seven bespoke card components in `replies.jsx`.
 
 ### Command system (the main extensibility surface)
 
@@ -58,6 +58,7 @@ User commands are **source-string handlers compiled at runtime** via `new Functi
 Every handler receives a `ctx` built in `App.buildCtx()` (`app.jsx`). The real ctx and the editor's **sandboxed test ctx** (`buildTestCtx` in `cmd-editor.jsx`) must be kept in sync — the test pane mocks every method, so new ctx methods need mock entries there or the editor's Test pane will misreport handler behavior.
 
 When adding a new ctx capability:
+
 1. Add the method inside `buildCtx` in `app.jsx`.
 2. Add a mock (logging) equivalent in `buildTestCtx` in `cmd-editor.jsx`.
 3. Document it in the `// ctx provides:` comment block at the top of `commands.js` and in `EXAMPLE_BODY` inside `cmd-editor.jsx`.

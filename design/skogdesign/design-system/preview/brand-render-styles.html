@@ -1,69 +1,156 @@
-<!DOCTYPE html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Chakra+Petch:wght@500;600&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#06070b;padding:14px;font-family:'JetBrains Mono',monospace;}
-.section{font-size:9px;letter-spacing:0.22em;color:#545970;font-family:'Chakra Petch',sans-serif;text-transform:uppercase;margin-bottom:8px;}
-.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.style-card{display:flex;flex-direction:column;gap:6px;}
-.style-head{font-family:'Chakra Petch',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:5px 8px;border-left:2px solid;}
-.imgs{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
-.img-wrap{aspect-ratio:2/3;overflow:hidden;clip-path:polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px);position:relative;}
-.img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top;}
-.single{aspect-ratio:3/4;}
-.notes{font-size:8px;color:#545970;letter-spacing:0.08em;line-height:1.5;padding:4px 0;}
-</style></head><body>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Chakra+Petch:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #06070b;
+        padding: 14px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .section {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        color: #545970;
+        font-family: 'Chakra Petch', sans-serif;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .style-card {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .style-head {
+        font-family: 'Chakra Petch', sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        padding: 5px 8px;
+        border-left: 2px solid;
+      }
+      .imgs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+      }
+      .img-wrap {
+        aspect-ratio: 2/3;
+        overflow: hidden;
+        clip-path: polygon(
+          5px 0,
+          100% 0,
+          100% calc(100% - 5px),
+          calc(100% - 5px) 100%,
+          0 100%,
+          0 5px
+        );
+        position: relative;
+      }
+      .img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+      .single {
+        aspect-ratio: 3/4;
+      }
+      .notes {
+        font-size: 8px;
+        color: #545970;
+        letter-spacing: 0.08em;
+        line-height: 1.5;
+        padding: 4px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">VISUAL RENDER STYLES — 3 distinct art directions</div>
+    <div class="cols">
+      <div class="style-card">
+        <div class="style-head" style="border-color: #ff2bd6; color: #ff2bd6">
+          01 · PHOTOREALISTIC
+        </div>
+        <div class="imgs">
+          <div class="img-wrap">
+            <img src="../assets/brand/skogai-sudo-rm-rf.jpg" alt="" />
+          </div>
+          <div class="img-wrap">
+            <img src="../assets/brand/skogai-masked-city.jpg" alt="" />
+          </div>
+          <div class="img-wrap">
+            <img src="../assets/brand/skogai-hooded-writer.jpg" alt="" />
+          </div>
+          <div class="img-wrap">
+            <img src="../assets/brand/skogai-yellow-jacket.jpg" alt="" />
+          </div>
+        </div>
+        <div class="notes">
+          High-detail renders. Cinematic lighting. Purple/cyan/red neon glow.
+          Used for hero moments, social, editorial.
+        </div>
+      </div>
 
-<div class="section">VISUAL RENDER STYLES — 3 distinct art directions</div>
-<div class="cols">
+      <div class="style-card">
+        <div class="style-head" style="border-color: #00e5ff; color: #00e5ff">
+          02 · ILLUSTRATED / COMIC
+        </div>
+        <div class="imgs">
+          <div class="img-wrap">
+            <img src="../assets/brand/skogai-2077-illustrated.jpg" alt="" />
+          </div>
+          <div class="img-wrap">
+            <img src="../assets/brand/skogai-2079-poster.jpg" alt="" />
+          </div>
+          <div class="img-wrap">
+            <img src="../assets/brand/skogai-ai-head.jpg" alt="" />
+          </div>
+          <div class="img-wrap">
+            <img src="../assets/brand/skogai-city-street.jpg" alt="" />
+          </div>
+        </div>
+        <div class="notes">
+          Flat vector-comic hybrid. Ink outlines, neon colorization.
+          Hazard-yellow graffiti wordmark. Used for posters, game covers, merch.
+        </div>
+      </div>
 
-  <div class="style-card">
-    <div class="style-head" style="border-color:#ff2bd6;color:#ff2bd6;">01 · PHOTOREALISTIC</div>
-    <div class="imgs">
-      <div class="img-wrap">
-        <img src="../assets/brand/skogai-sudo-rm-rf.jpg" alt="">
-      </div>
-      <div class="img-wrap">
-        <img src="../assets/brand/skogai-masked-city.jpg" alt="">
-      </div>
-      <div class="img-wrap">
-        <img src="../assets/brand/skogai-hooded-writer.jpg" alt="">
-      </div>
-      <div class="img-wrap">
-        <img src="../assets/brand/skogai-yellow-jacket.jpg" alt="">
+      <div class="style-card">
+        <div class="style-head" style="border-color: #f2ff00; color: #f2ff00">
+          03 · BLUEPRINT / TECH-DOC
+        </div>
+        <div class="imgs">
+          <div class="img-wrap single" style="grid-column: 1/-1">
+            <img
+              src="../assets/brand/skogai-blueprint.png"
+              alt="blueprint"
+              style="object-position: top"
+            />
+          </div>
+        </div>
+        <div class="notes">
+          Technical white line-art on blueprint blue. Dimensions, callouts (HOOD
+          FLEX-FABRIC, VISOR DUAL-OPTIC, MASK RESPIRATOR UNIT, COLLAR THERMAL
+          REG). MODEL: S-2077-AI · DATE: 2077-04-12. Used for technical docs,
+          onboarding, developer materials.
+        </div>
       </div>
     </div>
-    <div class="notes">High-detail renders. Cinematic lighting. Purple/cyan/red neon glow. Used for hero moments, social, editorial.</div>
-  </div>
-
-  <div class="style-card">
-    <div class="style-head" style="border-color:#00e5ff;color:#00e5ff;">02 · ILLUSTRATED / COMIC</div>
-    <div class="imgs">
-      <div class="img-wrap">
-        <img src="../assets/brand/skogai-2077-illustrated.jpg" alt="">
-      </div>
-      <div class="img-wrap">
-        <img src="../assets/brand/skogai-2079-poster.jpg" alt="">
-      </div>
-      <div class="img-wrap">
-        <img src="../assets/brand/skogai-ai-head.jpg" alt="">
-      </div>
-      <div class="img-wrap">
-        <img src="../assets/brand/skogai-city-street.jpg" alt="">
-      </div>
-    </div>
-    <div class="notes">Flat vector-comic hybrid. Ink outlines, neon colorization. Hazard-yellow graffiti wordmark. Used for posters, game covers, merch.</div>
-  </div>
-
-  <div class="style-card">
-    <div class="style-head" style="border-color:#f2ff00;color:#f2ff00;">03 · BLUEPRINT / TECH-DOC</div>
-    <div class="imgs">
-      <div class="img-wrap single" style="grid-column:1/-1;">
-        <img src="../assets/brand/skogai-blueprint.png" alt="blueprint" style="object-position:top;">
-      </div>
-    </div>
-    <div class="notes">Technical white line-art on blueprint blue. Dimensions, callouts (HOOD FLEX-FABRIC, VISOR DUAL-OPTIC, MASK RESPIRATOR UNIT, COLLAR THERMAL REG). MODEL: S-2077-AI · DATE: 2077-04-12. Used for technical docs, onboarding, developer materials.</div>
-  </div>
-
-</div>
-</body></html>
+  </body>
+</html>

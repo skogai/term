@@ -1,27 +1,105 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Dot theme</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-body { background: #0d1117; background-image: linear-gradient(rgba(88,166,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(88,166,255,0.06) 1px, transparent 1px); background-size: 24px 24px;}
-body::before { display:none;}
-.card { font-family: 'JetBrains Mono', monospace; color: #c9d1d9;}
-.term { width:100%; background:#161b22; border:1px solid #30363d; border-radius:6px; overflow:hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.6);}
-.chrome { background:#0d1117; padding:8px 12px; display:flex; align-items:center; gap:6px; border-bottom:1px solid #30363d;}
-.tl { width:10px; height:10px; border-radius:50%;}
-.chrome span.path { margin-left:10px; font-size:11px; color:#6e7681;}
-.body { padding:12px 16px;}
-.prompt { color:#3fb950; font-size:12px;}
-.badge { display:inline-block; background:rgba(88,166,255,0.12); color:#58a6ff; font-size:10px; padding:2px 8px; border-radius:999px; margin: 6px 0 4px;}
-.title { font-size:18px; color:#f0f6fc; font-weight:700; margin:0;}
-.meta { font-size:10px; color:#6e7681; margin-top:4px;}
-.diff { color:#3fb950; font-size:11px; margin-top:8px;}
-</style>
-</head><body><div class="card"><div class="term">
-  <div class="chrome"><span class="tl" style="background:#ff5f56;"></span><span class="tl" style="background:#ffbd2e;"></span><span class="tl" style="background:#27c93f;"></span><span class="path">~/skogai/memory/the-art-of-methodical-relaxation</span></div>
-  <div class="body">
-    <div class="prompt">$ cat ./memory/the-art-of-methodical-relaxation</div>
-    <div class="badge">Dot</div>
-    <div class="title">The Art of Methodical Relaxation</div>
-    <div class="meta">committed March 8, 2026</div>
-    <div class="diff">+++ content loaded</div>
-  </div>
-</div></div></body></html>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Dot theme</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      body {
+        background: #0d1117;
+        background-image:
+          linear-gradient(rgba(88, 166, 255, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(88, 166, 255, 0.06) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+      body::before {
+        display: none;
+      }
+      .card {
+        font-family: 'JetBrains Mono', monospace;
+        color: #c9d1d9;
+      }
+      .term {
+        width: 100%;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      }
+      .chrome {
+        background: #0d1117;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border-bottom: 1px solid #30363d;
+      }
+      .tl {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .chrome span.path {
+        margin-left: 10px;
+        font-size: 11px;
+        color: #6e7681;
+      }
+      .body {
+        padding: 12px 16px;
+      }
+      .prompt {
+        color: #3fb950;
+        font-size: 12px;
+      }
+      .badge {
+        display: inline-block;
+        background: rgba(88, 166, 255, 0.12);
+        color: #58a6ff;
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        margin: 6px 0 4px;
+      }
+      .title {
+        font-size: 18px;
+        color: #f0f6fc;
+        font-weight: 700;
+        margin: 0;
+      }
+      .meta {
+        font-size: 10px;
+        color: #6e7681;
+        margin-top: 4px;
+      }
+      .diff {
+        color: #3fb950;
+        font-size: 11px;
+        margin-top: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="term">
+        <div class="chrome">
+          <span class="tl" style="background: #ff5f56"></span
+          ><span class="tl" style="background: #ffbd2e"></span
+          ><span class="tl" style="background: #27c93f"></span
+          ><span class="path"
+            >~/skogai/memory/the-art-of-methodical-relaxation</span
+          >
+        </div>
+        <div class="body">
+          <div class="prompt">
+            $ cat ./memory/the-art-of-methodical-relaxation
+          </div>
+          <div class="badge">Dot</div>
+          <div class="title">The Art of Methodical Relaxation</div>
+          <div class="meta">committed March 8, 2026</div>
+          <div class="diff">+++ content loaded</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

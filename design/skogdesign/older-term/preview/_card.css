@@ -1,7 +1,8 @@
 /* Shared by every preview/*.html card */
 @import url('../colors_and_type.css');
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background: var(--void-1);
@@ -28,22 +29,39 @@ body::before {
   inset: 0;
   background: repeating-linear-gradient(
     0deg,
-    rgba(0,229,255,0.025) 0,
-    rgba(0,229,255,0.025) 1px,
+    rgba(0, 229, 255, 0.025) 0,
+    rgba(0, 229, 255, 0.025) 1px,
     transparent 1px,
     transparent 3px
   );
   pointer-events: none;
   z-index: 0;
 }
-.card > * { position: relative; z-index: 1; }
+.card > * {
+  position: relative;
+  z-index: 1;
+}
 
-.mono { font-family: var(--font-mono); }
-.ui { font-family: var(--font-ui); }
-.display { font-family: var(--font-display); }
+.mono {
+  font-family: var(--font-mono);
+}
+.ui {
+  font-family: var(--font-ui);
+}
+.display {
+  font-family: var(--font-display);
+}
 
-.row { display: flex; align-items: center; gap: 16px; }
-.col { display: flex; flex-direction: column; gap: 8px; }
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
 .label-xs {
   font-family: var(--font-mono);
