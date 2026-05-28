@@ -8,7 +8,7 @@ const aboutText =
   'find me at [github.com/SkogAI](https://github.com/SkogAI)';
 
 const install: PluginInstall = kernel => {
-  kernel.vfs.appendDir('/home/skogix', {
+  kernel.vfs.appendDir('/home/guest', {
     'about.txt': asGuest(file(aboutText)),
   });
 
