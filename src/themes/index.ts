@@ -13,29 +13,24 @@ import tokyoNight from './tokyo-night.js';
 export type Theme = {
   name: string;
   describe: string;
-  /** CSS scoped to `body[data-theme="<name>"]`. */
   css: string;
-  /** URL for a body background image. Typically an imported asset. */
   backgroundImage?: string;
-  /** Translucent color for a full-viewport overlay over the background image. */
   overlayBackground?: string;
-  /** Backdrop blur amount for the overlay. */
   overlayBlur?: string;
 };
 
-export const themes: readonly Theme[] = [
-  catppuccinMocha,
+export const DEFAULT_THEME = 'skogai';
+
+export const themes: Theme[] = [
+  skogai,
+  tokyoNight,
   crt,
   dracula,
-  espresso,
-  graphite,
-  gruvbox,
+  synthwave,
   matrix,
   nord,
-  skogai,
-  synthwave,
-  tokyoNight,
+  gruvbox,
+  catppuccinMocha,
+  graphite,
+  espresso,
 ];
-
-/** Edit this to swap the out-of-box palette. */
-export const DEFAULT_THEME: Theme['name'] = graphite.name;

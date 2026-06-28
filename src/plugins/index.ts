@@ -13,7 +13,8 @@ import home from './home.js';
 import identity from './identity.js';
 import about from './me/about.js';
 import contact from './me/contact.js';
-import welcome from './me/welcome.js';
+import pwnProfile from './me/pwn-profile.js';
+import neofetch from './neofetch.js';
 import posthog from './posthog.js';
 import proc from './proc.js';
 import projects from './projects.js';
@@ -33,26 +34,27 @@ export const plugins: PluginInstall[] = [
   root,
   usr,
   varPlugin,
-  about,
-  contact,
   proc,
   dev,
+  pwn,
+  about,
+  contact,
+  pwnProfile,
   coreutils,
   fsutils,
-  text,
-  identity,
-  pwn,
-  sysinfo,
-  theme,
-  fortune,
-  projects,
-  colortest,
-  welcome,
-  find,
-  version,
-  bootSplash,
-  bashHistory,
-  posthog,
   rmEgg,
+  text,
+  find,
+  identity,
+  sysinfo,
+  version,
+  neofetch,
+  projects,
+  fortune,
+  colortest,
+  theme,
+  bashHistory,
+  bootSplash,
   demo,
+  posthog,
 ];

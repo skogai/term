@@ -100,7 +100,7 @@ const kernel = {} as Kernel;
 const vfs = createVfs();
 kernel.vfs = vfs;
 
-let currentName = 'skogix';
+let currentName = 'guest';
 let bootTime = Date.now();
 let cwd = HOME;
 let cachedHostname = resolveHostname();

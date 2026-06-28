@@ -1,149 +1,205 @@
 import type { IdentityLike, Vfs } from './vfs.js';
 
-const unescape = (s: string): string => {
-  let out = '';
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === '\\' && i + 1 < s.length) {
-      out += s[i + 1];
-      i++;
-    } else {
-      out += s[i];
-    }
-  }
-  return out;
-};
+const GLOB_META = new Set(['*', '?', '[']);
+const REGEXP_META = /[\\^$.*+?()[\]{}|]/g;
 
-const hasMeta = (segment: string): boolean => {
-  for (let i = 0; i < segment.length; i++) {
-    const c = segment[i];
-    if (c === '\\') {
-      i++;
+const escapeRegExp = (s: string): string => s.replace(REGEXP_META, '\\$&');
+
+const unescapeGlob = (s: string): string => s.replace(/\\(.)/g, '$1');
+
+const hasUnescapedMeta = (s: string): boolean => {
+  let escaped = false;
+  for (const ch of s) {
+    if (escaped) {
+      escaped = false;
       continue;
     }
-    if (c === '*' || c === '?' || c === '[') {
+    if (ch === '\\') {
+      escaped = true;
+      continue;
+    }
+    if (GLOB_META.has(ch)) {
       return true;
     }
   }
   return false;
 };
 
-const REGEX_META = /[.+^${}()|\\]/g;
-
-export const compileSegment = (segment: string): RegExp => {
-  let re = '^';
-  let i = 0;
-  while (i < segment.length) {
-    const c = segment[i] as string;
-    if (c === '\\' && i + 1 < segment.length) {
-      const next = segment[i + 1] as string;
-      re += next.replace(REGEX_META, '\\$&');
-      i += 2;
-      continue;
-    }
-    if (c === '*') {
-      re += '[^/]*';
-      i++;
-      continue;
-    }
-    if (c === '?') {
-      re += '[^/]';
-      i++;
-      continue;
-    }
-    if (c === '[') {
-      const close = segment.indexOf(']', i + 1);
-      if (close === -1) {
-        re += '\\[';
-        i++;
-        continue;
-      }
-      let cls = segment.slice(i + 1, close);
-      if (cls.startsWith('!')) {
-        cls = '^' + cls.slice(1);
-      }
-      re += `[${cls}]`;
-      i = close + 1;
-      continue;
-    }
-    re += c.replace(REGEX_META, '\\$&');
-    i++;
+const normalizePattern = (
+  pattern: string,
+  cwd: string,
+  identity: IdentityLike
+) => {
+  let expanded = pattern;
+  if (expanded === '~') {
+    expanded = `/home/${identity.name}`;
+  } else if (expanded.startsWith('~/')) {
+    expanded = `/home/${identity.name}${expanded.slice(1)}`;
   }
-  re += '$';
-  return new RegExp(re);
+
+  const absolute = expanded.startsWith('/');
+  const prefixed = absolute ? expanded : `${cwd || '/'}/${expanded}`;
+  const parts = prefixed.split('/').filter(Boolean);
+  const out: string[] = [];
+  for (const part of parts) {
+    if (part === '.') {
+      continue;
+    }
+    if (part === '..') {
+      out.pop();
+      continue;
+    }
+    out.push(part);
+  }
+
+  return {
+    absolute,
+    absPattern: `/${out.join('/')}`,
+    cwd: cwd === '/' ? '/' : cwd.replace(/\/$/, ''),
+  };
 };
 
-const segmentMatchesDotfiles = (segment: string): boolean =>
-  segment.startsWith('.') || segment.startsWith('\\.');
+const displayPath = (abs: string, absolute: boolean, cwd: string): string => {
+  if (absolute) {
+    return abs;
+  }
+  if (cwd === '/') {
+    return abs.slice(1) || '.';
+  }
+  if (abs === cwd) {
+    return '.';
+  }
+  if (abs.startsWith(`${cwd}/`)) {
+    return abs.slice(cwd.length + 1);
+  }
+  return abs;
+};
 
-const joinPath = (base: string, name: string): string =>
-  base === '/' ? '/' + name : base + '/' + name;
+export function compileSegment(segment: string): RegExp {
+  let pattern = '^';
+  for (let i = 0; i < segment.length; i++) {
+    const ch = segment[i] as string;
+    if (ch === '\\') {
+      const next = segment[i + 1];
+      pattern += escapeRegExp(next ?? ch);
+      if (next !== undefined) {
+        i++;
+      }
+      continue;
+    }
+    if (ch === '*') {
+      pattern += '.*';
+      continue;
+    }
+    if (ch === '?') {
+      pattern += '.';
+      continue;
+    }
+    if (ch === '[') {
+      let j = i + 1;
+      let cls = '';
+      if (segment[j] === '!' || segment[j] === '^') {
+        cls += '^';
+        j++;
+      }
+      if (segment[j] === ']') {
+        cls += '\\]';
+        j++;
+      }
+      let closed = false;
+      for (; j < segment.length; j++) {
+        const c = segment[j] as string;
+        if (c === ']') {
+          closed = true;
+          break;
+        }
+        if (c === '\\') {
+          const next = segment[j + 1];
+          cls += escapeRegExp(next ?? c);
+          if (next !== undefined) {
+            j++;
+          }
+          continue;
+        }
+        cls += c === '^' ? '\\^' : c;
+      }
+      if (closed) {
+        pattern += `[${cls}]`;
+        i = j;
+      } else {
+        pattern += '\\[';
+      }
+      continue;
+    }
+    pattern += escapeRegExp(ch);
+  }
+  pattern += '$';
+  return new RegExp(pattern);
+}
 
-/** No matches returns [pattern] literally (bash's nullglob-off default). */
 export function globExpand(
   pattern: string,
   vfs: Vfs,
   cwd: string,
   identity: IdentityLike
 ): string[] {
-  if (!hasMeta(pattern)) {
-    return [unescape(pattern)];
+  if (!hasUnescapedMeta(pattern)) {
+    return [unescapeGlob(pattern)];
   }
 
-  let root = '/';
-  let rest = pattern;
-  if (pattern.startsWith('/')) {
-    rest = pattern.slice(1);
-  } else if (pattern === '~' || pattern.startsWith('~/')) {
-    const resolved = vfs.normalize('~', cwd);
-    if (resolved === null) {
-      return [unescape(pattern)];
-    }
-    root = resolved;
-    rest = pattern === '~' ? '' : pattern.slice(2);
-  } else {
-    root = cwd;
-  }
+  const normalized = normalizePattern(pattern, cwd, identity);
+  const parts = normalized.absPattern.split('/').filter(Boolean);
+  const matches: string[] = [];
 
-  const segments = rest.split('/').filter(s => s.length > 0);
-
-  let currentPaths: string[] = [root];
-  for (let segIdx = 0; segIdx < segments.length; segIdx++) {
-    const segment = segments[segIdx] as string;
-    const isLast = segIdx === segments.length - 1;
-
-    if (!hasMeta(segment)) {
-      const lit = unescape(segment);
-      currentPaths = currentPaths.map(p => joinPath(p, lit));
-      continue;
+  const walk = (base: string, index: number): void => {
+    if (index >= parts.length) {
+      matches.push(base || '/');
+      return;
     }
 
-    const re = compileSegment(segment);
-    const allowDot = segmentMatchesDotfiles(segment);
-    const next: string[] = [];
+    const segment = parts[index] as string;
+    if (!hasUnescapedMeta(segment)) {
+      const next =
+        base === '/'
+          ? `/${unescapeGlob(segment)}`
+          : `${base}/${unescapeGlob(segment)}`;
+      const resolved = vfs.resolve(next, '/', identity);
+      if (resolved.ok) {
+        walk(resolved.abs, index + 1);
+      }
+      return;
+    }
 
-    for (const parent of currentPaths) {
-      const listResult = vfs.list(parent, '/', identity);
-      if (!listResult.ok) {
+    const stat = vfs.stat(base || '/', '/', identity);
+    if (!stat.ok || stat.type !== 'dir') {
+      return;
+    }
+    const listing = vfs.list(base || '/', '/', identity);
+    if (!listing.ok) {
+      return;
+    }
+
+    const matcher = compileSegment(segment);
+    const includeDotfiles = segment.startsWith('.');
+    for (const [name] of listing.entries) {
+      if (!includeDotfiles && name.startsWith('.')) {
         continue;
       }
-      const entries = listResult.entries.filter(
-        ([name]) => (allowDot || !name.startsWith('.')) && re.test(name)
-      );
-      entries.sort(([a], [b]) => a.localeCompare(b));
-      for (const [name, node] of entries) {
-        if (!isLast && node.type !== 'dir') {
-          continue;
-        }
-        next.push(joinPath(parent, name));
+      if (!matcher.test(name)) {
+        continue;
       }
+      const next = base === '/' ? `/${name}` : `${base}/${name}`;
+      walk(next, index + 1);
     }
+  };
 
-    currentPaths = next;
+  walk('/', 0);
+
+  if (matches.length === 0) {
+    return [unescapeGlob(pattern)];
   }
 
-  if (currentPaths.length === 0) {
-    return [unescape(pattern)];
-  }
-  currentPaths.sort();
-  return currentPaths;
+  return matches
+    .sort((a, b) => a.localeCompare(b))
+    .map(path => displayPath(path, normalized.absolute, normalized.cwd));
 }

@@ -1,20 +1,18 @@
-import { dim } from '../../core/color.js';
 import type { PluginInstall } from '../../core/kernel.js';
 import { aliasCat } from '../../core/shell.js';
 import { asGuest, file } from '../../core/vfs.js';
 
 const contactText =
-  `${dim('email    ')}[hello@skogai.dev](mailto:hello@skogai.dev)\n` +
-  `${dim('github   ')}[github.com/SkogAI](https://github.com/SkogAI)\n` +
-  `${dim('linkedin ')}[linkedin.com/in/SkogAI](https://www.linkedin.com/in/SkogAI)`;
+  'github: [github.com/SkogAI](https://github.com/SkogAI)\n' +
+  'email: skogai@proton.me\n';
 
 const install: PluginInstall = kernel => {
-  kernel.vfs.appendDir('/home/skogix', {
+  kernel.vfs.appendDir('/home/guest', {
     'contact.txt': asGuest(file(contactText)),
   });
 
   kernel.installExecutable('/bin/contact', {
-    describe: 'contact info',
+    describe: 'contact links',
     exec: aliasCat('~/contact.txt'),
   });
 };

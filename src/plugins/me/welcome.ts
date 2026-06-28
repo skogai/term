@@ -1,5 +1,4 @@
 import { bold, brightCyan, dim, green } from '../../core/color.js';
-import type { PluginInstall } from '../../core/kernel.js';
 
 const bullet = dim('-');
 const cmd = brightCyan;
@@ -39,14 +38,14 @@ const CONTENT: string[] = [
   ),
 ];
 
-const install: PluginInstall = kernel => {
-  kernel.installExecutable('/bin/welcome', {
-    describe: 'portfolio overview',
-    exec(ctx) {
-      ctx.stdout(CONTENT.join('\n') + '\n');
-      return 0;
-    },
-  });
-};
-
-export default install;
+// const install: PluginInstall = kernel => {
+//   kernel.installExecutable('/bin/welcome', {
+//     describe: 'portfolio overview',
+//     exec(ctx) {
+//       ctx.stdout(CONTENT.join('\n') + '\n');
+//       return 0;
+//     },
+//   });
+// };
+//
+// export default install;
