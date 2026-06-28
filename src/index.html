@@ -2,33 +2,12 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Shell Website</title>
+    <title>Skogai Arcade</title>
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="/core/kernel.ts"></script>
+    <script type="module" src="/arcade.ts"></script>
   </head>
   <body>
-    <div class="terminal">
-      <div id="output" class="output"></div>
-      <div id="input-line" class="line input-line hidden">
-        <div class="prompt">
-          <div class="host"></div>
-          <div class="colon">:</div>
-          <div class="cwd">~</div>
-          <div class="priv">$</div>
-        </div>
-        <span>&nbsp;</span>
-        <span id="typed" class="typed"></span>
-        <span class="cursor"></span>
-        <span id="typed-after" class="typed"></span>
-        <input
-          id="input"
-          type="text"
-          autocomplete="off"
-          autocapitalize="off"
-          spellcheck="false"
-        />
-      </div>
-    </div>
+    <main id="app" class="arcade-shell" aria-label="Skogai Arcade"></main>
   </body>
 </html>
