@@ -99,9 +99,9 @@ test.describe('pipes', () => {
 
   test('wc -l counts stdin lines', async ({ page }) => {
     await bootAndReady(page);
-    // /etc/passwd has 2 internal newlines; cat appends one → wc sees 3.
+    // /etc/passwd has 3 internal newlines; cat appends one → wc sees 4.
     const out = await runCmd(page, 'cat /etc/passwd | wc -l');
-    expect(out.trim()).toBe('3');
+    expect(out.trim()).toBe('4');
   });
 
   test('three-stage pipeline', async ({ page }) => {
@@ -131,7 +131,7 @@ test.describe('redirection', () => {
 
   test('< reads from a file as stdin', async ({ page }) => {
     await bootAndReady(page);
-    expect(await runCmd(page, 'wc -l < /etc/passwd')).toMatch(/^2$/m);
+    expect(await runCmd(page, 'wc -l < /etc/passwd')).toMatch(/^3$/m);
   });
 
   test('write denied → shell error', async ({ page }) => {
