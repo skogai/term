@@ -240,6 +240,61 @@ test.describe('environment variables', () => {
   });
 });
 
+test.describe('tilde expansion', () => {
+  test('bare ~, ~/path and ~user expand', async ({ page }) => {
+    await bootAndReady(page);
+    expect((await runCmd(page, 'echo ~ ~/x ~root ~guest/y')).trim()).toBe(
+      '/home/skogix /home/skogix/x /root /home/guest/y'
+    );
+  });
+
+  test('quoted and unknown tildes stay literal', async ({ page }) => {
+    await bootAndReady(page);
+    expect((await runCmd(page, `echo "~" '~/x' ~nobody`)).trim()).toBe(
+      '~ ~/x ~nobody'
+    );
+  });
+
+  test('~ in a redirect target and assignment value', async ({ page }) => {
+    await bootAndReady(page);
+    await runCmd(page, 'echo hi > ~/note; D=~/note');
+    expect((await runCmd(page, 'cat $D')).trim()).toBe('hi');
+  });
+});
+
+test.describe('history file', () => {
+  test('commands are appended to ~/.bash_history', async ({ page }) => {
+    await bootAndReady(page);
+    await runCmd(page, 'echo marker-one');
+    const out = await runCmd(page, 'grep marker ~/.bash_history');
+    expect(out).toMatch(/^echo marker-one$/m);
+  });
+
+  test('history survives a reload', async ({ page }) => {
+    await bootAndReady(page);
+    await runCmd(page, 'echo marker-two');
+    await bootAndReady(page);
+    expect(await runCmd(page, 'grep marker-two ~/.bash_history')).toMatch(
+      /^echo marker-two$/m
+    );
+    // ↑ walks into the restored history (newest first: the grep, then echo).
+    await page.evaluate(() => {
+      const input = document.getElementById('input') as HTMLInputElement;
+      input.focus();
+      for (let i = 0; i < 2; i++) {
+        input.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true })
+        );
+      }
+    });
+    expect(
+      await page.evaluate(
+        () => (document.getElementById('input') as HTMLInputElement).value
+      )
+    ).toBe('echo marker-two');
+  });
+});
+
 test.describe('globbing', () => {
   test('ls /etc/*.conf matches resolv.conf', async ({ page }) => {
     await bootAndReady(page);

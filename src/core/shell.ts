@@ -1,10 +1,16 @@
 import { red } from './color.js';
 import type { ExecOpts, Kernel } from './kernel.js';
 import { globExpand } from './shell-glob.js';
-import type { ExpandEnv, ParsedItem, ParsedSequence } from './shell-parser.js';
+import type {
+  ExpandEnv,
+  ParsedItem,
+  ParsedSequence,
+  WordPart,
+} from './shell-parser.js';
 import {
   ShellParseError,
   expandForGlob,
+  expandTilde,
   expandWord,
   parse,
   tokenize,
@@ -186,6 +192,24 @@ export function createShell(kernel: Kernel): Shell {
     HOSTNAME: readVar('HOSTNAME') ?? '',
   });
 
+  // `~user` resolves through /etc/passwd, so it tracks whatever's in the vfs.
+  const lookupHome = (user: string): string | undefined => {
+    const r = vfs.read('/etc/passwd', '/', { name: 'root' });
+    if (!r.ok) {
+      return undefined;
+    }
+    for (const line of (r.content || '').split('\n')) {
+      const fields = line.split(':');
+      if (fields[0] === user && fields[5]) {
+        return fields[5];
+      }
+    }
+    return undefined;
+  };
+
+  const expand = (parts: WordPart[], env: ExpandEnv): string =>
+    expandWord(expandTilde(parts, env, lookupHome), env);
+
   const buildExpandEnv = (): ExpandEnv => {
     // Stored entries overwrite dynamic so `PWD=x cmd` reaches cmd with PWD=x.
     const out: ExpandEnv = { '?': String(lastExitCode) };
@@ -279,7 +303,7 @@ export function createShell(kernel: Kernel): Shell {
 
       if (rawCmd.argv.length === 0) {
         for (const a of rawCmd.assignments) {
-          shellEnv.set(a.name, expandWord(a.value, buildExpandEnv()));
+          shellEnv.set(a.name, expand(a.value, buildExpandEnv()));
         }
         exit = 0;
         continue;
@@ -289,19 +313,19 @@ export function createShell(kernel: Kernel): Shell {
         [];
       for (const a of rawCmd.assignments) {
         scopedRestore.push({ key: a.name, prior: shellEnv.get(a.name) });
-        shellEnv.set(a.name, expandWord(a.value, buildExpandEnv()));
+        shellEnv.set(a.name, expand(a.value, buildExpandEnv()));
       }
 
       // Expand argv + redirs after scoped assignments so `A=1 echo $A` works.
       const env = buildExpandEnv();
       const cmd = {
         argv: rawCmd.argv.flatMap(parts => {
-          const pat = expandForGlob(parts, env);
+          const pat = expandForGlob(expandTilde(parts, env, lookupHome), env);
           return globExpand(pat, vfs, kernel.getCwd(), identity);
         }),
         redirs: rawCmd.redirs.map(r => ({
           op: r.op,
-          path: expandWord(r.parts, env),
+          path: expand(r.parts, env),
         })),
       };
       const name = cmd.argv[0] ?? '';
@@ -461,6 +485,7 @@ export function createShell(kernel: Kernel): Shell {
     const trimmed = cmdline.trim();
     if (trimmed) {
       terminal.pushHistory(trimmed);
+      kernel.emit('history', { line: trimmed });
     }
     return run(cmdline);
   };
