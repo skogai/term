@@ -10,9 +10,9 @@ test.describe('boot', () => {
     expect(hidden).toBe(false);
   });
 
-  test('initial identity is guest', async ({ page }) => {
+  test('initial identity is skogix', async ({ page }) => {
     await bootAndReady(page);
-    expect(await ident(page)).toMatch(/^guest@\S+$/);
+    expect(await ident(page)).toMatch(/^skogix@\S+$/);
   });
 
   test('initial cwd is ~ (home)', async ({ page }) => {

@@ -40,7 +40,7 @@ test.describe('mkdir', () => {
     expect(out.trim()).toBe('');
   });
 
-  test('/etc/foo denies for guest', async ({ page }) => {
+  test('/etc/foo denies for a non-root user', async ({ page }) => {
     await bootAndReady(page);
     expect(await runCmd(page, `mkdir /etc/guestdir`)).toMatch(
       /Permission denied/

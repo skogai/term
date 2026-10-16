@@ -1,6 +1,7 @@
 import { red } from '../core/color.js';
 import type { PluginInstall } from '../core/kernel.js';
 import type { Ctx } from '../core/shell.js';
+import { DEFAULT_USER } from '../core/vfs.js';
 import { system } from '../system.js';
 
 const MONTHS = [
@@ -81,7 +82,7 @@ const install: PluginInstall = kernel => {
       const hostCol = hostname.padEnd(18).slice(0, 18);
       ctx.out(
         [
-          `guest      pts/0   ${hostCol}  ${timestamp}`,
+          `${DEFAULT_USER.padEnd(10)} pts/0   ${hostCol}  ${timestamp}`,
           'condor     pts/1   2600.net            Apr 16 03:14',
           'optik      pts/2   legion-of-doom.bbs  Jan  8 03:00',
           'cuckoo     pts/3   lbl.gov             Aug 12 02:30',

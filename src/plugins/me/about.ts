@@ -1,6 +1,6 @@
 import type { PluginInstall } from '../../core/kernel.js';
 import { aliasCat } from '../../core/shell.js';
-import { asGuest, file } from '../../core/vfs.js';
+import { asDefaultUser, file, HOME } from '../../core/vfs.js';
 
 const aboutText =
   'software abuser since 2000, experience in memes, AI enthusiast and open-source user.\n' +
@@ -8,13 +8,13 @@ const aboutText =
   'find me at [github.com/skogai](https://github.com/skogai)';
 
 const install: PluginInstall = kernel => {
-  kernel.vfs.appendDir('/home/skogix', {
-    'about.txt': asGuest(file(aboutText)),
+  kernel.vfs.appendDir(HOME, {
+    'about.txt': asDefaultUser(file(aboutText)),
   });
 
   kernel.installExecutable('/bin/about', {
     describe: 'who is this',
-    exec: aliasCat('~/about.txt'),
+    exec: aliasCat(`${HOME}/about.txt`),
   });
 };
 

@@ -28,6 +28,7 @@ const buildTmp = () =>
   dir(
     {
       '.secret': file('you were curious enough to check /tmp. respect.'),
+      // Dropped by the guest intruder from /var/log/auth.log, hence the owner.
       '.pwn': Object.assign(
         file(elfJunk, undefined, { owner: GUEST, group: GUEST, mode: 0o755 }),
         { executable: true }

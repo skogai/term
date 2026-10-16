@@ -162,4 +162,12 @@ describe('globExpand: sorting and tilde', () => {
     expect(out).toContain('/home/guest/a.txt');
     expect(out).toContain('/home/guest/b.txt');
   });
+
+  test('~ for root expands to /root, not /home/root', () => {
+    const v = makeVfs();
+    v.registerMount(
+      treeMount('/root', () => dir({ 'notes.txt': file('n') }, { mode: 0o700 }))
+    );
+    expect(globExpand('~/*', v, '/', root)).toEqual(['/root/notes.txt']);
+  });
 });

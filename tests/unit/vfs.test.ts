@@ -29,45 +29,52 @@ describe('permission bits', () => {
       group: 'staff',
       mode: 0o000,
     });
-    expect(canRead(noAccess, 'root')).toBe(true);
-    expect(canWrite(noAccess, 'root')).toBe(true);
-    expect(canExec(noAccess, 'root')).toBe(true);
+    expect(canRead(noAccess, { name: 'root' })).toBe(true);
+    expect(canWrite(noAccess, { name: 'root' })).toBe(true);
+    expect(canExec(noAccess, { name: 'root' })).toBe(true);
   });
 
   test('owner bits apply when user matches owner', () => {
-    expect(canRead(node, 'alice')).toBe(true);
-    expect(canWrite(node, 'alice')).toBe(true);
-    expect(canExec(node, 'alice')).toBe(true);
+    expect(canRead(node, { name: 'alice' })).toBe(true);
+    expect(canWrite(node, { name: 'alice' })).toBe(true);
+    expect(canExec(node, { name: 'alice' })).toBe(true);
   });
 
   test('group bits apply when user matches group name', () => {
-    expect(canRead(node, 'staff')).toBe(true);
-    expect(canWrite(node, 'staff')).toBe(false); // 0o750 group is r-x
-    expect(canExec(node, 'staff')).toBe(true);
+    expect(canRead(node, { name: 'staff' })).toBe(true);
+    expect(canWrite(node, { name: 'staff' })).toBe(false); // 0o750 group is r-x
+    expect(canExec(node, { name: 'staff' })).toBe(true);
+  });
+
+  test('group bits apply via supplementary group membership', () => {
+    const bob = { name: 'bob', groups: [[50, 'staff']] as const };
+    expect(canRead(node, bob)).toBe(true);
+    expect(canWrite(node, bob)).toBe(false);
+    expect(canExec(node, bob)).toBe(true);
   });
 
   test('other bits apply when user matches neither', () => {
-    expect(canRead(node, 'bob')).toBe(false);
-    expect(canWrite(node, 'bob')).toBe(false);
-    expect(canExec(node, 'bob')).toBe(false);
+    expect(canRead(node, { name: 'bob' })).toBe(false);
+    expect(canWrite(node, { name: 'bob' })).toBe(false);
+    expect(canExec(node, { name: 'bob' })).toBe(false);
   });
 
   test('0o644 => owner rw, group r, other r', () => {
     const n = file('', undefined, { owner: 'a', group: 'g', mode: 0o644 });
-    expect(canRead(n, 'a')).toBe(true);
-    expect(canWrite(n, 'a')).toBe(true);
-    expect(canExec(n, 'a')).toBe(false);
-    expect(canWrite(n, 'g')).toBe(false);
-    expect(canRead(n, 'x')).toBe(true);
-    expect(canWrite(n, 'x')).toBe(false);
+    expect(canRead(n, { name: 'a' })).toBe(true);
+    expect(canWrite(n, { name: 'a' })).toBe(true);
+    expect(canExec(n, { name: 'a' })).toBe(false);
+    expect(canWrite(n, { name: 'g' })).toBe(false);
+    expect(canRead(n, { name: 'x' })).toBe(true);
+    expect(canWrite(n, { name: 'x' })).toBe(false);
   });
 
   test('0o700 denies group and other entirely', () => {
     const n = file('', undefined, { owner: 'a', group: 'g', mode: 0o700 });
-    expect(canRead(n, 'a')).toBe(true);
-    expect(canRead(n, 'g')).toBe(false);
-    expect(canRead(n, 'x')).toBe(false);
-    expect(canExec(n, 'x')).toBe(false);
+    expect(canRead(n, { name: 'a' })).toBe(true);
+    expect(canRead(n, { name: 'g' })).toBe(false);
+    expect(canRead(n, { name: 'x' })).toBe(false);
+    expect(canExec(n, { name: 'x' })).toBe(false);
   });
 });
 
@@ -274,6 +281,10 @@ describe('createVfs.normalize', () => {
 
   test('~/foo expands to HOME/foo', () => {
     expect(v.normalize('~/foo', '/')).toBe(HOME + '/foo');
+  });
+
+  test('~ follows an explicit home', () => {
+    expect(v.normalize('~/foo', '/', '/root')).toBe('/root/foo');
   });
 
   test('absolute path passes through', () => {
@@ -559,6 +570,11 @@ describe('createVfs.displayPath', () => {
   const v = createVfs();
   test('HOME collapses to ~', () => {
     expect(v.displayPath(HOME)).toBe('~');
+  });
+
+  test('explicit home collapses to ~', () => {
+    expect(v.displayPath('/root', '/root')).toBe('~');
+    expect(v.displayPath(HOME, '/root')).toBe(HOME);
   });
 
   test('HOME subpath collapses to ~/…', () => {

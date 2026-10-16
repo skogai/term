@@ -5,12 +5,13 @@ import { createShell } from './shell.js';
 import type { Terminal } from './terminal.js';
 import { createTerminal } from './terminal.js';
 import type { FileNode, Vfs } from './vfs.js';
-import { createVfs, HOME } from './vfs.js';
+import { createVfs, DEFAULT_USER, HOME } from './vfs.js';
 
 export type Identity = {
   name: string;
   uid: number;
   gid: number;
+  groups: Array<[number, string]>;
   hostname: string;
 };
 
@@ -74,10 +75,22 @@ export interface Kernel {
 
 export type PluginInstall = (kernel: Kernel) => void;
 
-const IDENTITIES: Record<string, { uid: number; gid: number }> = {
-  skogix: { uid: 1000, gid: 1000 },
-  guest: { uid: 1001, gid: 1001 },
-  root: { uid: 0, gid: 0 },
+// Supplementary groups mirror /etc/group: the Arch installer puts the
+// primary user in wheel so sudo works.
+const IDENTITIES: Record<
+  string,
+  { uid: number; gid: number; groups: Array<[number, string]> }
+> = {
+  [DEFAULT_USER]: {
+    uid: 1000,
+    gid: 1000,
+    groups: [
+      [1000, DEFAULT_USER],
+      [998, 'wheel'],
+    ],
+  },
+  guest: { uid: 1001, gid: 1001, groups: [[1001, 'guest']] },
+  root: { uid: 0, gid: 0, groups: [[0, 'root']] },
 };
 
 const BIN_FILE_TYPE =
@@ -100,7 +113,7 @@ const kernel = {} as Kernel;
 const vfs = createVfs();
 kernel.vfs = vfs;
 
-let currentName = 'skogix';
+let currentName = DEFAULT_USER;
 let bootTime = Date.now();
 let cwd = HOME;
 let cachedHostname = resolveHostname();
@@ -126,11 +139,12 @@ const readHostname = () => {
 
 kernel.identity = {
   current: () => {
-    const info = IDENTITIES[currentName] ?? IDENTITIES.guest!;
+    const info = IDENTITIES[currentName] ?? IDENTITIES[DEFAULT_USER]!;
     return {
       name: currentName,
       uid: info.uid,
       gid: info.gid,
+      groups: info.groups,
       hostname: cachedHostname,
     };
   },
@@ -254,7 +268,7 @@ kernel.resetVfs = () => {
 
 kernel.reboot = async () => {
   kernel.resetVfs();
-  kernel.identity.switchTo('skogix');
+  kernel.identity.switchTo(DEFAULT_USER);
   kernel.setCwd(HOME);
   await kernel.emit('reboot', undefined);
   await kernel.emit('boot-ready', { isReboot: true });

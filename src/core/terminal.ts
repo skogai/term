@@ -1,5 +1,6 @@
 import { parseAnsi, styleFor } from './ansi.js';
 import type { Kernel } from './kernel.js';
+import { homeOf } from './vfs.js';
 
 const MARKUP_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
 
@@ -154,7 +155,11 @@ export function createTerminal(kernel: Kernel): Terminal {
     wrap.append(
       hostEl,
       el('div', 'colon', ':'),
-      el('div', 'cwd', kernel.vfs.displayPath(kernel.getCwd())),
+      el(
+        'div',
+        'cwd',
+        kernel.vfs.displayPath(kernel.getCwd(), homeOf(id.name))
+      ),
       el('div', 'priv', id.name === 'root' ? '#' : '$')
     );
     return wrap;
@@ -264,7 +269,10 @@ export function createTerminal(kernel: Kernel): Terminal {
       privEl.textContent = id.name === 'root' ? '#' : '$';
     }
     if (cwdEl) {
-      cwdEl.textContent = kernel.vfs.displayPath(kernel.getCwd());
+      cwdEl.textContent = kernel.vfs.displayPath(
+        kernel.getCwd(),
+        homeOf(id.name)
+      );
     }
   };
 

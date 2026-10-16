@@ -18,11 +18,12 @@ import type {
   StatResult,
   VfsResult,
 } from './vfs.js';
-import { HOME } from './vfs.js';
+import { homeOf } from './vfs.js';
 
 export type Env = {
   HOME: string;
   USER: string;
+  LOGNAME: string;
   PWD: string;
   PATH: string;
   HOSTNAME: string;
@@ -99,7 +100,7 @@ export const aliasCat =
     return 0;
   };
 
-const DYNAMIC_KEYS = new Set(['HOME', 'USER', 'PWD', 'HOSTNAME']);
+const DYNAMIC_KEYS = new Set(['HOME', 'USER', 'LOGNAME', 'PWD', 'HOSTNAME']);
 
 export function createShell(kernel: Kernel): Shell {
   const terminal = kernel.term;
@@ -112,9 +113,9 @@ export function createShell(kernel: Kernel): Shell {
   const readDynamic = (key: string): string | undefined => {
     const id = kernel.identity.current();
     if (key === 'HOME') {
-      return id.name === 'root' ? '/root' : HOME;
+      return homeOf(id.name);
     }
-    if (key === 'USER') {
+    if (key === 'USER' || key === 'LOGNAME') {
       return id.name;
     }
     if (key === 'PWD') {
@@ -166,13 +167,20 @@ export function createShell(kernel: Kernel): Shell {
     mkdir: path => vfs.mkdir(path, kernel.getCwd(), kernel.identity.current()),
     rm: (path, opts) =>
       vfs.rm(path, kernel.getCwd(), kernel.identity.current(), opts),
-    normalize: path => vfs.normalize(path, kernel.getCwd()),
-    displayPath: path => vfs.displayPath(path),
+    normalize: path =>
+      vfs.normalize(
+        path,
+        kernel.getCwd(),
+        homeOf(kernel.identity.current().name)
+      ),
+    displayPath: path =>
+      vfs.displayPath(path, homeOf(kernel.identity.current().name)),
   });
 
   const buildEnv = (): Env => ({
     HOME: readVar('HOME') ?? '',
     USER: readVar('USER') ?? '',
+    LOGNAME: readVar('LOGNAME') ?? '',
     PWD: readVar('PWD') ?? '',
     PATH: readVar('PATH') ?? '',
     HOSTNAME: readVar('HOSTNAME') ?? '',
