@@ -229,7 +229,7 @@ test.describe('environment variables', () => {
     await runCmd(page, 'export HOME=/override');
     expect((await runCmd(page, 'echo $HOME')).trim()).toBe('/override');
     await runCmd(page, 'unset HOME');
-    expect((await runCmd(page, 'echo $HOME')).trim()).toBe('/home/guest');
+    expect((await runCmd(page, 'echo $HOME')).trim()).toBe('/home/skogix');
   });
 
   test('assignment with $ expansion in value', async ({ page }) => {

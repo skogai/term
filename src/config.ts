@@ -1,6 +1,6 @@
 export const config = {
   // GitHub username for the `projects` command. Empty → the command errors.
-  githubUser: 'SkogAI',
+  githubUser: 'skogai',
 
   // PostHog project key. Client-visible (inlined in built JS), not a secret.
   // Replace with your own, or leave empty to disable analytics.
@@ -10,5 +10,5 @@ export const config = {
   hostname: undefined as string | undefined,
 
   // Browser tab title. undefined → use the resolved hostname.
-  title: 'SkogAI terminal' as string | undefined,
+  title: 'skogai terminal' as string | undefined,
 } as const;

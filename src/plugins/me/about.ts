@@ -5,10 +5,10 @@ import { asGuest, file } from '../../core/vfs.js';
 const aboutText =
   'software abuser since 2000, experience in memes, AI enthusiast and open-source user.\n' +
   'building things that think and occasionally explode.\n' +
-  'find me at [github.com/SkogAI](https://github.com/SkogAI)';
+  'find me at [github.com/skogai](https://github.com/skogai)';
 
 const install: PluginInstall = kernel => {
-  kernel.vfs.appendDir('/home/guest', {
+  kernel.vfs.appendDir('/home/skogix', {
     'about.txt': asGuest(file(aboutText)),
   });
 

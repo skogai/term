@@ -29,13 +29,13 @@ const CONTENT: string[] = [
   section('reach'),
   `${bullet} github:   [github.com/SkogAI](https://github.com/SkogAI)`,
   `${bullet} linkedin: [linkedin.com/in/SkogAI](https://linkedin.com/in/SkogAI)`,
-  `${bullet} email:    [hello@skogai.dev](mailto:hello@skogai.dev)`,
+  `${bullet} email:    [hello@skogai.se](mailto:hello@skogai.se)`,
   '',
   section('tip'),
   `${bullet} try: ${cmd('about')}, ${cmd('projects')}, ${cmd('help')}`,
   '',
   dim(
-    'source code for this terminal lives at [github.com/SkogAI/term](https://github.com/SkogAI/term)'
+    'source code for this terminal lives at [github.com/skogai/term](https://github.com/skogai/term)'
   ),
 ];
 

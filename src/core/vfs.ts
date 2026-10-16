@@ -1,6 +1,6 @@
 export const ROOT = 'root';
 export const GUEST = 'guest';
-export const HOME = '/home/guest';
+export const HOME = '/home/skogix';
 
 export const ENOENT = 'ENOENT';
 export const EACCES = 'EACCES';

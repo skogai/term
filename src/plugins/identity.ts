@@ -25,7 +25,7 @@ const install: PluginInstall = kernel => {
     describe: 'end the session',
     exec(ctx) {
       if (kernel.identity.current().name === 'root') {
-        kernel.identity.switchTo('guest');
+        kernel.identity.switchTo('skogix');
         kernel.setCwd(HOME);
         ctx.out('logout\n');
         return 0;

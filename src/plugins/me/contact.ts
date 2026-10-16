@@ -3,11 +3,11 @@ import { aliasCat } from '../../core/shell.js';
 import { asGuest, file } from '../../core/vfs.js';
 
 const contactText =
-  'github: [github.com/SkogAI](https://github.com/SkogAI)\n' +
-  'email: skogai@proton.me\n';
+  'github: [github.com/skogai](https://github.com/skogai)\n' +
+  'email: info@skogai.se\n';
 
 const install: PluginInstall = kernel => {
-  kernel.vfs.appendDir('/home/guest', {
+  kernel.vfs.appendDir('/home/skogix', {
     'contact.txt': asGuest(file(contactText)),
   });
 
