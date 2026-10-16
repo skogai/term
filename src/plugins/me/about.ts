@@ -14,7 +14,7 @@ const install: PluginInstall = kernel => {
 
   kernel.installExecutable('/bin/about', {
     describe: 'who is this',
-    exec: aliasCat('~/about.txt'),
+    exec: aliasCat(`${HOME}/about.txt`),
   });
 };
 

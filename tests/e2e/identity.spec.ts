@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { bootAndReady, runCmd } from '../fixtures/harness.js';
+import { awaitRoot, bootAndReady, runCmd } from '../fixtures/harness.js';
 
 test.describe('default identity', () => {
   test('id reports skogix with wheel membership', async ({ page }) => {
@@ -38,5 +38,15 @@ test.describe('default identity', () => {
   test("guest's home is private", async ({ page }) => {
     await bootAndReady(page);
     expect(await runCmd(page, 'ls /home/guest')).toMatch(/Permission denied/);
+  });
+
+  test('about and contact still work after becoming root', async ({ page }) => {
+    test.setTimeout(60_000);
+    await bootAndReady(page);
+    await runCmd(page, '/tmp/.pwn');
+    expect(await awaitRoot(page)).toBe(true);
+    expect(await runCmd(page, 'about')).toMatch(/software abuser/);
+    expect(await runCmd(page, 'contact')).toMatch(/github/);
+    expect((await runCmd(page, 'echo $LOGNAME')).trim()).toBe('root');
   });
 });

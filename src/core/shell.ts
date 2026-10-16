@@ -23,6 +23,7 @@ import { homeOf } from './vfs.js';
 export type Env = {
   HOME: string;
   USER: string;
+  LOGNAME: string;
   PWD: string;
   PATH: string;
   HOSTNAME: string;
@@ -179,6 +180,7 @@ export function createShell(kernel: Kernel): Shell {
   const buildEnv = (): Env => ({
     HOME: readVar('HOME') ?? '',
     USER: readVar('USER') ?? '',
+    LOGNAME: readVar('LOGNAME') ?? '',
     PWD: readVar('PWD') ?? '',
     PATH: readVar('PATH') ?? '',
     HOSTNAME: readVar('HOSTNAME') ?? '',

@@ -13,7 +13,7 @@ const install: PluginInstall = kernel => {
 
   kernel.installExecutable('/bin/contact', {
     describe: 'contact links',
-    exec: aliasCat('~/contact.txt'),
+    exec: aliasCat(`${HOME}/contact.txt`),
   });
 };
 

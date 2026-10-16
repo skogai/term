@@ -57,7 +57,11 @@ export type DirNode = {
 
 export type VfsNode = FileNode | DirNode;
 
-export type IdentityLike = { name: string };
+export type IdentityLike = {
+  name: string;
+  // Supplementary groups as [gid, name] pairs, like `id` prints them.
+  groups?: ReadonlyArray<readonly [number, string]>;
+};
 
 export type RmOpts = { recurse?: boolean };
 
@@ -114,31 +118,33 @@ export type Vfs = {
 const fail = (error: VfsError, path?: string): VfsFailure =>
   path !== undefined ? { ok: false, error, path } : { ok: false, error };
 
+const inGroup = (identity: IdentityLike, group: string): boolean =>
+  identity.name === group ||
+  (identity.groups ?? []).some(([, name]) => name === group);
+
 const hasBit = (
-  mode: number,
-  user: string,
-  owner: string,
-  group: string,
+  node: VfsNode,
+  identity: IdentityLike,
   bit: number
 ): boolean => {
-  if (user === ROOT) {
+  if (identity.name === ROOT) {
     return true;
   }
-  if (user === owner) {
-    return !!((mode >> 6) & bit);
+  if (identity.name === node.owner) {
+    return !!((node.mode >> 6) & bit);
   }
-  if (user === group) {
-    return !!((mode >> 3) & bit);
+  if (inGroup(identity, node.group)) {
+    return !!((node.mode >> 3) & bit);
   }
-  return !!(mode & bit);
+  return !!(node.mode & bit);
 };
 
-export const canRead = (node: VfsNode, user: string): boolean =>
-  hasBit(node.mode, user, node.owner, node.group, 4);
-export const canWrite = (node: VfsNode, user: string): boolean =>
-  hasBit(node.mode, user, node.owner, node.group, 2);
-export const canExec = (node: VfsNode, user: string): boolean =>
-  hasBit(node.mode, user, node.owner, node.group, 1);
+export const canRead = (node: VfsNode, identity: IdentityLike): boolean =>
+  hasBit(node, identity, 4);
+export const canWrite = (node: VfsNode, identity: IdentityLike): boolean =>
+  hasBit(node, identity, 2);
+export const canExec = (node: VfsNode, identity: IdentityLike): boolean =>
+  hasBit(node, identity, 1);
 
 export const dir = (
   children: Record<string, VfsNode>,
@@ -240,7 +246,7 @@ export function treeMount(path: string, buildRoot: () => DirNode): Mount {
       if (parent.type !== 'dir') {
         return fail(ENOTDIR);
       }
-      if (!canWrite(parent, identity.name)) {
+      if (!canWrite(parent, identity)) {
         return fail(EACCES);
       }
       const existing = parent.children[name];
@@ -263,7 +269,7 @@ export function treeMount(path: string, buildRoot: () => DirNode): Mount {
       if (parent.type !== 'dir') {
         return fail(ENOTDIR);
       }
-      if (!canWrite(parent, identity.name)) {
+      if (!canWrite(parent, identity)) {
         return fail(EACCES);
       }
       if (parent.children[name]) {
@@ -291,7 +297,7 @@ export function treeMount(path: string, buildRoot: () => DirNode): Mount {
       if (node.type === 'dir' && !recurse) {
         return fail(EISDIR);
       }
-      if (!canWrite(parent, identity.name)) {
+      if (!canWrite(parent, identity)) {
         return fail(EACCES);
       }
       delete parent.children[name];
@@ -428,7 +434,10 @@ export function createVfs(): Vfs {
     return m.mount.resolve(m.rel);
   };
 
-  const walkCheck = (abs: string, user: string): VfsFailure | null => {
+  const walkCheck = (
+    abs: string,
+    identity: IdentityLike
+  ): VfsFailure | null => {
     if (abs === '/') {
       return null;
     }
@@ -443,7 +452,7 @@ export function createVfs(): Vfs {
       if (n.type !== 'dir') {
         return fail(ENOTDIR, prefix);
       }
-      if (!canExec(n, user)) {
+      if (!canExec(n, identity)) {
         return fail(EACCES, prefix);
       }
     }
@@ -459,8 +468,7 @@ export function createVfs(): Vfs {
     if (abs === null) {
       return fail(ENOENT);
     }
-    const user = identity.name;
-    const chk = walkCheck(abs, user);
+    const chk = walkCheck(abs, identity);
     if (chk) {
       return chk;
     }
@@ -483,7 +491,7 @@ export function createVfs(): Vfs {
     if (r.node.type === 'dir') {
       return fail(EISDIR);
     }
-    if (!canRead(r.node, identity.name)) {
+    if (!canRead(r.node, identity)) {
       return fail(EACCES);
     }
     return { ok: true, content: contentOf(r.node) };
@@ -501,7 +509,7 @@ export function createVfs(): Vfs {
     if (r.node.type !== 'dir') {
       return { ok: true, entries: [[pathStr, r.node]] };
     }
-    if (!canRead(r.node, identity.name)) {
+    if (!canRead(r.node, identity)) {
       return fail(EACCES);
     }
     const entries = Object.entries(r.node.children).sort(([a], [b]) =>
@@ -539,7 +547,7 @@ export function createVfs(): Vfs {
     if (abs === null) {
       return fail(ENOENT);
     }
-    const chk = walkCheck(abs, identity.name);
+    const chk = walkCheck(abs, identity);
     if (chk) {
       return chk;
     }
@@ -562,7 +570,7 @@ export function createVfs(): Vfs {
     if (abs === null) {
       return fail(ENOENT);
     }
-    const chk = walkCheck(abs, identity.name);
+    const chk = walkCheck(abs, identity);
     if (chk) {
       return chk;
     }
@@ -589,7 +597,7 @@ export function createVfs(): Vfs {
     if (abs === '/') {
       return fail(EROOT);
     }
-    const chk = walkCheck(abs, identity.name);
+    const chk = walkCheck(abs, identity);
     if (chk) {
       return chk;
     }

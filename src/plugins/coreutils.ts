@@ -269,7 +269,7 @@ const install: PluginInstall = kernel => {
         ctx.out(`cd: not a directory: ${target}\n`);
         return 1;
       }
-      if (!canExec(result.node, kernel.identity.current().name)) {
+      if (!canExec(result.node, kernel.identity.current())) {
         ctx.out(`bash: cd: ${target}: Permission denied\n`);
         return 1;
       }
