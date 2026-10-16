@@ -36,10 +36,13 @@ export type ExecPayload = {
 
 export type BootReadyPayload = { isReboot: boolean };
 
+export type HistoryPayload = { line: string };
+
 export type KernelEvents = {
   'boot-ready': BootReadyPayload;
   reboot: undefined;
   exec: ExecPayload;
+  history: HistoryPayload;
   keydown: KeyboardEvent;
 };
 

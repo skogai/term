@@ -238,6 +238,45 @@ export function expandWord(parts: WordPart[], env: ExpandEnv): string {
   return out;
 }
 
+/** Tilde expansion, run before variable expansion. Only an unquoted leading
+ *  `~` or `~user`, ended by `/` or the end of the word, is expanded; the home
+ *  dir becomes a literal part so its contents aren't re-expanded or globbed.
+ *  `~` uses `env.HOME`; `~user` asks `lookupHome`, and unknown users stay
+ *  as typed (like bash). */
+export function expandTilde(
+  parts: WordPart[],
+  env: ExpandEnv,
+  lookupHome: (user: string) => string | undefined
+): WordPart[] {
+  const first = parts[0];
+  if (!first || first.kind !== 'expandable' || first.quoted) {
+    return parts;
+  }
+  if (!first.text.startsWith('~')) {
+    return parts;
+  }
+  const slash = first.text.indexOf('/');
+  if (slash === -1 && parts.length > 1) {
+    // `~"x"` / `~'x'`: a quoted char inside the prefix disables expansion.
+    return parts;
+  }
+  const prefix = slash === -1 ? first.text : first.text.slice(0, slash);
+  const user = prefix.slice(1);
+  if (!/^[A-Za-z0-9_.-]*$/.test(user)) {
+    return parts;
+  }
+  const home = user === '' ? env['HOME'] : lookupHome(user);
+  if (home === undefined || home === '') {
+    return parts;
+  }
+  const rest = first.text.slice(prefix.length);
+  const out: WordPart[] = [{ kind: 'literal', text: home }];
+  if (rest) {
+    out.push({ kind: 'expandable', text: rest });
+  }
+  return [...out, ...parts.slice(1)];
+}
+
 /** Produces a glob pattern where literal and quoted parts have metas escaped
  *  so globExpand (in shell-glob.ts) treats them as literal. */
 export function expandForGlob(parts: WordPart[], env: ExpandEnv): string {

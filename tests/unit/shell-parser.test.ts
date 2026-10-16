@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import type { ExpandEnv } from '../../src/core/shell-parser.js';
 import {
   ShellParseError,
+  expandTilde,
   expandWord,
   parse,
   parseCommandLine,
@@ -154,6 +155,54 @@ describe('expandWord', () => {
         env
       )
     ).toBe('$HOME=/home/guest');
+  });
+});
+
+describe('expandTilde', () => {
+  const homes: Record<string, string> = { root: '/root', guest: '/home/guest' };
+  const lookup = (u: string) => homes[u];
+  const tilde = (input: string) => {
+    const tok = tokenize(input)[0]!;
+    if (tok.kind !== 'WORD') {
+      throw new Error('expected a word');
+    }
+    return expandWord(expandTilde(tok.parts, env, lookup), env);
+  };
+
+  test('bare ~ → $HOME', () => {
+    expect(tilde('~')).toBe('/home/guest');
+  });
+  test('~/path', () => {
+    expect(tilde('~/a/b')).toBe('/home/guest/a/b');
+  });
+  test('~user and ~user/path', () => {
+    expect(tilde('~root')).toBe('/root');
+    expect(tilde('~root/x')).toBe('/root/x');
+  });
+  test('unknown user stays literal', () => {
+    expect(tilde('~nobody/x')).toBe('~nobody/x');
+  });
+  test('quoted or escaped ~ stays literal', () => {
+    expect(tilde('"~"')).toBe('~');
+    expect(tilde("'~'/x")).toBe('~/x');
+    expect(tilde('\\~/x')).toBe('~/x');
+    expect(tilde('~"x"')).toBe('~x');
+  });
+  test('~ not at word start stays literal', () => {
+    expect(tilde('a~/x')).toBe('a~/x');
+  });
+  test('rest of the word still expands vars', () => {
+    expect(tilde('~/$USER')).toBe('/home/guest/guest');
+  });
+  test('follows an overridden HOME', () => {
+    const e2: ExpandEnv = { ...env, HOME: '/override' };
+    const tok = tokenize('~/x')[0]!;
+    if (tok.kind !== 'WORD') {
+      throw new Error('expected a word');
+    }
+    expect(expandWord(expandTilde(tok.parts, e2, lookup), e2)).toBe(
+      '/override/x'
+    );
   });
 });
 
