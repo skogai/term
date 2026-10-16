@@ -276,6 +276,10 @@ describe('createVfs.normalize', () => {
     expect(v.normalize('~/foo', '/')).toBe(HOME + '/foo');
   });
 
+  test('~ follows an explicit home', () => {
+    expect(v.normalize('~/foo', '/', '/root')).toBe('/root/foo');
+  });
+
   test('absolute path passes through', () => {
     expect(v.normalize('/a/b', '/nowhere')).toBe('/a/b');
   });
@@ -559,6 +563,11 @@ describe('createVfs.displayPath', () => {
   const v = createVfs();
   test('HOME collapses to ~', () => {
     expect(v.displayPath(HOME)).toBe('~');
+  });
+
+  test('explicit home collapses to ~', () => {
+    expect(v.displayPath('/root', '/root')).toBe('~');
+    expect(v.displayPath(HOME, '/root')).toBe(HOME);
   });
 
   test('HOME subpath collapses to ~/…', () => {

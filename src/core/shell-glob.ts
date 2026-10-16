@@ -1,4 +1,5 @@
 import type { IdentityLike, Vfs } from './vfs.js';
+import { homeOf } from './vfs.js';
 
 const GLOB_META = new Set(['*', '?', '[']);
 const REGEXP_META = /[\\^$.*+?()[\]{}|]/g;
@@ -32,9 +33,9 @@ const normalizePattern = (
 ) => {
   let expanded = pattern;
   if (expanded === '~') {
-    expanded = `/home/${identity.name}`;
+    expanded = homeOf(identity.name);
   } else if (expanded.startsWith('~/')) {
-    expanded = `/home/${identity.name}${expanded.slice(1)}`;
+    expanded = `${homeOf(identity.name)}${expanded.slice(1)}`;
   }
 
   const absolute = expanded.startsWith('/');

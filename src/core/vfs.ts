@@ -1,6 +1,10 @@
 export const ROOT = 'root';
 export const GUEST = 'guest';
-export const HOME = '/home/skogix';
+export const DEFAULT_USER = 'skogix';
+export const HOME = `/home/${DEFAULT_USER}`;
+
+export const homeOf = (user: string): string =>
+  user === ROOT ? '/root' : `/home/${user}`;
 
 export const ENOENT = 'ENOENT';
 export const EACCES = 'EACCES';
@@ -102,8 +106,8 @@ export type Vfs = {
     identity: IdentityLike,
     opts?: RmOpts
   ): VfsResult;
-  normalize(pathStr: string, cwd: string): string | null;
-  displayPath(absolute: string): string;
+  normalize(pathStr: string, cwd: string, home?: string): string | null;
+  displayPath(absolute: string, home?: string): string;
   listMounts(): string[];
 };
 
@@ -168,14 +172,19 @@ export const file = (
 export const contentOf = (node: FileNode): string =>
   typeof node.content === 'function' ? node.content() : node.content;
 
-export const asGuest = <T extends VfsNode>(node: T): T => {
-  node.owner = GUEST;
-  node.group = GUEST;
-  if (node.type === 'dir') {
-    Object.values(node.children).forEach(asGuest);
-  }
-  return node;
-};
+export const ownedBy =
+  (user: string) =>
+  <T extends VfsNode>(node: T): T => {
+    node.owner = user;
+    node.group = user;
+    if (node.type === 'dir') {
+      Object.values(node.children).forEach(ownedBy(user));
+    }
+    return node;
+  };
+
+export const asGuest = ownedBy(GUEST);
+export const asDefaultUser = ownedBy(DEFAULT_USER);
 
 export function treeMount(path: string, buildRoot: () => DirNode): Mount {
   let root = buildRoot();
@@ -344,15 +353,19 @@ export function createVfs(): Vfs {
     applyAppended();
   };
 
-  const normalize = (pathStr: string, cwd: string): string | null => {
+  const normalize = (
+    pathStr: string,
+    cwd: string,
+    home: string = HOME
+  ): string | null => {
     if (!pathStr) {
       return null;
     }
     let p = pathStr;
     if (p === '~') {
-      p = HOME;
+      p = home;
     } else if (p.startsWith('~/')) {
-      p = HOME + p.slice(1);
+      p = home + p.slice(1);
     }
     if (!p.startsWith('/')) {
       p = (cwd || '/') + '/' + p;
@@ -442,7 +455,7 @@ export function createVfs(): Vfs {
     cwd: string,
     identity: IdentityLike
   ): ResolveResult => {
-    const abs = normalize(pathStr, cwd);
+    const abs = normalize(pathStr, cwd, homeOf(identity.name));
     if (abs === null) {
       return fail(ENOENT);
     }
@@ -522,7 +535,7 @@ export function createVfs(): Vfs {
     identity: IdentityLike,
     content: string
   ): VfsResult => {
-    const abs = normalize(pathStr, cwd);
+    const abs = normalize(pathStr, cwd, homeOf(identity.name));
     if (abs === null) {
       return fail(ENOENT);
     }
@@ -545,7 +558,7 @@ export function createVfs(): Vfs {
     cwd: string,
     identity: IdentityLike
   ): VfsResult => {
-    const abs = normalize(pathStr, cwd);
+    const abs = normalize(pathStr, cwd, homeOf(identity.name));
     if (abs === null) {
       return fail(ENOENT);
     }
@@ -569,7 +582,7 @@ export function createVfs(): Vfs {
     identity: IdentityLike,
     opts: RmOpts = {}
   ): VfsResult => {
-    const abs = normalize(pathStr, cwd);
+    const abs = normalize(pathStr, cwd, homeOf(identity.name));
     if (abs === null) {
       return fail(ENOENT);
     }
@@ -593,12 +606,12 @@ export function createVfs(): Vfs {
     return m.mount.rm(m.rel, opts, identity);
   };
 
-  const displayPath = (absolute: string): string => {
-    if (absolute === HOME) {
+  const displayPath = (absolute: string, home: string = HOME): string => {
+    if (absolute === home) {
       return '~';
     }
-    if (absolute.startsWith(HOME + '/')) {
-      return '~' + absolute.slice(HOME.length);
+    if (absolute.startsWith(home + '/')) {
+      return '~' + absolute.slice(home.length);
     }
     return absolute;
   };

@@ -11,6 +11,13 @@ const install: PluginInstall = kernel => {
           'skogix:x:1000:1000:SkogAI:/home/skogix:/bin/bash\n' +
           'guest:x:1001:1001:just visiting:/home/guest:/bin/bash'
       ),
+      group: file(
+        'root:x:0:root\n' +
+          'daemon:x:1:\n' +
+          'wheel:x:998:skogix\n' +
+          'skogix:x:1000:\n' +
+          'guest:x:1001:'
+      ),
       shadow: file(
         'root:$6$rounds=656000$saltsalt$kFz9R3qPbMiDjqwHzkx1:19854:0:99999:7:::\n' +
           'daemon:*:19854:0:99999:7:::\n' +

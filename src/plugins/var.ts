@@ -15,6 +15,8 @@ const install: PluginInstall = kernel => {
             `[  1.345678] ${system.hardware.storage.partitions[2]}: mounted successfully\n` +
             '[  2.456789] All systems nominal'
         ),
+        // Lore: someone brute-forces root, then gets in as guest and pokes
+        // at sudo. The guest-owned /tmp/.pwn is what they left behind.
         'auth.log': file(
           `Apr 16 03:14:07 ${hostname} sshd[1337]: Failed password for root from 192.168.1.42 port 22 ssh2\n` +
             `Apr 16 03:14:12 ${hostname} sshd[1337]: Failed password for root from 192.168.1.42 port 22 ssh2\n` +

@@ -23,12 +23,12 @@ test.describe('quoting', () => {
 test.describe('variable expansion', () => {
   test('$HOME expands', async ({ page }) => {
     await bootAndReady(page);
-    expect(await runCmd(page, 'echo $HOME')).toMatch(/\/home\/guest/);
+    expect(await runCmd(page, 'echo $HOME')).toMatch(/\/home\/skogix/);
   });
 
   test('${USER} braces expand', async ({ page }) => {
     await bootAndReady(page);
-    expect(await runCmd(page, 'echo ${USER}')).toMatch(/^guest$/m);
+    expect(await runCmd(page, 'echo ${USER}')).toMatch(/^skogix$/m);
   });
 
   test('unknown var expands to empty string', async ({ page }) => {
@@ -48,7 +48,7 @@ test.describe('variable expansion', () => {
 
   test('double quotes allow expansion', async ({ page }) => {
     await bootAndReady(page);
-    expect(await runCmd(page, 'echo "user=$USER"')).toMatch(/user=guest/);
+    expect(await runCmd(page, 'echo "user=$USER"')).toMatch(/user=skogix/);
   });
 });
 
@@ -198,9 +198,10 @@ test.describe('environment variables', () => {
   test('env lists entries including HOME and PATH', async ({ page }) => {
     await bootAndReady(page);
     const out = await runCmd(page, 'env');
-    expect(out).toMatch(/^HOME=\/home\/guest$/m);
+    expect(out).toMatch(/^HOME=\/home\/skogix$/m);
     expect(out).toMatch(/^PATH=\/bin$/m);
-    expect(out).toMatch(/^USER=guest$/m);
+    expect(out).toMatch(/^USER=skogix$/m);
+    expect(out).toMatch(/^LOGNAME=skogix$/m);
   });
 
   test('invalid identifier rejected by export', async ({ page }) => {
@@ -235,7 +236,7 @@ test.describe('environment variables', () => {
   test('assignment with $ expansion in value', async ({ page }) => {
     await bootAndReady(page);
     await runCmd(page, 'export COPY=$USER');
-    expect((await runCmd(page, 'echo $COPY')).trim()).toBe('guest');
+    expect((await runCmd(page, 'echo $COPY')).trim()).toBe('skogix');
   });
 });
 
